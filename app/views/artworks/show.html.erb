@@ -1,0 +1,22 @@
+<div class="container-fluid">
+<div class="row-fluid">
+    <div class="span8">
+        <div class="row-fluid"><span><h1><%= @artwork.title -%><small><%= link_to '(Edit)', @artwork, :class => 'edit-link' -%></small></h1>
+
+        <%= render :partial => 'partials/mediums', :locals => {:medium => @artwork.medium} -%>
+        </div>
+        <%= image_tag @artwork.image.url -%>
+        <div c;ass="row-fluid">
+            <div class="well span8">
+                <h3>Description:</h3><p><%= @artwork.description -%></p> 
+            </div>
+            <div class="well span4">
+                <%= render :partial => 'partials/tags', :locals => {:tags => @artwork.tags} -%>
+            </div>
+        </div>
+    </div>
+    <div class="span4">
+        <%= render 'prices'-%>
+    </div>
+</div>
+</div>

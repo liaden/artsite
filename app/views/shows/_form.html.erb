@@ -1,0 +1,50 @@
+<%= form_for @show, :html => {:class => "form-horizontal"} do |f| -%>
+<fieldset>
+
+<div class="control-group">
+    <%= f.label :name, :class => "control-label" -%>
+    <div class="controls">
+        <%= f.text_field :name -%>
+    </div>
+</div>
+
+<div class="control-group">
+    <%= f.label :building, :class => "control-label" -%>
+    <div class="controls">
+        <%= f.text_field :building -%>
+    </div>
+</div>
+
+<div class="control-group">
+    <%= f.label :address, :class => "control-label" -%>
+    <div class="controls">
+        <%= f.text_field :address -%>
+    </div>
+</div>
+
+<div class="control-group">
+    <%= f.label :show_type, :class => "control-label" -%>
+    <div class="controls">
+        <label class="radio">
+            <%= f.radio_button :show_type, "Convention" -%>
+            Convention
+        </label>
+        <label class="radio">
+            <%= f.radio_button :show_type, "Gallery" -%>
+            Gallery
+        </label>
+    </div>
+</div>
+
+<div class="control-group">
+    <%= f.label :date, :class => "control-label" -%>
+    <div class="controls">
+        <%= f.date_select :date -%>
+    </div>
+</div>
+
+<div class="form-actions">
+    <%= f.submit :Create, :class => "btn btn-primary" -%>
+</div>
+</fieldset>
+<% end -%>

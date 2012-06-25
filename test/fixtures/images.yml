@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  filename: image1.jpg
+  width: 768
+  height: 1024
+
+two:
+  filename: image2.gif
+  width: 1024
+  height: 768

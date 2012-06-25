@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ArchaicSmiles</title>
+  <%= stylesheet_link_tag    "application", :media => "all" -%>
+  <%= yield :css  -%>
+  <%= javascript_include_tag "https://js.stripe.com/v1/", "application" -%>
+  <%= yield :javascript -%>
+  <%= csrf_meta_tags -%>
+  <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
+</head>
+<body>
+
+<%= render :partial => "partials/navbar", :locals => { :caller => controller.caller } -%>
+
+<div class="container" style="margin-top:5em">
+<% if flash[:error] -%>
+<div class="alert alert-error"><%= h flash[:error] -%></div>
+<% end -%>
+
+<% if flash[:notice] -%>
+<div class="alert alert-info"><%= h flash[:notice] -%></div>
+</div>
+<% end -%>
+</div>
+
+<%= yield -%>
+<%= render :partial => "partials/footer" -%>
+
+</div>
+
+</body>
+</html>

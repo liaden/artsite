@@ -1,0 +1,21 @@
+
+
+<div class="tabbable">
+    <ul id="print-tabs" class="nav nav-tabs">
+        <li class="active"><a href="#artprints" data-toggle="tab">Art Prints</a></li>
+        <li><a href="#canvasprints" data-toggle="tab">Canvas Prints</a></li>
+        <li><a href="#original" data-toggle="tab">Original</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="artprints">
+            <%= purchase_form(:prints => @artwork.photopapers, :material => @artwork.photopapers.first.material, :id => @artwork.id) -%>
+        </div>
+        <div class="tab-pane" id="canvasprints">
+            <%= purchase_form( :prints => @artwork.canvases, :material => @artwork.canvases.first.material, :id => @artwork.id ) -%>
+        </div>
+        <div class="tab-pane" id="original">
+            <%= purchase_form( :id => @artwork.id, :prints => @artwork.original, :material => @artwork.original.material, :disabled => @artwork.original.is_sold_out) -%>
+        </div>
+    </div>
+</div>
+

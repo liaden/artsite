@@ -1,0 +1,18 @@
+<% if @order.prints.size > 0 -%>
+    <h1>Artwork:</h1>
+    <table class="table table-condensed">
+    <thead>
+        <tr><th>&nbsp;</th><th> Title</th><th>Framing</th><th>Price</th><th class="remove-column">&nbsp;</th></tr>
+    </thead>
+    <% @order.prints.each do |print| -%>
+        <% @print = print -%>
+        <tr><td class="thumbnail-column"><%= image_tag print.artwork.image.url(:thumbnail) -%></td>
+            <td><%= print.artwork.title -%></td>
+            <td class="framing-column"><%= render 'framing_display' -%></td>
+            <td><%= print.price -%></td>
+            <td class="remove-column"><%= link_to 'x', remove_path(print) -%></td>
+        </tr>
+    <% end -%>
+    </table>
+<% end -%>
+

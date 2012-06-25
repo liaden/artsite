@@ -1,0 +1,5 @@
+<h1>Twitter</h1>
+
+<% @tweets.each do |tweet| -%>
+    <p><%= auto_link(tweet.text) -%></p>
+<% end -%>

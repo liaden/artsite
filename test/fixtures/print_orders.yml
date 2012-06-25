@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  print_id: 1
+  order_id: 1
+
+two:
+  print_id: 1
+  order_id: 1

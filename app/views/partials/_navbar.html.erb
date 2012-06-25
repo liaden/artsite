@@ -1,0 +1,50 @@
+
+<%
+def active?(x, y)
+    if x == y
+        "active"
+    else
+        ""
+    end
+end %>
+
+<!-- JOEL TODO: REMOVE STYLE FROM DIVIDER-VERTICAL AND MOVE INTO CSS PAGE -->
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </a>
+    <div class="container">
+      <div class="nav-collapse">
+        <a class="brand" href="<%= home_path -%>">ArchaicSmiles</a>
+        <ul class="nav">
+          <li class="<%= active?(caller, 'Gallery') -%>"><%= link_to "Gallery", artworks_path -%></li>
+          <li class="divider-vertical" style="margin:0px"></li>
+          <li class="<%= active?(caller, 'News') -%>"><%= link_to "News", news_path -%></li>
+          <li class="divider-vertical" style="margin:0px"></li>
+          <li class="<%= active?(caller, 'Classes') -%>"><%= link_to "Classes", lessons_path -%></li>
+          <li class="divider-vertical" style="margin:0px"></li>
+          <li class="<%= active?(caller, 'Resume') -%>"><a href="/art_resume">Resume</a></li>
+          <li class="divider-vertical" style="margin:0px"></li>
+          <li class="<%= active?(caller, 'Schedule') -%>"><%= link_to "Schedule", schedule_path -%></li>
+        </ul>
+        <ul class="nav" style="float:right;">
+              <li><a href='/cart'>Cart</a></li>
+              <li class="divider-vertical" style="margin:0px"></li>
+          <% if current_user -%>
+              <li><%= link_to "Logout", :logout -%></li>
+              <%= render :partial => 'partials/admin_navbar' -%>
+          <% else -%>
+              <li><%= link_to 'Login', login_path -%></li>
+              <li class="divider-vertical" style="margin:0px"></li>
+              <li><%= link_to 'Register', new_user_path -%></li>
+          <% end -%>
+        </ul>  
+      </div>
+    </div>
+  </div>
+</div>
+

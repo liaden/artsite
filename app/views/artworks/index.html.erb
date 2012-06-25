@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row-fluid">
+    <div class="span8">
+        <% if @media -%>
+            <h1><%= @media.name -%></h1>
+        <% elsif @tag -%>
+            <h1><%= @tag.name -%></h1>
+        <% end -%>
+        <ul class="thumbnails">
+        <% @artworks.each do |artwork| -%>
+            <%= render :partial => 'partials/artwork_thumbnail', :locals => { :artwork => artwork } -%>
+        <% end -%>
+        </ul>
+    </div>
+    <div class="span4">
+        <div class="well">
+        <h3>Mediums:</h3>
+        <%= render :partial => 'partials/mediums', :locals => {:medium => Medium.all} -%>
+        </div>
+        <div class="well">
+        <%= render :partial => 'partials/tags', :locals => {:tags => Tag.all} -%>
+        </div>
+    </div>
+    </div>
+</div>

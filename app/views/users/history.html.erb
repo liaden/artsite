@@ -1,0 +1,19 @@
+<h1>Purchase History</h1>
+
+<% if @user -%>
+
+<table class="table table-condensed table-striped">
+    <thead>
+    <tr><td>Previous Orders</td></tr>
+    <tr><td>Date</td><td>Total</td></tr>
+    </thead>
+    <tbody>
+    <% @orders.each do |order| -%>
+       <tr><td><%= link_to order.date_placed, order -%></td><td>order.total</td></tr> 
+    <% end -%>
+    </tbody>
+</table>
+
+<% end -%>
+
+

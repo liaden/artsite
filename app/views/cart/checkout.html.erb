@@ -1,0 +1,109 @@
+<div class="container">
+
+<div id="stripe-error" >
+<noscript>Javascript is not enabled and is required for this form. First enable it in your web browser's settings.</noscript>
+</div>
+
+<% @framing_select_disabled = true -%>
+
+<%= form_tag receipt_path, :method => 'post', :name => 'checkout', :id => 'checkout', :class => 'form-horizontal' do  -%>
+<fieldset>
+
+<h1>Shipping Information</h1>
+<%= fields_for @order.address do |address| %>
+<div class="control-group">
+    <%= label_tag :recipient, "Recipient", :class => "control-label" %>
+    <div class="controls">
+        <%= address.text_field :recipient %>
+    </div>
+</div>
+
+<div class="control-group">
+    <%= address.label :line1, "Address Line 1", :class=> "control-label" %>
+    <div class="controls">
+        <%= address.text_field :line1 -%> 
+        <p class="help-block">Street address, P.O. box, company name, c/o</p>
+    </div>
+</div>
+
+<div class="control-group">
+    <%= address.label :line2, "Address Line 2", :class=> "control-label" %>
+    <div class="controls">
+        <%= address.text_field :line2 -%>`
+        <p class="help-block">Apartment, suite, building, floor, etc</p>
+    </div>
+</div>
+
+<div class="control-group">
+    <%= address.label :city, "City", :class => "control-label" %>
+    <div class="controls">
+        <%= address.text_field :city %>
+    </div>
+</div>
+
+<div class="control-group">
+    <%= address.label :state, "State", :class => "control-label" %>
+    <div class="controls">
+        <%= address.text_field :state, :class => "span1" %>
+    </div>
+</div>
+
+<div class="control-group">
+    <%= address.label :zipcode, "State", :class => "control-label" %>
+    <div class="controls">
+        <%= address.text_field :zipcode, :class => "span2" %>
+    </div>
+</div>
+
+<% end -%>
+
+<h1>Payment Information</h1>
+
+<div class="control-group">
+    <%= label_tag :card_number, "Credit Card Number", :class => "control-label" %>
+    <div class="controls">
+        <%= text_field_tag :card_number, nil, :name => nil, :class => "span2" %>
+    </div>
+</div>
+
+<div class="control-group">
+    <%= label_tag :card_code, "Security Code (CVV)", :class => "control-label" %>
+    <div class="controls">
+        <%= text_field_tag :card_code, nil, :name => nil, :class => "span1" %>
+    </div>
+</div>
+
+<div class="control-group">
+    <%= label_tag :card_month, "Card Expiration", :class => "control-label" %>
+    <div class="controls">
+        <%= select_month nil, {:add_month_numbers => true}, {:name => nil, :id => "card_month", :class => "span2"} %>
+        <%= select_year nil, {:start_year => Date.today.year, :end_year => Date.today.year+15 }, {:name => nil, :id => "card_year", :class=>"span2" } %>
+    </div>
+</div>
+
+<%= hidden_field_tag :stripe_card_token %>
+
+<div class="control-group">
+    <%= label_tag :send_email, "Send receipt to email?", :class => "control-label" -%>
+    <div class="controls">
+        <%= check_box_tag :send_email, "yes", true -%>
+    </div>
+</div>
+<% if not @user -%>
+    <div class="control-group">
+        <%= label_tag :guest_email, "Guest Email", :class => "control-label" -%>
+        <div class="controls">
+            <%= email_field_tag :guest_email -%>
+            <p class="help-block">As you are not logged in, this will is where a receipt will be sent and used to look up an order for your in the future</p>
+        </div>
+    </div>
+<% end -%>
+</fieldset>
+<%= submit_tag 'Submit Order' %> 
+<% end -%>
+
+<%= render 'print_list' -%>
+<%= render 'lesson_list' -%>
+
+</div>
+

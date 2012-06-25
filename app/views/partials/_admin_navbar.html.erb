@@ -1,0 +1,12 @@
+<% if current_user.admin? -%>
+<li class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Content<b class="caret"></b></a>
+  <ul class="dropdown-menu">
+    <li>New:</li>
+    <li><%= link_to ' Artwork', new_artwork_path -%></li>
+    <li><%= link_to ' Show', new_show_path -%></li>
+    <li><%= link_to ' Class', new_lesson_path -%></li>
+  </ul>
+</li>
+<% end -%>
+

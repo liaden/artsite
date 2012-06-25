@@ -1,0 +1,33 @@
+<%= form_for @artwork, :html => {:class => "form-horizontal"} do |f| -%>
+    <fieldset>
+    <%= f.label :title -%><%= f.text_field :title -%>
+    <%= f.label :description -%><%= f.text_field :description -%>
+    <%= f.label :image -%><%= f.file_field :image -%>
+    <%= f.label :tags -%><%= text_field_tag :tags, @tags -%>
+    <%= f.label :mediums -%><%= text_field_tag :mediums, @medium -%>
+    <table class="table table-condensed" style="width:5em">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Size</th>
+            <th>Print Price</th>
+            <th>Canvas Price</th>
+        </tr>
+        </thead>
+        <tbody>
+            <% if @sizes  # editing existing -%>
+                <%= price_sizes "small", @sizes[0], @artwork.price_of(:photopaper, @sizes[0]), @artwork.price_of(:canvas, @sizes[0]) -%>
+                <%= price_sizes "medium", @sizes[2], @artwork.price_of(:photopaper, @sizes[1]), @artwork.price_of(:canvas, @sizes[1]) -%>
+                <%= price_sizes "large", @sizes[2], @artwork.price_of(:photopaper, @sizes[2]), @artwork.price_of(:canvas, @sizes[2]) -%>
+                <%= price_sizes "original", '', @artwork.original.price, '' -%>
+            <% else # creating new -%>
+                <%= price_sizes "small",    '5x7',  '5', '25' -%>
+                <%= price_sizes "medium",   '8x10', '15', '50' -%>
+                <%= price_sizes "large",    '12x18','30', '80' -%>
+                <%= price_sizes "original", '',     '800', '' -%>
+            <% end -%>
+        </tbody>
+    </table>
+    <%= f.submit "Create" -%>
+    </fieldset>
+<% end -%>

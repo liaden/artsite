@@ -1,0 +1,12 @@
+<% if @order.user -%>
+<%= @order.user.username -%>
+<% end -%>
+
+Thank you for your business. Shipping should take 3-5 business days, and any framing may take up to one business day.
+
+    Items ordered:
+    <% @order.prints.each do |print| -%>
+        <%= print.artwork.title -%>
+    <% end -%>
+
+ -- Holly Morningstar

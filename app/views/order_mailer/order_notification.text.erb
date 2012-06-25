@@ -1,0 +1,13 @@
+The following purchases have been made:
+
+<% @order.print_orders.each do |print_order| -%>
+    <%= "(#{print_order.frame_size} frame)" if print_order.framed? -%> <%= print_order.print.size_name -%> <%= print_order.print.artwork.title -%>
+<% end -%>
+
+The customer's address:
+<%= @order.address.recipient -%>
+<%= @order.address.line1 -%>
+<%= @order.address.line2  if @order.address.line2 and @order.address.line2.size > 0 -%>
+<%= @order.address.city -%>, <%= @order.address.state -%> <%= @order.address.zipcode -%>
+
+You have earned $<%= number_to_currency @order.total -%>.

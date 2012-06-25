@@ -1,0 +1,15 @@
+<% @print_order = PrintOrder.where(:print_id => @print.id, :order_id => @order.id).first -%>
+<% if @framing_select_disabled -%>
+    <% if @print_order.framed? -%>
+        <%= @print_order.frame_size -%>" Frame 
+    <% else -%>
+        No Frame
+    <% end -%>
+<% else -%>
+            <%= radio_button_tag "#{@print.id}_framing", "no_frame", true, :class => "framing-form" -%>
+            <%= label_tag "#{@print.id}_framing", "No Frame", :value => "no_frame", :class => "framing-form" -%>
+            <%= radio_button_tag "#{@print.id}_framing", "0.75", false, :class => "framing-form" -%>
+            <%= label_tag "#{@print.id}_framing", "0.75\" Thick", :value => "0.75", :class => "framing-form" -%>
+            <%= radio_button_tag "#{@print.id}_framing", "2.00", false, :class => "framing-form" -%> 
+            <%= label_tag "#{@print.id}_framing", "2.00\" Thick", :value => "2.00", :class => "framing-form" -%>
+<% end -%>

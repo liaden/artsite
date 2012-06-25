@@ -1,0 +1,39 @@
+<% content_for :css do %>
+    <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap.min.css">
+    <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
+    <%= stylesheet_link_tag "bootstrap-image-gallery" %>
+<% end %>
+
+<% content_for :javascript do %>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://blueimp.github.com/cdn/js/bootstrap.min.js"></script>
+    <script src="http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"></script>
+    <%= javascript_include_tag "bootstrap-image-gallery.min" %>
+<% end %>
+
+<div class="row-fluid">
+<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+<% @artworks.each do |artwork| -%>
+    <a rel="gallery" href="<%= artwork.image.url -%>" title="<%= artwork.title -%>">
+        <img src="<%= artwork.image.url(:thumbnail) -%>" />
+    </a>
+<% end -%>
+</div>
+</div>
+
+<!-- modal-gallery is the modal dialog used for the image gallery -->
+<div id="modal-gallery" class="modal modal-gallery hide">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3 class="modal-title"></h3>
+    </div>
+    <div class="modal-body"><div class="modal-image"></div></div>
+    <div class="modal-footer">
+        <a class="btn btn-primary modal-next">Next <i class="icon-arrow-right icon-white"></i></a>
+        <a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Previous</a>
+        <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Slideshow</a>
+        <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Download</a>
+    </div>
+</div>
+
+
