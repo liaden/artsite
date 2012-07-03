@@ -26,4 +26,4 @@ order =
             $('#checkout')[0].submit()
         else
             $('#stripe-error').text(response.error.message)
-            $('input[type=submit]').attr('disabled', true)
+            $('input[type=submit]').attr('disabled', false)
