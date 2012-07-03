@@ -1,8 +1,5 @@
 <div class="container">
 
-<div id="stripe-error" >
-<noscript>Javascript is not enabled and is required for this form. First enable it in your web browser's settings.</noscript>
-</div>
 
 <% @framing_select_disabled = true -%>
 
@@ -58,6 +55,10 @@
 <% end -%>
 
 <h1>Payment Information</h1>
+
+<div id="stripe-error" class="alert alert-error invisible" >
+    <noscript>Javascript is not enabled and is required for this form. First enable it in your web browser's settings.</noscript>
+</div>
 
 <div class="control-group">
     <%= label_tag :card_number, "Credit Card Number", :class => "control-label" %>
