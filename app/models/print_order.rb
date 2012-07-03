@@ -3,17 +3,23 @@ class PrintOrder < ActiveRecord::Base
     belongs_to :order
 
     def framed?
-        frame_size != nil and frame_size.size > 0
+        frame_size != nil and frame_size != :no_frame
     end
 
-    def self.frame_price(dimensions)
+    def price
+        print.price + frame_price
+    end
+
+    def self.frame_price(dimensions, frame_size)
+        return 0 if frame_size == "no_frame"
+
         height, width = Print.height_and_width dimensions
 
         PrintOrder.frame_price_helper height, width
     end
 
     def frame_price
-        return 0 if print.original?
+        return 0 if print.original? or frame_size == :no_frame
 
         height, width = Print.height_and_width print.dimensions
 

@@ -13,8 +13,8 @@
     <tr><th>&nbsp;</th><th class="amount-column">Amount</th></tr>
 </thead>
 <tbody>
-    <tr><td>Shipping:</td><td class="amount-column"><%= @shipping -%></td></tr>
-    <tr><td>Total: </td><td class="amount-column"><%= @order.total + @shipping -%></td></tr>
+    <tr><td>Shipping:</td><td id="shipping-amount" class="amount-column"><%= @shipping -%></td></tr>
+    <tr><td>Total: </td><td id="total-amount" class="amount-column"><%= @order.total + @shipping -%></td></tr>
 </tbody>
 </table>
 <% end -%>
@@ -23,6 +23,15 @@
 
 <%= submit_tag "#{"Guest " if not @user }Checkout" if @order.lessons.size > 0 or @order.prints.size > 0 -%>
 
-<!-- <%= link_to('checkout', checkout_path) if @order.lessons.size > 0 or @order.prints.size > 0 -%> -->
 <% end -%>
+
+<div style="display:none">
+<ul >
+    <% @order.prints.each do |print| -%>
+        <% [ "no_frame", "0.75", "2.00" ].each do |frame_size| -%>
+            <li id="<%= "#{print.id}_framing_#{frame_size.gsub /[.]/, '' }_price" -%>" ><%= PrintOrder.frame_price(print.dimensions, frame_size) -%></li>
+        <% end -%>
+    <% end -%>
+</ul>
+</div>
 </div>

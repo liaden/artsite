@@ -2,15 +2,17 @@
     <h1>Artwork:</h1>
     <table class="table table-condensed">
     <thead>
-        <tr><th>&nbsp;</th><th> Title</th><th>Framing</th><th>Price</th><th class="remove-column">&nbsp;</th></tr>
+        <tr><th>&nbsp;</th><th> Title</th><th>Size</th><th>Framing</th><th>Price</th><th class="remove-column">&nbsp;</th></tr>
     </thead>
-    <% @order.prints.each do |print| -%>
-        <% @print = print -%>
-        <tr><td class="thumbnail-column"><%= image_tag print.artwork.image.url(:thumbnail) -%></td>
-            <td><%= print.artwork.title -%></td>
+    <% @order.print_orders.each do |print_order| -%>
+        <% @print = print_order.print -%>
+        <% @print_order = print_order -%>
+        <tr><td class="thumbnail-column"><%= image_tag @print.artwork.image.url(:thumbnail) -%></td>
+            <td><%= @print.artwork.title -%></td>
+            <td><%= @print.dimensions -%></td>
             <td class="framing-column"><%= render 'framing_display' -%></td>
-            <td><%= print.price -%></td>
-            <td class="remove-column"><%= link_to 'x', remove_path(print) -%></td>
+            <td class="print-price"><%= print_order.price -%></td>
+            <td class="remove-column"><%= link_to 'x', remove_path(@print) -%></td>
         </tr>
     <% end -%>
     </table>

@@ -25,16 +25,44 @@ class CartController < ApplicationController
             return
         end
 
+
+
         @order = active_order
         @user = current_user
+
+        params.keys.grep(/.*framing/).each do |frame_key|
+            print_id = frame_key.match(/\d+/)[0]
+
+            flash.now[:error] = "Invalid framing options" unless print_id
+
+            print_order = PrintOrder.find_by_print_id_and_order_id(print_id, @order.id)
+            flash.now[:error] = "Could not find print order" unless print_order
+
+            frame_type = params[frame_key]
+
+            if frame_type == "no_frame"
+                print_order.frame_size = "no_frame"
+            else
+                frame_size = "#{frame_type[0]}.#{frame_type[1..-1]}"
+
+                # if we got something that can't be represented as a float, then we will have an exception
+                begin
+                    Float(frame_size)
+                    print_order.frame_size = frame_size
+                    print_order.save
+                rescue 
+                    flash[:error] = "frame size is not correctly formatted"
+                end
+            end
+        end
 
         if @order.user
             @order.user.address = Address.new unless @order.user.address
             @order.address = @order.user.address
-            @order.save
         else
             @order.address = Address.new unless @order.address
         end
+        @order.save
     end
 
     def receipt
