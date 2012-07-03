@@ -1,7 +1,7 @@
 <div class="container-fluid">
 <div class="row-fluid">
     <div class="span8">
-        <div class="row-fluid"><span><h1><%= @artwork.title -%><small><%= link_to '(Edit)', @artwork, :class => 'edit-link' -%></small></h1>
+        <div class="row-fluid"><span><h1><%= @artwork.title -%><small><%= admin_edit(@artwork) -%></small></h1>
 
         <%= render :partial => 'partials/mediums', :locals => {:medium => @artwork.medium} -%>
         </div>

@@ -46,6 +46,8 @@ group :test do
     gem 'factory_girl'
     gem 'factory_girl_rails'
     gem 'capybara'
+    gem 'cucumber-rails'
+    gem 'database_cleaner'
 end
 
 # use thin server instead of WEBrick

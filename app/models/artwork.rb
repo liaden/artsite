@@ -26,7 +26,15 @@ class Artwork < ActiveRecord::Base
     def price_of(material, size)
         logger.debug "material = #{material}; size = #{size}"
         print = prints.select {|print| print.material == material.to_s and print.dimensions == size.to_s }.first
-        print.price
+        print.price if print
+
+        Artwork.price_of material, size
+    end
+
+    def self.price_of(material, size)
+
+        price_point = DefaultPrices.all.select {|price_point| price_point.material == material.to_s and price_point.dimension == size.to_s }.first
+        price_point.price
     end
 
     def canvases

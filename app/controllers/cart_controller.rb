@@ -104,6 +104,10 @@ class CartController < ApplicationController
         redirect_to :action => :index
     end
 
+    def checking_out?
+        true
+    end
+
     private
 
     def remove_helper(table, items)

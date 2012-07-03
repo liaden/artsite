@@ -17,7 +17,7 @@ class ShowsController < ApplicationController
     end
 
     def show
-        @show = Show.where :id => params[:id]
+        @show = Show.find_by_id params[:id]
     end
 
     def edit

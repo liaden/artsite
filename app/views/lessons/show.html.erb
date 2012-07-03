@@ -1,9 +1,7 @@
+<div class="container">
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @lesson.name %>
-</p>
+<h1><%= @lesson.name -%></h1>
 
 <p>
   <b>Date:</b>
@@ -21,5 +19,8 @@
 </p>
 
 
+<% if admin? -%>
 <%= link_to 'Edit', edit_lesson_path(@lesson) %> |
-<%= link_to 'Back', lessons_path %>
+<% end -%>
+
+</div>

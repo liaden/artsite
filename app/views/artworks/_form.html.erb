@@ -1,10 +1,34 @@
 <%= form_for @artwork, :html => {:class => "form-horizontal"} do |f| -%>
     <fieldset>
-    <%= f.label :title -%><%= f.text_field :title -%>
-    <%= f.label :description -%><%= f.text_field :description -%>
-    <%= f.label :image -%><%= f.file_field :image -%>
-    <%= f.label :tags -%><%= text_field_tag :tags, @tags -%>
-    <%= f.label :mediums -%><%= text_field_tag :mediums, @medium -%>
+    <div class="control-group">
+        <%= f.label :title, :class => "control-label" -%>
+        <div class="controls"><%= f.text_field :title -%></div>
+    </div>
+    <div class="control-group">
+        <%= f.label :description, :class => "control-label" -%>
+        <div class="controls"><%= f.text_field :description -%></div>
+    </div>
+    <div class="control-group">
+        <%= f.label :image, :class => "control-label" -%>
+        <div class="controls"><%= f.file_field :image -%></div>
+    </div>
+    <div class="control-group">
+        <%= f.label :tags, :class => "control-label" -%>
+        <div class="controls"><%= text_field_tag :tags, @tags -%></div>
+    </div>
+    <div class="control-group">
+        <%= f.label :mediums, :class => "control-label" -%>
+        <div class="controls"><%= text_field_tag :mediums, @medium -%></div>
+    </div>
+
+    <div class="control-group">
+        <%= label_tag :small, :class => "control-label" -%>
+        <div class="controls">
+            <%= text_field_tag :small_size, @sizes[0] -%>
+            <%= text_field_tag :small_price, @artwork.price_of(:photopaper, @sizes[0]) -%><p class="help-inline">photopaper</p>
+            <%= text_field_tag :small_canvas_price, @artwork.price_of(:canvas, @sizes[0]) -%><p class="help-inline">canvas</p>
+        </div>
+    </div>
     <table class="table table-condensed" style="width:5em">
         <thead>
         <tr>

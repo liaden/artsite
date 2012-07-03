@@ -1,0 +1,23 @@
+Feature: user creating artwork
+    As user with a role
+    I want to be able to create artwork
+
+    Scenario: blocks guest from creating artwork
+        Given I am not logged in
+        When I visit artworks/new
+        Then artworks should be rendered
+        And no new artwork is in the gallery
+
+    Scenario: blocks user from creating artwork
+        Given I am logged in as user
+        When I visit artworks/new
+        Then artworks should be rendered
+        And no new artwork is in the gallery
+
+    Scenario: admin creates artwork
+        Given I am logged in as Holly
+        When I visit artworks/new
+        And I create an artwork
+        Then artworks/new should be rendered
+        And 1 new artwork is in the gallery
+

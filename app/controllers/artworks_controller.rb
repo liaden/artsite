@@ -12,6 +12,10 @@ class ArtworksController < ApplicationController
         @artwork = Artwork.new
         @tags = ""
         @mediums = ""
+
+        # defaults sizes for a 2:3 ratio
+        @sizes = [ '4x6', '8x12', '12x18' ]
+        
     end
 
     def create

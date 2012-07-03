@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
     def caller
         "ArchaicSmiles"
     end
+
+    def checking_out?
+        false
+    end
     
     helper_method :current_user
 

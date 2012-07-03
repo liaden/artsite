@@ -4,7 +4,10 @@
   <title>ArchaicSmiles</title>
   <%= stylesheet_link_tag    "application", :media => "all" -%>
   <%= yield :css  -%>
-  <%= javascript_include_tag "https://js.stripe.com/v1/", "application" -%>
+  <!-- TODO: REMOVING IF STATEMENT MAKES CONTENT DROP DOWN WORK -->
+  <% if controller.checking_out? -%>
+      <%= javascript_include_tag("https://js.stripe.com/v1/", "application") -%>
+  <% end -%>
   <%= yield :javascript -%>
   <%= csrf_meta_tags -%>
   <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>

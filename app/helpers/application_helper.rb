@@ -61,4 +61,16 @@ module ApplicationHelper
         end
     end
 
+    def admin?
+        current_user and current_user.admin?
+    end
+
+    def admin_edit(item)
+        if admin?
+            # JOEL TODO: Need to fix so we actually link to edit of item
+            link_to '(Edit)', (item), :class => 'edit-link'
+        else
+            ''
+        end
+    end
 end

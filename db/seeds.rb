@@ -22,8 +22,10 @@ tweet_ids.each do |id|
     tweet.save
 end
 
-
 if Rails.env.development? or Rails.env.test?
+
+    User.create :username => 'holly', :email => 'holly@archaicsmiles.com', :password => 'abcd', :password_confirmation => 'abcd', :privilege => 1
+    User.create :username => 'logainsrequiem', :email => 'logainsrequiem@archaicsmiles.com', :password => 'abcd', :password_confirmation => 'abcd'
 
     tags = [ Tag.new(:name => "BDSM"), Tag.new(:name => "Butterflies")]
 
