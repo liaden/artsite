@@ -19,6 +19,14 @@ class Print < ActiveRecord::Base
         material == "original"
     end
 
+    def is_not_soldout?
+        not is_sold_out
+    end
+
+    def is_not_on_show?
+        not is_on_show
+    end
+
     def height_and_width
         Print.height_and_width dimensions
     end

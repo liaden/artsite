@@ -1,0 +1,43 @@
+<%= form_tag(purchase_path, :method => :post, :class => "form-horizontal") do %>
+    <input id="transaction_type" type="hidden" value="artwork" name="transaction_type">
+    <input id="material" type="hidden" value="<%= prints[0].material -%>" name="material">
+    <input id="item_id" type="hidden" value="<%= prints[0].artwork.id -%>" name="item_id">
+
+    <table id='art-price-table' class='table  table-condensed'>
+        <theader>
+            <tr>
+                <th class='print-header'>&nbsp;</th>
+                <th class='print-header'>Size</th>
+                <th class='print-header'>Price</th>
+            </tr>
+        </theader>
+        <tbody>
+            <% enabled = true
+               if prints[0].original?
+                    if prints[0].is_on_show? or  prints[0].is_not_soldout?
+                        enabled = false 
+                    end
+                end 
+            -%>
+            <% prints.each do |print| -%>
+            <tr>
+                <td>
+                    <%= check_box_tag :Size, print.dimensions, false, :enabled => enabled  %>
+                </td>
+                <td><%= print.dimensions -%></td>
+                <td><%= number_to_currency print.price -%></td>
+            </tr>
+            <% end -%>
+        </tbody>
+    </table>
+    <div class='well'>
+        <% if not enabled -%>
+            <% if prints[0].is_on_show? -%>
+                <p>Currently not available while it is being shown.</p>
+            <% elsif prints[0].is_sold_out? -%>
+                <p>Sold Out</p>
+            <% end -%>
+        <% end -%>
+        <%=  submit_tag "Add to Cart", :enabled => enabled, :class => "btn btn-primary" -%>
+    </div>
+<% end -%>

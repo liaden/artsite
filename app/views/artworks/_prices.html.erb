@@ -8,13 +8,13 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="artprints">
-            <%= purchase_form(:prints => @artwork.photopapers, :material => @artwork.photopapers.first.material, :id => @artwork.id) -%>
+            <%= render :partial => 'print_form', :locals => { :prints => @artwork.photopapers } -%>
         </div>
         <div class="tab-pane" id="canvasprints">
-            <%= purchase_form( :prints => @artwork.canvases, :material => @artwork.canvases.first.material, :id => @artwork.id ) -%>
+            <%= render :partial => 'print_form', :locals => { :prints => @artwork.canvases } -%>
         </div>
         <div class="tab-pane" id="original">
-            <%= purchase_form( :id => @artwork.id, :prints => @artwork.original, :material => @artwork.original.material, :disabled => @artwork.original.is_sold_out) -%>
+            <%= render :partial => 'print_form', :locals => { :prints => [@artwork.original] } -%>
         </div>
     </div>
 </div>
