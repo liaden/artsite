@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.2'
 
-gem 'sqlite3'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -37,6 +36,8 @@ group :development, :test do
     gem 'rspec-rails'
     gem 'watchr'
 end
+
+gem 'pg'
 
 group :development do
     #gem 'factory_girl'
