@@ -3,7 +3,6 @@ class PrintOrder < ActiveRecord::Base
     belongs_to :order
 
     def framed?
-        frame_size != nil and frame_size != :no_frame
     end
 
     def price

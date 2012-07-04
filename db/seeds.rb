@@ -9,19 +9,6 @@
 
 require 'factory_girl'
 
-# tumblr posts done before website was made:
-tumblr_ids = [15570718881, 12843788442, 12566085628, 12565986211, 12565644328, 8924897274, 8924811031, 7725636552, 7023741329, 6995279618, 6972767226, 6972754947, 6972714902, 6972703457, 6972693030, 6972565024, 6972544725, 6705622531, 6705510647, 6705437508, 6705456664, 6703876941, 6703822783, 6703794561, 6703739017, 6703703911, 6702932028]
-tumblr_ids.each do |id|
-    tumble = AutoTumbles.new :tumble_id => id
-    tumble.save
-end
-
-tweet_ids = [112552271451127808, 165236933075808256]
-tweet_ids.each do |id|
-    tweet = AutoTweets.new :tweet_id => id
-    tweet.save
-end
-
 if Rails.env.development? or Rails.env.test?
 
     User.create :username => 'holly', :email => 'holly@archaicsmiles.com', :password => 'abcd', :password_confirmation => 'abcd', :privilege => 1
