@@ -7,7 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
 
-require 'factory_girl'
 
 if Rails.env.development? or Rails.env.test?
 

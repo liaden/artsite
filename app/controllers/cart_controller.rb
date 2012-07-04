@@ -25,11 +25,10 @@ class CartController < ApplicationController
             return
         end
 
-
-
         @order = active_order
         @user = current_user
 
+        # handle framing
         params.keys.grep(/.*framing/).each do |frame_key|
             print_id = frame_key.match(/\d+/)[0]
 
@@ -40,8 +39,11 @@ class CartController < ApplicationController
 
             frame_type = params[frame_key]
 
+            logger.debug "setting printorder with id = #{print_order.id} to frame_size #{frame_type}"
+
             if frame_type == "no_frame"
                 print_order.frame_size = "no_frame"
+                print_order.save
             else
                 frame_size = "#{frame_type[0]}.#{frame_type[1..-1]}"
 
@@ -55,17 +57,24 @@ class CartController < ApplicationController
                 end
             end
         end
+        # done framing
 
         if @order.user
-            @order.user.address = Address.new unless @order.user.address
+            @order.user.address = Address.create unless @order.user.address
             @order.address = @order.user.address
+            @ord
         else
-            @order.address = Address.new unless @order.address
+            @order.address = Address.create unless @order.address
         end
         @order.save
+        render :action => :checkout
     end
 
-    def receipt
+    def verify_payment
+        return checkout unless params[:stripe_card_token]
+
+        logger.debug "we have #{Address.all.size} addresses in the table"
+
         if handled_guest_and_order_has_user?
             flash[:error] = "Error in data. Order has not been placed."
             return redirect_to :action => :index
@@ -78,7 +87,13 @@ class CartController < ApplicationController
         # nothing is being purchased...
         return redirect_to :action => :index unless @order and not @order.empty?
 
-        address = Address.create params[:address]
+        @order.address.update_attributes params[:address]
+        @order.address.save
+        
+        if current_user
+            current_user.address.update_attributes params[:address]
+            current_user.address.save
+        end
 
         @base_amount = @order.total 
         @tax_amount =  0 #@base_amount * tax_rate # JOEL TODO
@@ -94,9 +109,25 @@ class CartController < ApplicationController
         end
 
         logger.debug "amount is #{to_cents(@total_amount)}"
-        charge = Stripe::Charge.create :amount => to_cents(@total_amount), :currency => "usd", :card => params[:stripe_card_token], :description => "#{@email}"
 
-        if charge.paid
+        begin
+        charge = Stripe::Charge.create :amount => to_cents(@total_amount), :currency => "usd", :card => params[:stripe_card_token], :description => "#{@email}"
+        rescue => e
+            flash[:error] = e.class == Stripe::CardError ? e.message : "An unexpected error has occurred"
+            return render :action => :checkout
+        end
+
+        logger.debug "*** charge is #{charge}"
+
+        if charge.card.cvc_check == "fail"
+            flash[:cvc_error] = "Invalid CVC supplied."
+        elsif  charge.card.address_zip_check == "fail"
+            flash[:zip_error] = "Invalid zip code"
+        elsif charge.card.address_line1_check == "fail"
+            flash[:line1_error] = "Invalid address on line1"
+        elsif not charge.paid
+            flash[:error] = "Error: #{charge.failure_message}"
+        else
             @order.charge_id = charge.id
             @order.state = "closed"
             @order.placed_at = Time.now
@@ -106,10 +137,12 @@ class CartController < ApplicationController
                     OrderMailer.order_receipt(@order)
                 end
                 OrderMailer.order_notification(@order)
+                return render :action => :receipt
             end
-        else
-            flash.now[:error] = "Error: #{charge.failure_message}"
         end
+
+        # one of the above checks failed so try again
+        render :action => :checkout
     end
 
     def remove
@@ -181,9 +214,10 @@ class CartController < ApplicationController
 
     end
 
-    def handled_guest_and_order_has_user?  
+    def handled_guest_and_order_has_user?
         if guest? and active_order.user
-            order = Order.new
+            logger.debug "Creating new order for guest that is not associated with a user.\n"
+            order = Order.create
             session[:order] = order.id
         end
     end

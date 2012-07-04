@@ -2,7 +2,7 @@
     <h1>Artwork:</h1>
     <table class="table table-condensed">
     <thead>
-        <tr><th>&nbsp;</th><th> Title</th><th>Size</th><th>Framing</th><th>Price</th><th class="remove-column">&nbsp;</th></tr>
+        <tr><th>&nbsp;</th><th> Title</th><th>Size</th><th>Framing</th><th>Total Price</th><th class="remove-column">&nbsp;</th></tr>
     </thead>
     <% @order.print_orders.each do |print_order| -%>
         <% @print = print_order.print -%>

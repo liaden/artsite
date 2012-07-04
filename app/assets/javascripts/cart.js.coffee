@@ -14,11 +14,16 @@ order =
             false
 
     processCard: ->
+        alert($('#address_line1').val())
         card =
             number: $('#card_number').val()
             cvc: $('#card_code').val()
             expMonth: $('#card_month').val()
             expYear: $('#card_year').val()
+            addressLine1: $('#address_line1').val()
+            addressLine2: $('#address_line2').val()
+            addressState: $('#address_state').val()
+            addressZip: $('#address_zipcode').val()
         Stripe.createToken( card, order.handleStripeResponse)
 
     handleStripeResponse: (status, response) ->

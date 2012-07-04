@@ -69,8 +69,8 @@ ArchaicSmiles::Application.routes.draw do
     
     match '/index' => 'main#index', :as => :home
 
-    match '/cart/receipt' => 'cart#receipt',   :as => :receipt
-    match '/cart/checkout' => 'cart#checkout', :as => :checkout
+    match '/cart/checkout' => 'cart#verify_payment', :via => :post, :as => :verify_payment
+    match '/cart/checkout' => 'cart#checkout', :via => :get, :as => :checkout
     match '/cart/purchase' => 'cart#purchase', :as => :purchase
     match '/cart/remove/:transaction_type/:id' => 'cart#remove'
     match '/cart' => 'cart#index', :as => :cart

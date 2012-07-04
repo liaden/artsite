@@ -6,6 +6,7 @@ class PrintOrder < ActiveRecord::Base
     end
 
     def price
+        logger.debug "**** #{print.price} ; #{frame_price}"
         print.price + frame_price
     end
 

@@ -19,6 +19,10 @@ class Order < ActiveRecord::Base
         prices.size > 0 ? prices.reduce(:+) : 0
     end
 
+    def closed?
+        state == "closed"
+    end
+
     def shipping_cost
         return 0 if total >= 50 or prints.size == 0
         return SHIPPING_COST

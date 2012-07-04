@@ -3,7 +3,7 @@
 
 <% @framing_select_disabled = true -%>
 
-<%= form_tag receipt_path, :method => 'post', :name => 'checkout', :id => 'checkout', :class => 'form-horizontal' do  -%>
+<%= form_tag verify_payment_path, :method => 'post', :name => 'checkout', :id => 'checkout', :class => 'form-horizontal' do  -%>
 <fieldset>
 
 <h1>Shipping Information</h1>
@@ -15,10 +15,13 @@
     </div>
 </div>
 
-<div class="control-group">
+<div class="control-group <%= flash[:line1_error] ? "error" : "" -%> ">
     <%= address.label :line1, "Address Line 1", :class=> "control-label" %>
     <div class="controls">
-        <%= address.text_field :line1 -%> 
+        <%= address.text_field :line1  -%>
+        <% if flash[:line1_error] -%>
+            <p class="help-inline">Please correct the address supplied.</p>
+        <% end -%>
         <p class="help-block">Street address, P.O. box, company name, c/o</p>
     </div>
 </div>
@@ -45,10 +48,13 @@
     </div>
 </div>
 
-<div class="control-group">
-    <%= address.label :zipcode, "State", :class => "control-label" %>
+<div class="control-group <%= flash[:zip_error] ? "error" : "" -%>">
+    <%= address.label :zipcode, "Zipcode", :class => "control-label" %>
     <div class="controls">
         <%= address.text_field :zipcode, :class => "span2" %>
+        <% if flash[:zip_error] -%>
+            <p class="help-inline">Invalid zipcode supplied</p>
+        <% end -%>
     </div>
 </div>
 
@@ -67,10 +73,13 @@
     </div>
 </div>
 
-<div class="control-group">
-    <%= label_tag :card_code, "Security Code (CVV)", :class => "control-label" %>
+<div class="control-group <%= flash[:cvc_error] ? "error" : "" -%>">
+    <%= label_tag :card_code, "Security Code (CVC)", :class => "control-label" %>
     <div class="controls">
         <%= text_field_tag :card_code, nil, :name => nil, :class => "span1" %>
+        <% if flash[:cvc_error] -%>
+            <p class="help-inline">Problem verifying security code</p>
+        <% end -%>
     </div>
 </div>
 

@@ -44,12 +44,12 @@ class ApplicationController < ActionController::Base
             end
 
             # does this order exist in an open state?
-            if not order
+            if not order or order.closed?
+                logger.debug "Creating new open order"
                 order = Order.create :state => 'open'
                 session[:order] = String(order.id)
             end
 
-            # TODO: use authenticity token to make sure correct user?
         end
 
         return order
