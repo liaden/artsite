@@ -1,14 +1,5 @@
-<% if @framing_select_disabled -%>
-    <% if @print_order.framed? -%>
-        <%= @print_order.frame_size -%>" Frame 
-    <% else -%>
-        No Frame
-    <% end -%>
+<% if @print_order.framed? -%>
+    <%= @print_order.frame_size -%>" Frame 
 <% else -%>
-            <%= radio_button_tag "#{@print.id}_framing", "no_frame", true, :class => "framing-form" -%>
-            <%= label_tag "#{@print.id}_framing", "No Frame", :value => "no_frame", :class => "framing-form" -%>
-            <%= radio_button_tag "#{@print.id}_framing", "075", false, :class => "framing-form" -%>
-            <%= label_tag "#{@print.id}_framing", "0.75\" Thick", :value => "0.75", :class => "framing-form" -%>
-            <%= radio_button_tag "#{@print.id}_framing", "200", false, :class => "framing-form" -%> 
-            <%= label_tag "#{@print.id}_framing", "2.00\" Thick", :value => "2.00", :class => "framing-form" -%>
+    No Frame
 <% end -%>

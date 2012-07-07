@@ -4,7 +4,6 @@
 jQuery -> 
     Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
     order.setupForm()
-    framing.setupFraming()
 
 order = 
     setupForm: -> 
@@ -14,7 +13,6 @@ order =
             false
 
     processCard: ->
-        alert($('#address_line1').val())
         card =
             number: $('#card_number').val()
             cvc: $('#card_code').val()
@@ -35,21 +33,5 @@ order =
             $('#stripe-error').removeClass('invisible')
             $('input[type=submit]').attr('disabled', false)
 
-framing = 
-    setupFraming: ->
-        $('input[class="framing-form"]').change ->
-            total = 0
-            $('input[class="framing-form"]').each (i) ->
-                if $(this).is(':checked')
-                    price_id = '#' + $(this).attr('id') + '_price'
-                    total += (Number) $(price_id).text()
-            
-            $('td[class="print-price"]').each (i) ->
-                total += (Number) $(this).text()
-
-            if total < 50
-                $('#shipping-amount').text(5)
-                total += 5
-            $('#total-amount').text(total)
             
             

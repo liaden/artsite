@@ -1,7 +1,8 @@
+<%= content_for :javascript do 
+  javascript_include_tag "cart" 
+end -%>
+
 <div class="container">
-
-
-<% @framing_select_disabled = true -%>
 
 <%= form_tag verify_payment_path, :method => 'post', :name => 'checkout', :id => 'checkout', :class => 'form-horizontal' do  -%>
 <fieldset>

@@ -12,6 +12,13 @@
  *= require twitter/bootstrap
 */
 
+
+// 40 px less than the default
+.print-order-label { width: 100px; }
+
+// 40 px less than the default
+.print-order-controls { margin-left: 120px; }
+
 .remove-column {
     width: 1em;
 }

@@ -185,27 +185,30 @@ class CartController < ApplicationController
     def purchase_prints
         
         @order = active_order
-
-        logger.debug "found id of: #{@order.id}"
-    
-        if params[:Size] =~ /\d+x\d+/
+        if params[:material] == 'original' 
+            @print = Print.where(:material => "original", :artwork_id => params[:item_id]).first
+            flash.now[:error] = "Could not find original in database." unless @print
+        elsif params[:size] =~ /\d+x\d+/
             if params[:item_id] =~ /\d+/
-                if params[:material] == 'photopaper' or params[:material] == 'canvas' or params[:material] == 'original'
-                    @print = Print.where :material => params[:material], :artwork_id => params[:item_id], :dimensions => params[:Size]
-                    flash[:error] = "Could not find artwork with specified values" unless @print
+                if params[:material] == 'photopaper' or params[:material] == 'canvas' 
+                    @print = Print.where(:material => params[:material], :artwork_id => params[:item_id], :dimensions => params[:size]).first
+                    flash.now[:error] = "Could not find artwork with specified values" unless @print
                 else
-                    flash[:error] = "Invalid material for purchase."
+                    flash.now[:error] = "Invalid material for purchase."
                 end
             else
-                flash[:error] = "Invalid artwork specified."
+                flash.now[:error] = "Invalid artwork specified."
             end
         else
-            flash[:error] = "Invalid dimension specified."
+            flash.now[:error] = "Invalid dimension specified."
         end
 
         if @print
             @order.prints << @print
             @order.save
+
+            purchase_frame params[:framing]
+            logger.debug "Added print #{@print.id} to cart."
         end
 
         # render gallery so they can shop some more
@@ -219,6 +222,30 @@ class CartController < ApplicationController
             logger.debug "Creating new order for guest that is not associated with a user.\n"
             order = Order.create
             session[:order] = order.id
+        end
+    end
+
+    def purchase_frame(frame_size)
+        logger.debug "***purchasing frame with size = #{frame_size}"
+
+        return if @print.original?
+        
+        @print_order = PrintOrder.where(:print_id => @print.id, :order_id => @order.id).first
+        if frame_size == "no_frame"
+            @print_order.frame_size = "no_frame"
+            @print_order.save
+        else
+            frame_size = "#{frame_size[0]}.#{frame_size[1..-1]}"
+            logger.debug "reformatted to #{frame_size}"
+
+            # if we got something that can't be represented as a float, then we will have an exception
+            begin
+                Float(frame_size)
+                @print_order.frame_size = frame_size
+                @print_order.save
+            rescue 
+                flash[:error] = "frame size is not correctly formatted"
+            end
         end
     end
 end

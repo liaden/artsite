@@ -1,4 +1,8 @@
-<div class="container-fluid">
+<%= content_for :javascript do 
+  javascript_include_tag "artwork" 
+end -%>
+
+<div class="container">
 <div class="row-fluid">
     <div class="span8">
         <div class="row-fluid"><span><h1><%= @artwork.title -%><small><%= admin_edit(@artwork) -%></small></h1>

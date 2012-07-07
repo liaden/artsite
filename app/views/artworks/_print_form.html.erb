@@ -1,43 +1,102 @@
+<div style="border-left: 1px solid rgb(221,221,221);border-right: 1px solid rgb(221, 221, 221); padding-top:1em">
 <%= form_tag(purchase_path, :method => :post, :class => "form-horizontal") do %>
     <input id="transaction_type" type="hidden" value="artwork" name="transaction_type">
     <input id="material" type="hidden" value="<%= prints[0].material -%>" name="material">
     <input id="item_id" type="hidden" value="<%= prints[0].artwork.id -%>" name="item_id">
 
-    <table id='art-price-table' class='table  table-condensed'>
-        <theader>
-            <tr>
-                <th class='print-header'>&nbsp;</th>
-                <th class='print-header'>Size</th>
-                <th class='print-header'>Price</th>
-            </tr>
-        </theader>
-        <tbody>
-            <% enabled = true
-               if prints[0].original?
-                    if prints[0].is_on_show? or  prints[0].is_not_soldout?
-                        enabled = false 
-                    end
-                end 
-            -%>
-            <% prints.each do |print| -%>
-            <tr>
-                <td>
-                    <%= check_box_tag :Size, print.dimensions, false, :enabled => enabled  %>
-                </td>
-                <td><%= print.dimensions -%></td>
-                <td><%= number_to_currency print.price -%></td>
-            </tr>
-            <% end -%>
-        </tbody>
-    </table>
-    <div class='well'>
-        <% if not enabled -%>
-            <% if prints[0].is_on_show? -%>
-                <p>Currently not available while it is being shown.</p>
-            <% elsif prints[0].is_sold_out? -%>
-                <p>Sold Out</p>
-            <% end -%>
+    <% if prints[0].original? -%>
+        <% original = prints[0] -%>
+        <% if original.is_sold_out? -%>
+            <% enabled = false -%>
+            Sold
+        <% elsif original.is_on_show? -%>
+            <% enabled = false -%>
+            <p>Currently not available for purchase while it is being shown.</p>
         <% end -%>
+        <div class="control-group">
+            <%= label_tag :sizes, "Size", :class=> "control-label" -%>
+            <div class="controls">
+                <label class="radiobutton"><%= radio_button_tag nil, :enabled => enabled -%> 
+                    <%= original.dimensions -%>
+                </label>
+            </div>
+        </div>
+    <% else -%>
+        <% enabled = true -%>
+
+        <% # Size selection -%>
+        <div class="control-group">
+            <%= label_tag :sizes, "Sizes", :class => "control-label print-order-label", :style => "width:100px;" -%>
+            <div class="controls print-order-controls" style="margin-left:120px">
+            <% prints.each do |print| -%>
+                    <label class="radiobutton">
+                        <% # enable the small size as being selected (4x6 or 5x7) -%>
+                        <%= radio_button_tag :size, print.dimensions, print.size_name == "small" || print.original?, :class => "print_#{print.material}_#{print.dimensions}"  %>
+                        <%= print.dimensions -%>
+                    </label>
+            <% end -%>
+            </div>
+        </div>
+
+        <% # Framing for standard prints -%>
+        <% if prints[0].material == "photopaper" -%>
+            <div class="control-group">
+                <%= label_tag :framing, "Framing", :class => "control-label print-order-label", :style => "width:100px;" -%>
+                <div class="controls print-order-controls" style="margin-left:120px">
+                    <label class="radiobutton">
+                    <%= radio_button_tag "framing", "no_frame", true, :class => "framing_photopaper_noframe" -%>
+                        No Frame
+                    </label>
+
+                    <label class="radiobutton">
+                    <%= radio_button_tag "framing", "075", false, :class => "framing_photopaper_075" -%>
+                        0.75" Thick
+                    </label>
+
+                    <label class="radiobutton">
+                    <%= radio_button_tag "framing", "200", false, :class => "framing_photopaper_200" -%>
+                        2.00" Thick
+                    </label>
+                </div>
+            </div>
+        <% end -%>
+    <% end -%> 
+
+    <% # Description of disabled state for form -%>
+
+    <% # Purchase button and totals amount -%>
+    <div class='form-actions' style="padding-left:120px;">
+        <p>Total: <span id="<%= "#{prints[0].material}_total_amount" -%>"><%= number_to_currency prints[0].price  -%></span></p>
         <%=  submit_tag "Add to Cart", :enabled => enabled, :class => "btn btn-primary" -%>
+    </div>
+
+<% end -%>
+</div>
+
+<% # Don't write anything for originals -%>
+<% if not prints[0].original? -%>
+    <div style="display:none">
+
+    <% # write out prices for frames for standard prints -%>
+    <% if prints[0].material == "photopaper" -%>
+        <ul>
+            <% prints.each do |print| -%>
+                <% [ ["noframe", "no_frame"], ["075", "0.75"], ["200", "2.00"] ].each do |frame_size| -%>
+                    <li id="<%= "#{print.material}_#{print.dimensions}_#{frame_size[0]}_framing_price" -%>" ><%= 
+                        PrintOrder.frame_price(print.dimensions, frame_size[1])/1.0
+                    -%></li>
+                <% end -%>
+            <% end -%>
+        </ul>
+    <% end -%>
+
+
+    <% # write out prices for various dimensions and materials -%>
+    <ul>
+        <% @artwork.prints.each do |print| -%>
+            <li id="<%= "#{print.material}_#{print.dimensions}_price" -%>"><%= print.price -%></li>
+        <% end -%>
+    </ul>
+
     </div>
 <% end -%>

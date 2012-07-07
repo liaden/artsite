@@ -1,9 +1,5 @@
 <div class="container">
 
-<% @framing_select_disabled = false -%>
-
-<%= form_tag checkout_path, :method => :post, :class => "form-inline" do -%>
-
 <%= render 'print_list' -%>
 <%= render 'lesson_list' -%>
 
@@ -21,17 +17,6 @@
  
 <p>Note: all orders $50 or more receive free shipping.</p>
 
-<%= submit_tag "#{"Guest " if not @user }Checkout" if @order.lessons.size > 0 or @order.prints.size > 0 -%>
+<%= link_to  "#{"Guest "if not @user }Checkout", checkout_path, :class => "btn btn-primary" if @order.lessons.size > 0 or @order.prints.size > 0 -%>
 
-<% end -%>
-
-<div style="display:none">
-<ul >
-    <% @order.prints.each do |print| -%>
-        <% [ "no_frame", "0.75", "2.00" ].each do |frame_size| -%>
-            <li id="<%= "#{print.id}_framing_#{frame_size.gsub /[.]/, '' }_price" -%>" ><%= PrintOrder.frame_price(print.dimensions, frame_size) -%></li>
-        <% end -%>
-    <% end -%>
-</ul>
-</div>
 </div>
