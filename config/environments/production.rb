@@ -31,6 +31,7 @@ ArchaicSmiles::Application.configure do
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
+  config.logger = Logger.new(STDOUT)
   config.log_level = :debug
 
   # Prepend all log lines with the following tags
