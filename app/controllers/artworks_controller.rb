@@ -55,8 +55,7 @@ class ArtworksController < ApplicationController
     def update
         return redirect_to :action => :index unless admin?
 
-        preprocess_prices
-        @artwork = Artwork.where(:id => params[:id]).first
+        @artwork = Artwork.find(:params[:id])
 
         set_tags
         set_medium
@@ -106,22 +105,22 @@ class ArtworksController < ApplicationController
         end
 
         if params[:enable_s]
-            prints.append make_print("small", Print.ratio_to_small(ratio), "photopaper")
+            make_print("small", Print.ratio_to_small(ratio), "photopaper", prints)
         end
 
         if params[:enable_m]
-            prints.append make_print("medium", Print.ratio_to_medium(ratio), "photopaper")
-            prints.append make_print("medium", Print.ratio_to_medium(ratio), "canvas")
+            make_print("medium", Print.ratio_to_medium(ratio), "photopaper", prints)
+            make_print("medium", Print.ratio_to_medium(ratio), "canvas", prints)
         end
 
         if params[:enable_l]
-            prints.append make_print("large", Print.ratio_to_large(ratio), "photopaper")
-            prints.append make_print("large", Print.ratio_to_large(ratio), "canvas")
+            make_print("large", Print.ratio_to_large(ratio), "photopaper", prints)
+            make_print("large", Print.ratio_to_large(ratio), "canvas", prints)
         end
 
         if params[:enable_xl]
-            prints.append make_print("extra_large", Print.ratio_to_xlarge(ratio), "photopaper")
-            prints.append make_print("extra_large", Print.ratio_to_xlarge(ratio), "canvas")
+            make_print("extra_large", Print.ratio_to_xlarge(ratio), "photopaper", prints)
+            make_print("extra_large", Print.ratio_to_xlarge(ratio), "canvas", prints)
         end
         
         prints << Print.create(:price => params[:original_price], :size_name => "original", :material => "original", :dimensions => params[:original_size])
@@ -131,14 +130,17 @@ class ArtworksController < ApplicationController
         return true
     end
 
-    def make_print(size_name, dimensions, material)
+    def make_print(size_name, dimensions, material, prints)
         price = DefaultPrice.where(:dimension => dimensions, :material => material).first
-        flash.now[:config_error] = "Default price has not been set for this material and dimension combination" unless price
-
-        print = Print.create :price => price, :size_name => size_name, :material => material, :dimensions => dimensions
-        if not print.valid?
-            logger.debug "@@@@@@@#{size_name} #{dimensions} #{material} #{print.errors[:material]}"
+        
+        if not price
+            flash.now[:config_error] = "Default price has not been set for this material and dimension combination" unless price
+            return false
         end
-        print
+
+        print = Print.create :price => price.price, :size_name => size_name, :material => material, :dimensions => dimensions
+        prints.append print
+
+        return true
     end
 end
