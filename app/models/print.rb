@@ -41,14 +41,14 @@ class Print < ActiveRecord::Base
     end
 
     def self.ratio_to_medium(ratio)
-        ratio == "16:20" ? "8x10" : "8x12"
+        ratio == "16x20" ? "8x10" : "8x12"
     end
 
     def self.ratio_to_large(ratio)
-        ratio == "16:20" ? "11x14": "12x18"
+        ratio == "16x20" ? "11x14": "12x18"
     end
 
     def self.ratio_to_xlarge(ratio)
-        ratio == "16:20" ? "16x20" : "20x30"
+        ratio == "16x20" ? "16x20" : "20x30"
     end
 end
