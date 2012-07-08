@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120703235152) do
+ActiveRecord::Schema.define(:version => 20120708012400) do
 
   create_table "addresses", :force => true do |t|
     t.string   "recipient"
@@ -42,7 +42,10 @@ ActiveRecord::Schema.define(:version => 20120703235152) do
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.string   "image_file_size"
+    t.string   "slug"
   end
+
+  add_index "artworks", ["slug"], :name => "index_artworks_on_slug", :unique => true
 
   create_table "default_prices", :force => true do |t|
     t.string  "dimension"

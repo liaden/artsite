@@ -38,7 +38,7 @@ class ArtworksController < ApplicationController
     end
 
     def show
-        @artwork = Artwork.find_by_id(params[:id])
+        @artwork = Artwork.find(params[:id])
     end
 
     def edit

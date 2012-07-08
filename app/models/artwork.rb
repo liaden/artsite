@@ -12,6 +12,9 @@ class Artwork < ActiveRecord::Base
 
     accepts_nested_attributes_for :prints
 
+    extend FriendlyId
+    friendly_id :title, :use => :slugged
+
     def sizes
         s = {}
         prints.each {|print| s[print.dimensions] = true if print.material != "original"}

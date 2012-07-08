@@ -18,6 +18,7 @@ group :assets do
 end
 
 gem 'authlogic'
+gem 'friendly_id'
 
 gem 'jquery-rails'
 
