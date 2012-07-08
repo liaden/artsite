@@ -1,5 +1,6 @@
-<h1>Twitter</h1>
-
+<div class="page-header">
+    <h1>Twitter</h1>
+</div>
 <% @tweets.each do |tweet| -%>
     <p><%= auto_link(tweet.text) -%></p>
 <% end -%>
