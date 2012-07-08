@@ -9,12 +9,20 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require twitter/bootstrap
 */
-
 
 // 40 px less than the default
 .print-order-label { width: 100px; }
+
+ a { 
+    color: rgb(100, 100,100);
+}
+
+.darker-bottom {
+    border-bottom-color: rgb(202, 202, 202);
+}
+
+.black { color: rgb(0, 0, 0); }
 
 // 40 px less than the default
 .print-order-controls { margin-left: 120px; }
@@ -32,12 +40,6 @@ h1 .edit-link {
     width: 85px;
 }
 
-.framing-column {
-}
-
-.framing-form {
-}
-
 .amount-column {
     width: 5em;
 }
@@ -46,23 +48,10 @@ h1 .edit-link {
     padding-top: 4em;
 }
 
-#art-price-table {
-    padding-top: 0em;
-    padding-bottom: 0em;
-    margin-top: 0em;
-    margin-bottom: 0em;
-    border-left: 1px solid rgb(221, 221, 221);
-    border-right: 1px solid rgb(221, 221, 221);
-}
-
 #print-tabs {
     margin:0px;
 }
 
 #print-tabs div.well {
     box-radius: 0px 0px 4px 4px;
-}
-
-#art-price-table th {
-    border-top: 0px;
 }

@@ -11,10 +11,10 @@ end -%>
         </div>
         <%= image_tag @artwork.image.url -%>
         <div c;ass="row-fluid">
-            <div class="alert alert-success span8">
-                <h3>Description:</h3><p><%= @artwork.description -%></p> 
+            <div class="well span8">
+                <h3>Description</h3><p><%= @artwork.description -%></p> 
             </div>
-            <div class="alert alert-success span4">
+            <div class="well span4">
                 <%= render :partial => 'partials/tags', :locals => {:tags => @artwork.tags} -%>
             </div>
         </div>
