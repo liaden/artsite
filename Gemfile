@@ -26,6 +26,8 @@ gem 'twitter'
 gem 'tumblr4r'
 
 gem 'paperclip'
+gem 'aws-s3'
+gem 'aws-sdk'
 
 # replacement for lack of autolink in rails 3.1+
 gem 'rails_autolink'

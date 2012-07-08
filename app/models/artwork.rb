@@ -1,7 +1,16 @@
 class Artwork < ActiveRecord::Base
     validates :title, :description, :image_file_name, :presence => true
 
-    has_attached_file :image, :styles => { :carousel => "400x200", :thumbnail => "80x80" }
+    has_attached_file :image, 
+                      :styles => { :carousel => "400x200", :thumbnail => "80x80" },
+                      :storage => :s3,
+                      :bucket => ENV['S3_BUCKET_NAME'],
+                      :s3_credentials => {
+                          :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+                          :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+                      }
+
+
     has_many :artwork_tags
 	has_many :tags, :through => :artwork_tags, :uniq => true
 
