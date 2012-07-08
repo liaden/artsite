@@ -31,7 +31,8 @@ class ArtworksController < ApplicationController
         if @artwork.save
             flash.now[:notice] = "'#{@artwork.title}' has been successfully created."
         else
-            flash[:error] = "Error in creating new artwork."
+            flash[:error] = "Error saving artwork"
+            logger.debug "******* #{@artwork.errors["prints.material"]}\n#{@artwork.errors["prints.size_name"]}"
         end
         render :action => :new
     end
@@ -87,17 +88,49 @@ class ArtworksController < ApplicationController
     end
 
     def set_prints
-        prints = make_prints("small") << make_prints("medium") << make_prints("large")
+        prints = []
+
+        if params[:original_size]
+            height, width = Print.height_and_width(params[:original_size])
+            ratio = Float(height)/Float(width)
+
+            # select option it is closer to: 3:4 or 2:3.
+            ratio = ratio > 0.733333 ? "16x20" : "12:18"
+        else
+            flash[:error] = "No size specified."
+        end
+
+        if params[:enable_s]
+            prints.append make_print("small", Print.ratio_to_small(ratio), "photopaper")
+        end
+
+        if params[:enable_m]
+            prints.append make_print("medium", Print.ratio_to_medium(ratio), "photopaper")
+            prints.append make_print("medium", Print.ratio_to_medium(ratio), "canvas")
+        end
+
+        if params[:enable_l]
+            prints.append make_print("large", Print.ratio_to_large(ratio), "photopaper")
+            prints.append make_print("large", Print.ratio_to_large(ratio), "canvas")
+        end
+
+        if params[:enable_xl]
+            prints.append make_print("extra_large", Print.ratio_to_xlarge(ratio), "photopaper")
+            prints.append make_print("extra_large", Print.ratio_to_xlarge(ratio), "canvas")
+        end
         
-        prints << Print.new(:price => params[:original_price], :size_name => "", :material => :original, :dimensions => params[:original_size])
-        prints.each { |print| print.save }
+        prints << Print.create(:price => params[:original_price], :size_name => "original", :material => "original", :dimensions => params[:original_size])
         
         @artwork.prints = prints
     end
 
-    def make_print(size_name)
-        p1 = Print.new :price => params["#{size_name}_price"], :size_name => size_name, :material => :photopaper, :dimensions => params["#{size_name}_size"]
-        p2 = Print.new :price => params["#{size_name}_canvas_price"], :size_name => size_name, :material => :canvas, :dimensions => params["#{size_name}_size"]
-        [ p1, p2 ]
+    def make_print(size_name, dimensions, material)
+        price = DefaultPrice.where(:dimension => dimensions, :material => material).first.price
+
+        print = Print.create :price => price, :size_name => size_name, :material => material, :dimensions => dimensions
+        if not print.valid?
+            logger.debug "@@@@@@@#{size_name} #{dimensions} #{material} #{print.errors[:material]}"
+        end
+        print
     end
 end

@@ -2,56 +2,78 @@
     <fieldset>
     <div class="control-group">
         <%= f.label :title, :class => "control-label" -%>
-        <div class="controls"><%= f.text_field :title -%></div>
+        <div class="controls"><%= f.text_field :title, :class => "span5" -%></div>
     </div>
+
     <div class="control-group">
         <%= f.label :description, :class => "control-label" -%>
-        <div class="controls"><%= f.text_field :description -%></div>
+        <div class="controls"><%= f.text_area :description, :rows => 5, :class => "span5" -%></div>
     </div>
+
     <div class="control-group">
         <%= f.label :image, :class => "control-label" -%>
         <div class="controls"><%= f.file_field :image -%></div>
     </div>
+
     <div class="control-group">
         <%= f.label :tags, :class => "control-label" -%>
         <div class="controls"><%= text_field_tag :tags, @tags -%></div>
     </div>
+
     <div class="control-group">
         <%= f.label :mediums, :class => "control-label" -%>
         <div class="controls"><%= text_field_tag :mediums, @medium -%></div>
     </div>
 
     <div class="control-group">
-        <%= label_tag :small, :class => "control-label" -%>
+        <%= label_tag :original_size, "Size of Original", :class => "control-label" -%>
         <div class="controls">
-            <%= text_field_tag :small_size, @sizes[0] -%>
-            <%= text_field_tag :small_price, @artwork.price_of(:photopaper, @sizes[0]) -%><p class="help-inline">photopaper</p>
-            <%= text_field_tag :small_canvas_price, @artwork.price_of(:canvas, @sizes[0]) -%><p class="help-inline">canvas</p>
+            <%= text_field_tag :original_size, "", :class => "span2" -%>
+            <p class="help-inline">This creates prints of the correct size from the ratio.</p>
         </div>
     </div>
-    <table class="table table-condensed" style="width:5em">
-        <thead>
-        <tr>
-            <th></th>
-            <th>Size</th>
-            <th>Print Price</th>
-            <th>Canvas Price</th>
-        </tr>
-        </thead>
-        <tbody>
-            <% if @sizes  # editing existing -%>
-                <%= price_sizes "small", @sizes[0], @artwork.price_of(:photopaper, @sizes[0]), @artwork.price_of(:canvas, @sizes[0]) -%>
-                <%= price_sizes "medium", @sizes[2], @artwork.price_of(:photopaper, @sizes[1]), @artwork.price_of(:canvas, @sizes[1]) -%>
-                <%= price_sizes "large", @sizes[2], @artwork.price_of(:photopaper, @sizes[2]), @artwork.price_of(:canvas, @sizes[2]) -%>
-                <%= price_sizes "original", '', @artwork.original.price, '' -%>
-            <% else # creating new -%>
-                <%= price_sizes "small",    '5x7',  '5', '25' -%>
-                <%= price_sizes "medium",   '8x10', '15', '50' -%>
-                <%= price_sizes "large",    '12x18','30', '80' -%>
-                <%= price_sizes "original", '',     '800', '' -%>
-            <% end -%>
-        </tbody>
-    </table>
-    <%= f.submit "Create" -%>
+
+    <div class="control-group">
+        <%= label_tag :original_size, "Price of Original", :class => "control-label" -%>
+        <div class="controls">
+            <%= text_field_tag :original_price, "", :class => "span2" -%>
+            <p class="help-inline">Price in dollars.</p>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= label_tag :large, "Enable Sizes", :class => "control-label" -%>
+        <div class="controls">
+            <label class="checkbox">
+                <%= check_box_tag :enable_s, "yes", true -%>
+                Small
+            </label>
+        </div>
+
+        <div class="controls">
+            <label class="checkbox">
+                <%= check_box_tag :enable_m, "yes", true -%>
+                Medium
+            </label>
+        </div>
+
+        <div class="controls">
+            <label class="checkbox">
+                <%= check_box_tag :enable_l, "yes", true -%>
+                Large
+            </label>
+        </div>
+
+        <div class="controls">
+            <label class="checkbox">
+                <%= check_box_tag :enable_xl -%>
+                Extra Large (16x20 or 20x30 depending upon ratio)
+            </label>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <%= f.submit "Create", :class => "btn btn-primary" -%>
+    </div>
     </fieldset>
 <% end -%>

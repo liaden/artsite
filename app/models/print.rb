@@ -3,7 +3,7 @@ class Print < ActiveRecord::Base
     has_many :print_orders
     has_many :orders, :through => :print_orders
 
-    validates :size_name, :inclusion => { :in => ["small", "medium", "large", "original"], :message => "%{value} is not a valid name" }
+    validates :size_name, :inclusion => { :in => ["small", "medium", "large", "extra_large", "original"], :message => "%{value} is not a valid name" }
     validates :material, :inclusion => { :in => ["photopaper", "canvas", "original"], :message => "%{value} is not a valid material" }
     validate do |print|
         if not print.dimensions
@@ -34,5 +34,21 @@ class Print < ActiveRecord::Base
     def self.height_and_width(dimension)
         match = dimension.match /(\d+)x(\d+)/
         [ match[1], match[2] ]
+    end
+
+    def self.ratio_to_small(ratio)
+        ratio == "16x20" ? "5x7" : "4x6"
+    end
+
+    def self.ratio_to_medium(ratio)
+        ratio == "16:20" ? "8x10" : "8x12"
+    end
+
+    def self.ratio_to_large(ratio)
+        ratio == "16:20" ? "11x14": "12x18"
+    end
+
+    def self.ratio_to_xlarge(ratio)
+        ratio == "16:20" ? "16x20" : "20x30"
     end
 end

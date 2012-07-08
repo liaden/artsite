@@ -37,6 +37,7 @@ class Artwork < ActiveRecord::Base
         price_point.price
     end
 
+
     def canvases
         prints.select { |print| print.material == "canvas" }
     end

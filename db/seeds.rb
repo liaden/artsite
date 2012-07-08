@@ -7,6 +7,21 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
 
+DefaultPrice.create :dimension => '4x6', :material => 'photopaper', :price => 5.00
+DefaultPrice.create :dimension => '5x7', :material => 'photopaper', :price => 5.00
+DefaultPrice.create :dimension => '8x10', :material => 'photopaper', :price => 10.00
+DefaultPrice.create :dimension => '8x12', :material => 'photopaper', :price => 10.00
+DefaultPrice.create :dimension => '11x14', :material => 'photopaper', :price => 20.00
+DefaultPrice.create :dimension => '12x18', :material => 'photopaper', :price => 25.00
+DefaultPrice.create :dimension => '16x20', :material => 'photopaper', :price => 30.00
+DefaultPrice.create :dimension => '20x30', :material => 'photopaper', :price => 40.00
+
+DefaultPrice.create :dimension => '8x10', :material => 'canvas', :price => 30.00
+DefaultPrice.create :dimension => '8x12', :material => 'canvas', :price => 30.00
+DefaultPrice.create :dimension => '11x14', :material => 'canvas', :price => 60.00
+DefaultPrice.create :dimension => '12x18', :material => 'canvas', :price => 60.00
+DefaultPrice.create :dimension => '16x20', :material => 'canvas', :price => 100.00
+DefaultPrice.create :dimension => '20x30', :material => 'canvas', :price => 125.00
 
 if Rails.env.development? or Rails.env.test?
 
