@@ -22,17 +22,17 @@ class ArtworksController < ApplicationController
         return redirect_to :action => :index unless admin?
 
         @artwork = Artwork.new(params[:artwork])
-        logger.debug params
 
-        set_tags
-        set_medium
-        set_prints
-       
-        if @artwork.save
-            flash.now[:notice] = "'#{@artwork.title}' has been successfully created."
-        else
-            flash[:error] = "Error saving artwork"
-            logger.debug "******* #{@artwork.errors["prints.material"]}\n#{@artwork.errors["prints.size_name"]}"
+        if set_prints
+            set_tags
+            set_medium
+
+            if @artwork.save
+                flash.now[:notice] = "'#{@artwork.title}' has been successfully created."
+            else
+                flash.now[:error] = "Error saving artwork"
+            end
+
         end
         render :action => :new
     end
@@ -45,10 +45,10 @@ class ArtworksController < ApplicationController
         return redirect_to :action => :index unless admin?
 
         @artwork = Artwork.find_by_id(params[:id])
+
         @tags = @artwork.tags * ","
-        #@tags = @artwork.tags.reduce { |a,b| "#{a.name},#{b.name}" }
         @medium = @artwork.medium * ","
-        #@medium = @artwork.medium.reduce { |a,b| "#{a.name},#{b.name}" }
+        
         @sizes = @artwork.sizes
     end
 
@@ -91,13 +91,18 @@ class ArtworksController < ApplicationController
         prints = []
 
         if params[:original_size]
-            height, width = Print.height_and_width(params[:original_size])
-            ratio = Float(height)/Float(width)
+            begin
+                height, width = Print.height_and_width(params[:original_size])
+                ratio = Float(height)/Float(width)
+            rescue
+                flash.now[:error] = "Invalid size specified for artwork"
+                return false
+            end
 
             # select option it is closer to: 3:4 or 2:3.
             ratio = ratio > 0.733333 ? "16x20" : "12:18"
         else
-            flash[:error] = "No size specified."
+            flash.now[:error] = "No size specified."
         end
 
         if params[:enable_s]
@@ -122,10 +127,13 @@ class ArtworksController < ApplicationController
         prints << Print.create(:price => params[:original_price], :size_name => "original", :material => "original", :dimensions => params[:original_size])
         
         @artwork.prints = prints
+
+        return true
     end
 
     def make_print(size_name, dimensions, material)
-        price = DefaultPrice.where(:dimension => dimensions, :material => material).first.price
+        price = DefaultPrice.where(:dimension => dimensions, :material => material).first
+        flash.now[:config_error] = "Default price has not been set for this material and dimension combination" unless price
 
         print = Print.create :price => price, :size_name => size_name, :material => material, :dimensions => dimensions
         if not print.valid?

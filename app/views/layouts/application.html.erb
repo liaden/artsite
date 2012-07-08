@@ -21,6 +21,10 @@
 <div class="alert alert-error"><%= h flash[:error] -%></div>
 <% end -%>
 
+<% if flash[:config_error] -%>
+<div class="alert alert-error"><%= h flash[:error] -%></div>
+<% end -%>
+
 <% if flash[:notice] -%>
 <div class="alert alert-info"><%= h flash[:notice] -%></div>
 </div>
