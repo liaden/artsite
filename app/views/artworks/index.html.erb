@@ -21,11 +21,11 @@
         </ul>
     </div>
     <div class="span4">
-        <div class="well">
+        <div class="alert alert-success">
             <h3 class="muted">Mediums</h3>
             <%= render :partial => 'partials/mediums', :locals => {:medium => Medium.all} -%>
         </div>
-        <div class="well">
+        <div class="alert alert-success">
             <h3 class="muted">Tags</h3>
             <%= render :partial => 'partials/tags', :locals => {:tags => Tag.all} -%>
         </div>

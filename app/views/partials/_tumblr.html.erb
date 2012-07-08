@@ -3,11 +3,18 @@
 <h1>Tumblr</h1>
 </div>
 
+<div class="row">
+</div>
+
 <% @tumbles.each do |tumble| -%>
+    <div class="alert alert-success">
     <% if tumble.type == "photo" -%>
-    <p><img src="<%= tumble.photo_url -%>"><%= tumble.photo_caption.html_safe -%></p>
+        <p><img src="<%= tumble.photo_url -%>"><%= tumble.photo_caption.html_safe -%></p>
     <% elsif tumble.type == "regular" -%>
-    <p><%= tumble.regular_title -%></p>
-    <p><%= tumble.regular_body.html_safe -%></p>
+        <div class="page-header">
+        <h3 class="muted"><%= tumble.regular_title -%></h3>
+        </div>
+        <p><%= tumble.regular_body.html_safe -%></p>
     <% end -%>
+    </div>
 <% end -%>
