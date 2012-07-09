@@ -30,6 +30,8 @@ end %>
           <li class="<%= active?(caller, 'Resume') -%>"><a href="/art_resume">Resume</a></li>
           <li class="divider-vertical" style="margin:0px"></li>
           <li class="<%= active?(caller, 'Schedule') -%>"><%= link_to "Schedule", schedule_path -%></li>
+          <li class="divider-vertical" style="margin:0px"></li>
+          <li class="<%= active?(caller, 'Commission') -%>"><%= link_to "Comission", new_commission_path -%></li>
         </ul>
         <ul class="nav" style="float:right;">
               <li><a href='/cart'>Cart</a></li>

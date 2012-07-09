@@ -23,4 +23,10 @@ class OrderMailer < ActionMailer::Base
 
         mail :to => "archaicsmiles@gmail.com", :subject => "Purchase #{@order.id} has been placed."
     end
+
+    def commission_order(commission)
+        @commission = commission
+
+        mail :to => "archaicsmiles@gmail.com", :subject => "Commission Idea from #{commission.customer}"
+    end
 end

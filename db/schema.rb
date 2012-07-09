@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120708012400) do
+ActiveRecord::Schema.define(:version => 20120708233637) do
 
   create_table "addresses", :force => true do |t|
     t.string   "recipient"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(:version => 20120708012400) do
   end
 
   add_index "artworks", ["slug"], :name => "index_artworks_on_slug", :unique => true
+
+  create_table "commissions", :force => true do |t|
+    t.string   "customer"
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "medium"
+    t.text     "comments"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "email"
+  end
 
   create_table "default_prices", :force => true do |t|
     t.string  "dimension"

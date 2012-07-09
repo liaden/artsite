@@ -1,0 +1,47 @@
+<p>This form is meant as a starting point in discussing your commission. You can also send me a quick email at <%= mail_to "archaicsmiles@gmail.com", "archaicsmiles@gmail.com" -%> if you would prefer.</p>
+<p>While price varies based upon size, media, and general complexity, typically the price ranges from $200.00 to $1,000.00.</p>
+<br />
+<%= form_for @commission, :html => {:class => "form-horizontal"} do |f| -%>
+    <fieldset>
+    <div class="control-group">
+        <%= f.label :customer, "Your name", :class => "control-label" -%>
+        <div class="controls"><%= f.text_field :customer, :class => "span4" -%></div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :medium, "Media used", :class => "control-label" -%>
+        <div class="controls">
+            <%= f.text_field :medium, :class => "span4" -%><p class="help-inline">Can be more than one</p>
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <%= f.label :size, "Desired Size: Width", :class => "control-label" -%>
+        <div class="controls">
+            <div class="input-append">
+            <%= f.text_field :width, :class => "span2" -%><span class="add-on">inches</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :size, "Desired Size: Height", :class => "control-label" -%>
+        <div class="controls">
+            <div class="input-append">
+            <%= f.text_field :height, :class => "span2" -%><span class="add-on">inches</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :comments, "Additional Information", :class => "control-label" -%>
+        <div class="controls">
+            <%= f.text_area :comments, :rows => 5, :class => "span5" -%>
+        </div>
+    </div>
+    
+    <div class="form-actions">
+        <%= f.submit "Send", :class => "btn btn-primary" -%>
+    </div>
+    </fieldset>
+<% end -%>
