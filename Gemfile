@@ -17,6 +17,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# caching
+gem 'dalli'
+
 gem 'authlogic'
 gem 'friendly_id'
 

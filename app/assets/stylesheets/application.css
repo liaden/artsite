@@ -11,6 +11,9 @@
  *= require_self
 */
 
+
+.well { border: 1px solid black; }
+
 // 40 px less than the default
 .print-order-label { width: 100px; }
 

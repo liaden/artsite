@@ -2,6 +2,10 @@ require 'twitter'
 require 'tumblr4r'
 
 class ArtworksController < ApplicationController
+
+    caches_action :index
+    caches_action :show
+
     def index
         @artworks = Artwork.all
     end
@@ -20,6 +24,8 @@ class ArtworksController < ApplicationController
 
     def create
         return redirect_to :action => :index unless admin?
+
+        expire_action :action => :index
 
         @artwork = Artwork.new(params[:artwork])
 
@@ -54,6 +60,8 @@ class ArtworksController < ApplicationController
 
     def update
         return redirect_to :action => :index unless admin?
+        
+        expire_action :action => :index
 
         @artwork = Artwork.find(:params[:id])
 
@@ -62,6 +70,9 @@ class ArtworksController < ApplicationController
     end
 
     def destroy
+        return redirect_to :action => :index unless admin?
+        
+        expire_action :action => :index
     end
 
     def caller
