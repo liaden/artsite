@@ -3,7 +3,7 @@ if Rails.env.development? or Rails.env.test?
 end
 
 ActionMailer::Base.smtp_settings = {
-    :address => 'smtp.sendgrid.com',
+    :address => 'smtp.sendgrid.net',
     :port => '587',
     :authentication => :plain,
     :user_name => ENV['SENDGRID_USERNAME'],
