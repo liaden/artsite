@@ -13,6 +13,7 @@ prints =
             dimension = words[2]
 
             price = (Number) $('#'+material+'_'+dimension+'_price').text()
+            alert
 
             if material == 'photopaper'
                 # we have frames to handle as well
@@ -23,6 +24,8 @@ prints =
                         price = price + (Number) $(price_id).text()
 
                         $('#'+material+'_total_amount').text('$'+price+'.00')
+            else
+                $('#'+material+'_total_amount').text('$'+price+'.00')
             
         $('input[class^="framing_"]').change ->
 
