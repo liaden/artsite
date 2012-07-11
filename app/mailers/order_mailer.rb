@@ -29,8 +29,8 @@ class OrderMailer < ActionMailer::Base
 
         recipients "Holly Morningstar <archaicsmiles@gmail.com>"
         sent_on Time.now
-        from "no-reply@archaicsmiles.com"
+        from "ArchaicSmiles <no-reply@archaicsmiles.com>"
+        subject "Commission Idea from #{commission.customer}"
 
-        mail :subject => "Commission Idea from #{commission.customer}"
     end
 end
