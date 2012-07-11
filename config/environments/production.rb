@@ -51,7 +51,7 @@ ArchaicSmiles::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
-  config.action.action_mailer.logger = logger
+  config.action_mailer.logger = logger
   config.mailer_sender = "no-reply@archaicsmiles.com"
 
   # Enable threaded mode
