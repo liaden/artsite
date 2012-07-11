@@ -27,10 +27,7 @@ class OrderMailer < ActionMailer::Base
     def commission_order(commission)
         @commission = commission
 
-        recipients "Holly Morningstar <archaicsmiles@gmail.com>"
-        sent_on Time.now
-        from "ArchaicSmiles <no-reply@archaicsmiles.com>"
-        subject "Commission Idea from #{commission.customer}"
+        mail :to => "Holly Morningstar <archaicsmiles@gmail.com>", :subject => "Commission Idea from #{commission.customer}"
 
     end
 end
