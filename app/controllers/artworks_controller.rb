@@ -40,6 +40,8 @@ class ArtworksController < ApplicationController
             end
 
         end
+
+        @artwork = Artwork.new
         render :action => :new
     end
 
