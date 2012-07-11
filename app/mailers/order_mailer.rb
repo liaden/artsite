@@ -1,5 +1,5 @@
 class OrderMailer < ActionMailer::Base
-    default from: "archaicsmiles@gmail.com"
+    default :from => "no-reply@archaicsmiles.com"
     
     def order_receipt(order)
         
