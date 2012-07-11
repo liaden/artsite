@@ -6,7 +6,7 @@ class CommissionsController < ApplicationController
     def create()
         @commission = Commission.new params[:commission]
         if @commission.save
-            OrderMailer.commission_order(@commission)
+            OrderMailer.commission_order(@commission).deliver
             flash[:notice] = "Idea has been sent. Thank you!"
         end
         redirect_to :controller => :main, :action => :index

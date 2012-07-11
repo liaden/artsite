@@ -134,9 +134,9 @@ class CartController < ApplicationController
             if @order.save
                 if params[:send_email]
                     logger.debug "Sending email"
-                    OrderMailer.order_receipt(@order)
+                    OrderMailer.order_receipt(@order).deliver
                 end
-                OrderMailer.order_notification(@order)
+                OrderMailer.order_notification(@order).deliver
                 return render :action => :receipt
             end
         end
