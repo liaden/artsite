@@ -15,9 +15,12 @@
             </div>
         <% end -%>
         <ul class="thumbnails">
-        <% @artworks.each do |artwork| -%>
-            <%= render :partial => 'partials/artwork_thumbnail', :locals => { :artwork => artwork } -%>
-        <% end -%>
+            <li class="span5">
+                <%= link_to image_tag(@artworks[0].image.url(:carousel)), @artworks[0], :class => 'thumbnail' -%>
+            </li>
+            <% @artworks[1..-1].each do |artwork| -%>
+                <%= render :partial => 'partials/artwork_thumbnail', :locals => { :artwork => artwork } -%>
+            <% end -%>
         </ul>
     </div>
     <div class="span4">

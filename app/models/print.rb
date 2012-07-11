@@ -15,6 +15,16 @@ class Print < ActiveRecord::Base
         end
     end
 
+    def print_type
+        if material == "photopaper"
+            "Art Print"
+        elsif material == "canvas"
+            "Canvas Print"
+        else
+            "Original Artwork"
+        end
+    end
+
     def original?
         material == "original"
     end

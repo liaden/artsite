@@ -21,8 +21,29 @@
     color: rgb(100, 100,100);
 }
 
+.dt-thinner {
+    width: 50px;
+}
+
+.dd-thinner {
+    margin-left:60px;
+}
+
+.checkout-thumbnail { 
+    border: 1px solid black;
+    background-color: rgb(245, 245, 245); // same as well
+}
+
 .darker-bottom {
     border-bottom-color: rgb(202, 202, 202);
+}
+
+.checkout-button {
+    float: right;
+}
+
+.remove-button {
+    text-align:right;
 }
 
 .black { color: rgb(0, 0, 0); }

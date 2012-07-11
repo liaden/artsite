@@ -2,7 +2,7 @@ class Artwork < ActiveRecord::Base
     validates :title, :description, :image_file_name, :presence => true
 
     has_attached_file :image, 
-                      :styles => { :carousel => "400x200", :thumbnail => "80x80" },
+                      :styles => { :carousel => "500x500", :thumbnail => "100x100" },
                       :storage => :s3,
                       :bucket => ENV['S3_BUCKET_NAME'],
                       :s3_credentials => {

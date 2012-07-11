@@ -7,7 +7,7 @@ class ArtworksController < ApplicationController
     caches_action :show
 
     def index
-        @artworks = Artwork.all
+        @artworks = Artwork.find( :all, :order => "created_at DESC")
     end
 
     def new
