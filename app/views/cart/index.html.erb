@@ -3,24 +3,30 @@
 <%= render 'print_list' -%>
 <%= render 'lesson_list' -%>
 
-<div class="row">
+<div class="row" style="border-top:1px solid rgb(238, 238, 238)">
     <div class="span4 offset8">
         <% if not @order.empty_cart? -%> 
+            <br />
             <table class="table table-condensed ">
             <thead>
                 <tr><th>&nbsp;</th><th class="amount-column">Amount</th></tr>
             </thead>
             <tbody>
-                <tr><td>Shipping:</td><td id="shipping-amount" class="amount-column"><%= number_to_currency @shipping -%></td></tr>
-                <tr><td>Total: </td><td id="total-amount" class="amount-column"><%= number_to_currency(@order.total + @shipping) -%></td></tr>
+                <tr><td><strong>Shipping</strong></td><td id="shipping-amount" class="amount-column"><%= number_to_currency @shipping -%></td></tr>
+                <tr><td><strong>Total</strong></td><td id="total-amount" class="amount-column"><%= number_to_currency(@order.total + @shipping) -%></td></tr>
             </tbody>
             </table>
+            <br />
+        <p>Note: all orders $50 or more receive free shipping.</p>
+        
         <% end -%>
 
-        <p>Note: all orders $50 or more receive free shipping.</p>
 
         <%= link_to  "#{"Guest "if not @user }Checkout", checkout_path, :class => "btn btn-primary" if @order.lessons.size > 0 or @order.prints.size > 0 -%>
     </div>
+    <% if @order.empty_cart? -%>
+        <p>Note: all orders $50 or more receive free shipping.</p>
+    <% end -%>
 </div>
 
 

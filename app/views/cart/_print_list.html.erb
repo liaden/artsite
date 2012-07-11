@@ -22,7 +22,7 @@
                         <dt style="<%= dt_style -%>">Framing</dt><dd style="<%= dd_style -%>"><%= render 'framing_display' -%></dd>
                         <dt style="<%= dt_style -%>">Price</dt><dd style="<%= dd_style -%>"><%= number_to_currency @print_order.price -%></dd>
                     </dl>
-                    <%= link_to 'Remove', remove_path(@print), :class => 'btn btn-danger' -%>
+                    <%= link_to 'Remove', remove_path(@print), :class => 'btn btn-danger remove-button' -%>
                 </div>
             </div> 
         </li>
