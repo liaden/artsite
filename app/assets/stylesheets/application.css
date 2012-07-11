@@ -41,6 +41,11 @@
 .checkout-button {
 }
 
+#new_artwork {
+    float:left;
+    margin-right: 2em;
+}
+
 .remove-button {
 }
 

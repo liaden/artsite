@@ -12,6 +12,7 @@
   <%= yield :javascript -%>
   <%= csrf_meta_tags -%>
   <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
+  <%= yield :og -%>
 </head>
 <body>
 

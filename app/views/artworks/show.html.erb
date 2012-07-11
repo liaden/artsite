@@ -2,6 +2,15 @@
   javascript_include_tag "artwork" 
 end -%>
 
+<%= content_for :og do -%>
+    <%= tag :meta, :property => "og:title", :content => @artwork.title %>
+    <%= tag :meta, :property => "og:type", :content => :article %>
+    <%= tag :meta, :property => "og:url", :content => "http://www.archaicsmiles.com#{url_for(@artwork)}" %>
+    <%= tag :meta, :property => "og:image", :content => @artwork.image.url(:thumbnail) %>
+    <%= tag :meta, :property => "og:site_name", :content => "ArchaicSmiles" %>
+    <%= tag :meta, :property => "og:description", :content => @artwork.description %>
+<% end -%>
+
 <div class="container">
 <div class="row-fluid">
     <div class="span8">
@@ -10,13 +19,16 @@ end -%>
         <%= render :partial => 'partials/mediums', :locals => {:medium => @artwork.medium} -%>
         </div>
         <%= image_tag @artwork.image.url -%>
-        <div c;ass="row-fluid">
+        <div class="row-fluid">
             <div class="well span8">
                 <h3>Description</h3><p><%= @artwork.description -%></p> 
             </div>
             <div class="well span4">
                 <%= render :partial => 'partials/tags', :locals => {:tags => @artwork.tags} -%>
             </div>
+        </div>
+        <div class="row">
+<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.archaicsmiles.com<%= CGI.escape(url_for(@artwork)) -%>&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
         </div>
     </div>
     <div class="span4">

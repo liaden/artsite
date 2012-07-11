@@ -1,10 +1,27 @@
 
+<%= content_for :og do -%>
+    <%= tag :meta, :property => "og:title", :content => "ArchaicSmiles" %>
+    <%= tag :meta, :property => "og:type", :content => :website %>
+    <%= tag :meta, :property => "og:url", :content => "http://www.archaicsmiles.com" %>
+    <%= tag :meta, :property => "og:site_name", :content => "ArchaicSmiles" %>
+    <%= tag :meta, :property => "og:description", :content => "The art of Holly Morningstar" %>
+<% end -%>
+
 <div class="container">
 <div class="row-fluid">
 <div class="page-header">
     <h1>ArchaicSmiles: <small>The Art of Holly Morningstar</small></h1>
 </div>
 <%= render :partial => "partials/art_carousel", :locals => { :artworks => @artworks } %>
-<p></p>
+<p>Welcome, and thanks for visiting my official place on the web!  I'm Holly, and while I can't remember a time in my life when I wasn't creating something, I decided I wanted to do it professionally after my first exhibition in February, 2010 which was held at the Court Street Gallery in Saginaw, MI.  I was hooked.  I currently reside in the Huntsville area of Alabama, and have a studio located there at Lowe Mill Arts & Entertainment.  If you find yourself in the area, or live there as well, feel free to stop by and chat!  I love visitors!  I also occasionally find myself at various conventions across the United States in their Artist Alleys, and enjoy talking to everyone who stops by my table, so don't be shy!  A bit about my art:  I create with the intention of dissolving gender-based limitations and stereotypes that envelope our society, and have a particular focus on inspiring women of all ages to embrace themselves, their emotions, and dreams.  The majority of my artwork carries the message of love, and love has always been one of my biggest motivators in the creation process.</p>
+
+<p>In addition to art, I love baking cupcakes (I'm a Food Network addict), and working with my two rescue dogs, Gulliver and Dremy (also known as "Duffy" or "Duff").  You can read about my adventures and shenanigans in addition to art-related stuff in the News section of the site.</p>
+
+
+<p>Thanks again!</p>
+
+</div>
+<div class="row">
+<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.archaicsmiles.com&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>"
 </div>
 </div>
