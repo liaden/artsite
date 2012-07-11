@@ -50,8 +50,8 @@ ArchaicSmiles::Application.configure do
   # config.assets.precompile += %w( search.js )
 
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
-  
+  config.action_mailer.raise_delivery_errors = true
+  config.action.action_mailer.logger = logger
   config.mailer_sender = "no-reply@archaicsmiles.com"
 
   # Enable threaded mode
