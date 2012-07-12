@@ -1,7 +1,8 @@
-<div style="border-left: 1px solid rgb(221,221,221);border-right: 1px solid rgb(221, 221, 221); padding-top:1em">
 <% if prints.size == 0 -%>
-    <p> No canvas prints are available for this size. </p>
+    <div style="border: 1px solid rgb(221,221,221);border-top:0px;padding-top:2em;">
+    <p style="margin:2em;margin-top:0px"> No canvas prints are available for this size. </p>
 <% else -%>
+    <div style="border: 1px solid rgb(221,221,221);border-top:0px; border-bottom: 0px;padding-top:2em;">
     <%= form_tag(purchase_path, :method => :post, :class => "form-horizontal") do %>
         <input id="transaction_type" type="hidden" value="artwork" name="transaction_type">
         <input id="material" type="hidden" value="<%= prints[0].material -%>" name="material">
@@ -67,7 +68,6 @@
             <% end -%>
         <% end -%> 
 
-        <% # Description of disabled state for form -%>
 
         <% # Purchase button and totals amount -%>
         <div class='form-actions' style="padding-left:120px;">
@@ -78,33 +78,10 @@
         </div>
 
     <% end -%>
-    </div>
 
-    <% # Don't write anything for originals -%>
-    <% if not prints[0].original? -%>
-        <div style="display:none">
+    <%= render :partial => 'price_data', :locals => { :prints => prints } -%>
 
-        <% # write out prices for frames for standard prints -%>
-        <% if prints[0].material == "photopaper" -%>
-            <ul>
-                <% prints.each do |print| -%>
-                    <% [ ["noframe", "no_frame"], ["075", "0.75"], ["200", "2.00"] ].each do |frame_size| -%>
-                        <li id="<%= "#{print.material}_#{print.dimensions}_#{frame_size[0]}_framing_price" -%>" ><%= 
-                            PrintOrder.frame_price(print.dimensions, frame_size[1])/1.0
-                        -%></li>
-                    <% end -%>
-                <% end -%>
-            </ul>
-        <% end -%>
-
-
-        <% # write out prices for various dimensions and materials -%>
-        <ul>
-            <% @artwork.prints.each do |print| -%>
-                <li id="<%= "#{print.material}_#{print.dimensions}_price" -%>"><%= print.price -%></li>
-            <% end -%>
-        </ul>
-
-        </div>
-    <% end -%>
 <% end -%>
+</div>
+
+

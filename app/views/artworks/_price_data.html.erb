@@ -1,0 +1,28 @@
+<% # Don't write anything for originals -%>
+<% if not prints[0].original? -%>
+    <div style="display:none">
+
+    <% # write out prices for frames for standard prints -%>
+    <% if prints[0].material == "photopaper" -%>
+        <ul>
+            <% prints.each do |print| -%>
+                <% [ ["noframe", "no_frame"], ["075", "0.75"], ["200", "2.00"] ].each do |frame_size| -%>
+                    <li id="<%= "#{print.material}_#{print.dimensions}_#{frame_size[0]}_framing_price" -%>" ><%= 
+                        PrintOrder.frame_price(print.dimensions, frame_size[1])/1.0
+                    -%></li>
+                <% end -%>
+            <% end -%>
+        </ul>
+    <% end -%>
+
+
+    <% # write out prices for various dimensions and materials -%>
+    <ul>
+        <% @artwork.prints.each do |print| -%>
+            <li id="<%= "#{print.material}_#{print.dimensions}_price" -%>"><%= print.price -%></li>
+        <% end -%>
+    </ul>
+
+    </div>
+<% end -%>
+
