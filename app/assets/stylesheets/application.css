@@ -21,6 +21,10 @@
     color: rgb(100, 100,100);
 }
 
+.art-thumbnail {
+    min-height:100px;
+}
+
 .dt-thinner {
     width: 50px;
 }
