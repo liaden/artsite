@@ -193,6 +193,7 @@ class CartController < ApplicationController
         if params[:material] == 'original' 
             @print = Print.where(:material => "original", :artwork_id => params[:item_id]).first
             flash.now[:error] = "Could not find original in database." unless @print
+            flash.now[:error] = "Not currently available" if @print.is_on_show? or @print.is_sold_out?
         elsif params[:size] =~ /\d+x\d+/
             if params[:item_id] =~ /\d+/
                 if params[:material] == 'photopaper' or params[:material] == 'canvas' 
@@ -209,11 +210,13 @@ class CartController < ApplicationController
         end
 
         if @print
-            @order.prints << @print
-            @order.save
+            if not @print.is_on_show? and not @print.is_sold_out? 
+                @order.prints << @print
+                @order.save
 
-            purchase_frame params[:framing]
-            logger.debug "Added print #{@print.id} to cart."
+                purchase_frame params[:framing]
+                logger.debug "Added print #{@print.id} to cart."
+            end
         end
 
         # render gallery so they can shop some more
