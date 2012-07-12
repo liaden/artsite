@@ -1,5 +1,5 @@
 <div style="border-left: 1px solid rgb(221,221,221);border-right: 1px solid rgb(221, 221, 221); padding-top:1em">
-<%= if prints.size == 0 -%>
+<% if prints.size == 0 -%>
     <p> No canvas prints are available for this size. </p>
 <% else -%>
     <%= form_tag(purchase_path, :method => :post, :class => "form-horizontal") do %>
