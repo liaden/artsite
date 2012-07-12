@@ -4,6 +4,7 @@
     <input id="material" type="hidden" value="<%= prints[0].material -%>" name="material">
     <input id="item_id" type="hidden" value="<%= prints[0].artwork.id -%>" name="item_id">
 
+    <% enabled = true -%>
     <% if prints[0].original? -%>
         <% original = prints[0] -%>
         <% if original.is_sold_out? -%>
@@ -18,14 +19,12 @@
         <div class="control-group">
             <%= label_tag :sizes, "Size", :class=> "control-label" -%>
             <div class="controls">
-                <label class="radiobutton"><%= radio_button_tag nil, :enabled => enabled -%> 
+                <label class="radiobutton"><%= radio_button_tag nil, :disabled => !enabled -%> 
                     <%= original.dimensions -%>
                 </label>
             </div>
         </div>
     <% else -%>
-        <% enabled = true -%>
-
         <% # Size selection -%>
         <div class="control-group">
             <%= label_tag :sizes, "Sizes", :class => "control-label print-order-label", :style => "width:100px;" -%>
@@ -70,7 +69,7 @@
     <div class='form-actions' style="padding-left:120px;">
         <p>Total: <span id="<%= "#{prints[0].material}_total_amount" -%>"><%= number_to_currency prints[0].price  -%></span></p>
         <% if not prints[0].is_sold_out? -%>
-        <%=  submit_tag "Add to Cart", :enabled => enabled, :class => "btn btn-primary" -%>
+        <%=  submit_tag "Add to Cart", :disabled => ! enabled, :class => "btn btn-primary" -%>
         <% end -%>
     </div>
 
