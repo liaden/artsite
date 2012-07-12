@@ -118,20 +118,20 @@ class CartController < ApplicationController
         begin
         charge = Stripe::Charge.create :amount => to_cents(@total_amount), :currency => "usd", :card => params[:stripe_card_token], :description => "#{@email}"
         rescue => e
-            flash[:error] = e.class == Stripe::CardError ? e.message : "An unexpected error has occurred"
+            flash.now[:error] = e.class == Stripe::CardError ? e.message : "An unexpected error has occurred"
             return render :action => :checkout
         end
 
         logger.debug "*** charge is #{charge}"
 
         if charge.card.cvc_check == "fail"
-            flash[:cvc_error] = "Invalid CVC supplied."
+            flash.now[:cvc_error] = "Invalid CVC supplied."
         elsif  charge.card.address_zip_check == "fail"
-            flash[:zip_error] = "Invalid zip code"
+            flash.now[:zip_error] = "Invalid zip code"
         elsif charge.card.address_line1_check == "fail"
-            flash[:line1_error] = "Invalid address on line1"
+            flash.now[:line1_error] = "Invalid address on line1"
         elsif not charge.paid
-            flash[:error] = "Error: #{charge.failure_message}"
+            flash.now[:error] = "Error: #{charge.failure_message}"
         else
             @order.charge_id = charge.id
             @order.state = "closed"
