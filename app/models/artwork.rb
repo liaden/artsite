@@ -49,16 +49,23 @@ class Artwork < ActiveRecord::Base
         price_point.price
     end
 
-
     def canvases
-        prints.select { |print| print.material == "canvas" }
+        prints.where(:material => "canvas" ).sort { |x, y| sort_predicate(x, y) }
     end
 
     def photopapers
-        prints.select { |print| print.material == "photopaper" }
+        prints.where(:material => "photopaper").sort { |x, y| sort_predicate(x, y) }
     end
 
     def original
-        prints.find { |print| print.material == "original" } 
+        prints.where(:material => "original").first
+    end
+
+    def sort_predicate(a1, a2)
+        h1, w1 = a1.height_and_width             
+        h2, w2 = a2.height_and_width
+
+        return w1 <=> w2 if h1 == h2
+        return h1 <=> h2
     end
 end
