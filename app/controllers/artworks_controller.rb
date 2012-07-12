@@ -86,7 +86,7 @@ class ArtworksController < ApplicationController
     def set_tags
         @artwork.tags = []
         params[:tags].split(',').each do |tag_name|
-            tag = Tag.find_or_create_by_name tag_name
+            tag = Tag.find_or_create_by_name tag_name.strip
             @artwork.tags << tag
         end
     end
@@ -94,7 +94,7 @@ class ArtworksController < ApplicationController
     def set_medium
         @artwork.medium = []
         params[:mediums].split(',').each do |media_name|
-            media = Medium.find_or_create_by_name media_name
+            media = Medium.find_or_create_by_name media_name.strip
             @artwork.medium << media
         end
     end
