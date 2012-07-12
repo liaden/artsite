@@ -20,7 +20,7 @@ class PrintOrder < ActiveRecord::Base
     end
 
     def frame_price
-        return 0 if print.original? or frame_size == :no_frame
+        return 0 if print.original? or frame_size == "no_frame"
 
         height, width = Print.height_and_width print.dimensions
 
