@@ -91,7 +91,12 @@ class CartController < ApplicationController
         @order.address.save
         
         if current_user
-            current_user.address.update_attributes params[:address]
+            if current_user.address
+                current_user.address.update_attributes params[:address]
+            else
+                current_user.address = Address.create params[:address]
+            end
+
             current_user.address.save
         end
 
@@ -212,7 +217,7 @@ class CartController < ApplicationController
         end
 
         # render gallery so they can shop some more
-        @artworks = Artwork.all
+        @artworks = Artwork.find( :all, :order => "created_at DESC")
         render 'artworks/index', :notice => 'Item has been added to the cart.'
 
     end
