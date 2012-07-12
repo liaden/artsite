@@ -136,7 +136,8 @@ class ArtworksController < ApplicationController
             make_print("extra_large", Print.ratio_to_xlarge(ratio), "canvas", prints)
         end
         
-        prints << Print.create(:price => params[:original_price], :size_name => "original", :material => "original", :dimensions => params[:original_size])
+        is_sold_out = params[:is_sold_out] != nil
+        prints << Print.create(:price => params[:original_price], :size_name => "original", :material => "original", :dimensions => params[:original_size], :is_sold_out => is_sold_out)
         
         @artwork.prints = prints
 

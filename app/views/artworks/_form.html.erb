@@ -34,6 +34,13 @@
     </div>
 
     <div class="control-group">
+        <%= label_tag :is_sold_out, "NFS?", :class => "control-label" -%>
+        <div class="controls">
+            <%= check_box_tag :is_sold_out, "yes", false -%>
+        </div>
+    </div>
+
+    <div class="control-group">
         <%= label_tag :original_size, "Price of Original", :class => "control-label" -%>
         <div class="controls">
             <%= text_field_tag :original_price, "", :class => "span2" -%>
