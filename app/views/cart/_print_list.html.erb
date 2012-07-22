@@ -9,12 +9,13 @@
     <% @order.print_orders.each do |print_order| -%>
         <% @print_order = print_order -%>
         <% @print = print_order.print -%>
-        <li class="span3">
+        <li class="checkout-item">
             <div class="thumbnail checkout-thumbnail" >
-                <%= image_tag @print.artwork.image.url(:thumbnail) -%>
+                <%= image_tag @print.artwork.image.url(:thumbnail), :style => "float:left;margin-top:4px; margin-left:4px" -%>
+                    <%= link_to 'x', remove_path(@print), :class => 'btn btn-danger remove-button', :style => "float:right;margin-bottom:30px;margin-right:6px;margin-top:6px" -%><br />
                 <% dt_style = "width:60px;" 
                    dd_style = "margin-left:70px" -%>
-                <div class="caption">
+                <div class="caption" style="margin-top:50px;">
                     <h4><%= @print.artwork.title -%></h4>
                     <dl class="dl-horizontal">
                         <dt style="<%= dt_style -%>">Size</dt><dd style="<%= dd_style -%>"><%= @print.dimensions -%></dd>
@@ -22,7 +23,6 @@
                         <dt style="<%= dt_style -%>">Framing</dt><dd style="<%= dd_style -%>"><%= render 'framing_display' -%></dd>
                         <dt style="<%= dt_style -%>">Price</dt><dd style="<%= dd_style -%>"><%= number_to_currency @print_order.price -%></dd>
                     </dl>
-                    <%= link_to 'Remove', remove_path(@print), :class => 'btn btn-danger remove-button' -%>
                 </div>
             </div> 
         </li>

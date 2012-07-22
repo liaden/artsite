@@ -1,8 +1,6 @@
 <% if prints.size == 0 -%>
-    <div style="border: 1px solid rgb(221,221,221);border-top:0px;padding-top:2em;">
     <p style="margin:2em;margin-top:0px"> No canvas prints are available for this artwork. </p>
 <% else -%>
-    <div style="border: 1px solid rgb(221,221,221);border-top:0px; border-bottom: 0px;padding-top:2em;">
     <%= form_tag(purchase_path, :method => :post, :class => "form-horizontal") do %>
         <input id="transaction_type" type="hidden" value="artwork" name="transaction_type">
         <input id="material" type="hidden" value="<%= prints[0].material -%>" name="material">
@@ -82,6 +80,5 @@
     <%= render :partial => 'price_data', :locals => { :prints => prints } -%>
 
 <% end -%>
-</div>
 
 

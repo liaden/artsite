@@ -14,7 +14,7 @@
                 <h1>Gallery</h1>
             </div>
         <% end -%>
-        <% offsetPercentage = "2.12766%" -%>
+        <% offsetPercentage = "2.1276%" -%>
         <ul class="thumbnails">
             <li class="span4" style="margin-right: <%= offsetPercentage -%>">
                 <%= link_to image_tag(@artworks[0].image.url(:carousel)), @artworks[0], :class => 'thumbnail' -%>
@@ -25,11 +25,11 @@
         </ul>
     </div>
     <div class="span3">
-        <div class="well">
+        <div class="alert alert-info">
             <h3 class="black">Mediums</h3>
             <%= render :partial => 'partials/mediums', :locals => {:medium => Medium.all} -%>
         </div>
-        <div class="well">
+        <div class="alert alert-info">
             <h3 class="black">Tags</h3>
             <%= render :partial => 'partials/tags', :locals => {:tags => Tag.all} -%>
         </div>

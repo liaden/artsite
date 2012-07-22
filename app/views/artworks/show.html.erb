@@ -14,16 +14,17 @@ end -%>
 <div class="container">
 <div class="row-fluid">
     <div class="span8">
-        <div class="row-fluid"><span><h1><%= @artwork.title -%><small><%= admin_edit(@artwork) -%></small></h1>
+        <div class="row-fluid">
+            <h1><%= @artwork.title -%><small><%= admin_edit(@artwork) -%></small></h1>
 
         <%= render :partial => 'partials/mediums', :locals => {:medium => @artwork.medium} -%>
         </div>
         <%= image_tag @artwork.image.url -%>
         <div class="row-fluid">
-            <div class="well span8">
+            <div class="alert alert-info span8">
                 <h3>Description</h3><p><%= @artwork.description -%></p> 
             </div>
-            <div class="well span4">
+            <div class="alert alert-info span4">
                 <%= render :partial => 'partials/tags', :locals => {:tags => @artwork.tags} -%>
             </div>
         </div>

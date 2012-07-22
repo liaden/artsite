@@ -2,19 +2,25 @@
 
 <div class="tabbable">
     <ul id="print-tabs" class="nav nav-tabs">
-        <li class="active"><a href="#artprints" data-toggle="tab">Art Prints</a></li>
-        <li><a href="#canvasprints" data-toggle="tab">Canvas Prints</a></li>
-        <li><a href="#original" data-toggle="tab">Original</a></li>
+        <li class="active art-tab"><a href="#artprints" data-toggle="tab" style="margin-right:-3px">Art Prints</a></li>
+        <li class="art-tab"><a href="#canvasprints" data-toggle="tab" style="margin-right:-3px">Canvas Prints</a></li>
+        <li class="art-tab"><a href="#original" data-toggle="tab" style="margin-right:-3px">Original</a></li>
     </ul>
-    <div class="tab-content" style="background-color:rgb(255,255,255);padding-bottom:0px;">
+    <div class="tab-content" style="padding-bottom:0px;">
         <div class="tab-pane active" id="artprints">
+            <div class="content-box">
             <%= render :partial => 'print_form', :locals => { :prints => @artwork.photopapers } -%>
+            </div>
         </div>
         <div class="tab-pane" id="canvasprints">
+            <div class="content-box"">
             <%= render :partial => 'print_form', :locals => { :prints => @artwork.canvases } -%>
+            </div>
         </div>
         <div class="tab-pane" id="original">
+            <div class="content-box">
             <%= render :partial => 'print_form', :locals => { :prints => [@artwork.original] } -%>
+            </div>
         </div>
     </div>
 </div>

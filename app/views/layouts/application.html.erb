@@ -3,15 +3,15 @@
 <head>
   <title>ArchaicSmiles</title>
   <%= yield :css  -%>
-  <%= stylesheet_link_tag  "bootstrap-wrapper", :media => "all" %>
   <%= stylesheet_link_tag  "application", :media => "all" %>
   <% if controller.checking_out? -%>
       <%= javascript_include_tag("https://js.stripe.com/v1/") %>
-  <% end %>
+  <% end -%>
   <%= javascript_include_tag("application") %>
   <%= yield :javascript -%>
-  <%= csrf_meta_tags -%>
+  <%= csrf_meta_tags %>
   <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= yield :og -%>
 </head>
 <body>

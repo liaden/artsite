@@ -1,6 +1,4 @@
 <% if tags.size > 0 -%>
-<p>
 <%= (tags.map { |tag| link_to tag.name, tag } * ', ').html_safe -%>
-</p>
 <% end -%>
 
