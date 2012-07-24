@@ -1,13 +1,16 @@
-<div class="container" style="margin-top:1em">
-    <div class="row">
-        <div class="span4">
-            <small>&copy; 2002-<%= Date.today.year -%> Holly Morningstar. All rights reserved.</small>
-        </div>
-        <div class="span4">
-            <p style="" class="studio-space">Studio 327 at Lowe Mill in Huntsville, AL</p>
-        </div>
-        <div class="span4">
-            <div class="pull-right">Contact me at <%= mail_to "archaicsmiles@gmail.com", "archaicsmiles@gmail.com" -%></div>
+<div class="navbar navbar-fixed-bottom">
+    <div class="navbar-inner footer">
+        <div class="container">
+            <div class="span4 copyright">
+                &copy; 2002-<%= Date.today.year -%> Holly Morningstar. All rights reserved.
+            </div>
+            <div class="span4 studio-location">
+                Studio 327 at Lowe Mill in Huntsville, AL
+            </div>
+
+            <div class="footer-contact">
+                Contact me at <%= mail_to "archaicsmiles@gmail.com", "archaicsmiles@gmail.com" -%>
+            </div>
         </div>
     </div>
 </div>

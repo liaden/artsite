@@ -102,7 +102,9 @@
 @navbarBackgroundHighlight:     @wet_sand;
 @navbarBrandColor:              @sky;
 
-@infoText:       @dark_olive;
+@footerBackgroundColor:     @sky;
+
+@infoText:       @wet_sand;
 @infoBackground: @deep_sky;
 @infoBorder:     @wet_sand;
 
@@ -116,7 +118,8 @@
 @printFormBackground:   @cream;
 @printFormTextColor:    @dark_olive;
 
-@pageHeaderBorderColor: @cream;
+@pageHeaderBorderColor: @deep_sky;
+@inAlertPageHeaderBorderColor: @dark_olive;
 
 @headerSmallTextColor: @deep_sky;
 @headingsColor:   @dark_olive;
@@ -139,6 +142,14 @@ a:hover {
 
 a:hover.brand {
     font-style:normal;
+}
+
+.alert > p > a:hover {
+    color: @alertLinkHoverColor;
+}
+
+.alert > p > a {
+    color: @alertLinkColor;
 }
 
 .nav-tabs > .active > a, .nav-tabs > .active, .nav-tabs >.active > a:hover {
@@ -187,8 +198,15 @@ a:hover.brand {
         margin-bottom: 0px;
     }
 
+
 .page-header {
     border-bottom-color: @pageHeaderBorderColor;
+}
+
+.alert-info {
+    .pageHeader {
+        border-bottom-color: @inAlertPageHeaderBorderColor;
+    }
 }
 
 .checkout-thumbnail { 
@@ -201,6 +219,7 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
     color: @headerSmallTextColor;
 }
 
+// depending on color of stripe, hovered may not be visible
 .table {
     tbody tr:hover td,
     tbody tr:hover th {
@@ -228,3 +247,50 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
 .no-background {
     background: transparent;
 }
+
+.footer {
+    background-color: @footerBackgroundColor;
+    #gradient > .vertical(@deep_sky, darken(@deep_sky, 15%) );
+    color: @dark_olive;
+    .container > div {
+        padding-top:10px;
+    }
+}
+
+.navbar-fixed-top {
+}
+
+.navbar-fixed-bottom {
+    border-top: 1px solid @wet_sand;
+}
+
+.user-controls {
+    float:right;
+}
+
+.footer-contact {
+    float: right;
+}
+
+.studio-location {
+    text-align: center;
+}
+
+// responsive styles
+@media  (max-width: 979px) {
+    .user-controls {
+        float:left;
+    }
+}
+
+@media (max-width: 979px) {
+    .footer-contact {
+        float:none;
+        text-align:center;
+    }
+
+    .copyright {
+        text-align:center;
+    }
+}
+

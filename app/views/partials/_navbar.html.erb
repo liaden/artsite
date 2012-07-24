@@ -19,8 +19,8 @@ end %>
     </a>
     <div class="container">
       <div class="nav-collapse">
-        <a class="brand" href="<%= home_path -%>">ArchaicSmiles</a>
         <ul class="nav">
+          <li><a class="brand" href="<%= home_path -%>">ArchaicSmiles</a></li>
           <li class="<%= active?(caller, 'Gallery') -%>"><%= link_to "Gallery", artworks_path -%></li>
           <li class="divider-vertical" style="margin:0px"></li>
           <li class="<%= active?(caller, 'News') -%>"><%= link_to "News", news_path -%></li>
@@ -31,18 +31,20 @@ end %>
           <li class="divider-vertical" style="margin:0px"></li>
           <li class="<%= active?(caller, 'Commission') -%>"><%= link_to "Comission", new_commission_path -%></li>
         </ul>
-        <ul class="nav" style="float:right;">
-              <li><a href='/cart'>Cart</a></li>
-              <li class="divider-vertical" style="margin:0px"></li>
-          <% if current_user -%>
-              <li><%= link_to "Logout", :logout -%></li>
-              <%= render :partial => 'partials/admin_navbar' -%>
-          <% else -%>
-              <li><%= link_to 'Login', login_path -%></li>
-              <li class="divider-vertical" style="margin:0px"></li>
-              <li><%= link_to 'Register', new_user_path -%></li>
-          <% end -%>
-        </ul>  
+        <div class="user-controls">
+            <ul class="nav">
+                  <li><a href='/cart'>Cart</a></li>
+                  <li class="divider-vertical" style="margin:0px"></li>
+              <% if current_user -%>
+                  <li><%= link_to "Logout", :logout -%></li>
+                  <%= render :partial => 'partials/admin_navbar' -%>
+              <% else -%>
+                  <li><%= link_to 'Login', login_path -%></li>
+                  <li class="divider-vertical" style="margin:0px"></li>
+                  <li><%= link_to 'Register', new_user_path -%></li>
+              <% end -%>
+            </ul>  
+        </div>
       </div>
     </div>
   </div>
