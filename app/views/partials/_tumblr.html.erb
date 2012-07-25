@@ -7,7 +7,7 @@
 </div>
 
 <% @tumbles.each do |tumble| -%>
-    <div class="alert alert-info">
+    <div class="alert alert-info news">
     <% if tumble.type == "photo" -%>
         <p><img src="<%= tumble.photo_url -%>"><%= tumble.photo_caption.html_safe -%></p>
     <% elsif tumble.type == "regular" -%>
