@@ -1,11 +1,15 @@
 <% if current_user.admin? -%>
 <li class="dropdown">
-  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Content<b class="caret"></b></a>
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin<b class="caret"></b></a>
   <ul class="dropdown-menu">
-    <li>New:</li>
+    <li><h4>New:</h4></li>
     <li><%= link_to ' Artwork', new_artwork_path -%></li>
     <li><%= link_to ' Show', new_show_path -%></li>
     <li><%= link_to ' Class', new_lesson_path -%></li>
+    <li><h4>Management:</h4></li>
+    <li> Inventory</li>
+    <li><%= link_to ' Default Prices', price_edit_path -%></li>
+    <li> Con Sales</li>
   </ul>
 </li>
 <% end -%>

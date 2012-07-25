@@ -1,0 +1,13 @@
+<div class="page-header"><h2><%= title -%></h2></div>
+
+<% items.each do |item| -%>
+    <div class="control-group">
+        <%= label_tag item.dimension, item.dimension, :class => "control-label" -%>
+        <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">$</span><%= text_field_tag "#{item.id}", number_to_currency(item.price)[1..-1]  -%>
+            </div>
+        </div>
+    </div>
+<% end -%>
+

@@ -13,6 +13,9 @@ ArchaicSmiles::Application.routes.draw do
     
     match '/index' => 'main#index', :as => :home
 
+    match '/prices/edit' => 'default_price#edit', :as => :price_edit
+    match '/prices/update' => 'default_price#update', :as => :price_update
+
     match '/cart/checkout' => 'cart#verify_payment', :via => :post, :as => :verify_payment
     match '/cart/checkout' => 'cart#checkout', :via => :get, :as => :checkout
     match '/cart/purchase' => 'cart#purchase', :as => :purchase
