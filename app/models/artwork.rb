@@ -50,14 +50,18 @@ class Artwork < ActiveRecord::Base
     end
 
     def canvases
-        prints.where(:material => "canvas" ).sort
+        prints.where(:material => "canvas" ).sort if id
     end
 
     def photopapers
-        prints.where(:material => "photopaper").sort  
+        prints.where(:material => "photopaper").sort if id
     end
 
     def original
-        prints.where(:material => "original").first
+        prints.where(:material => "original").first if id
+    end
+
+    def has_size?( size_name )
+        prints.where(:size_name => size_name).size > 0 if id
     end
 end

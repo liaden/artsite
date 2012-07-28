@@ -42,10 +42,9 @@ module ApplicationHelper
         current_user and current_user.admin?
     end
 
-    def admin_edit(item)
+    def if_admin_edit(url)
         if admin?
-            # JOEL TODO: Need to fix so we actually link to edit of item
-            link_to '(Edit)', (item), :class => 'edit-link'
+            link_to '(Edit)', url, :class => 'edit-link'
         else
             ''
         end

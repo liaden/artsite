@@ -52,10 +52,10 @@ class ArtworksController < ApplicationController
     def edit
         return redirect_to :action => :index unless admin?
 
-        @artwork = Artwork.find_by_id(params[:id])
+        @artwork = Artwork.find(params[:id])
 
-        @tags = @artwork.tags * ","
-        @medium = @artwork.medium * ","
+        @tags = @artwork.tags.map { |t| t.name } * ","
+        @medium = @artwork.medium.map { |m| m.name } * ","
         
         @sizes = @artwork.sizes
     end
@@ -64,11 +64,31 @@ class ArtworksController < ApplicationController
         return redirect_to :action => :index unless admin?
         
         expire_action :action => :index
-
-        @artwork = Artwork.find(:params[:id])
-
+        @artwork = Artwork.find(params[:id])
+        
         set_tags
         set_medium
+
+        if @artwork.update_attributes params[:artwork]
+
+            if set_prints
+                original = @artwork.original
+
+                original.price = params[:original_price]
+                original.is_sold_out = params[:is_sold_out] != nil
+
+                original.save
+                @artwork.save
+
+                return redirect_to artwork_path(@artwork)
+            else
+                flash[:error] = "Error in setting prints"
+            end
+        else
+            flash[:error] = @artwork[:errors]
+        end
+
+        return redirect_to artwork_edit_path(@artwork)
     end
 
     def destroy
@@ -118,28 +138,28 @@ class ArtworksController < ApplicationController
         end
 
         if params[:enable_s]
-            make_print("small", Print.ratio_to_small(ratio), "photopaper", prints)
+            make_print("small", Print.ratio_to_small(ratio), "photopaper", @artwork.prints)
         end
 
         if params[:enable_m]
-            make_print("medium", Print.ratio_to_medium(ratio), "photopaper", prints)
-            make_print("medium", Print.ratio_to_medium(ratio), "canvas", prints)
+            make_print("medium", Print.ratio_to_medium(ratio), "photopaper", @artwork.prints)
+            make_print("medium", Print.ratio_to_medium(ratio), "canvas", @artwork.prints)
         end
 
         if params[:enable_l]
-            make_print("large", Print.ratio_to_large(ratio), "photopaper", prints)
-            make_print("large", Print.ratio_to_large(ratio), "canvas", prints)
+            make_print("large", Print.ratio_to_large(ratio), "photopaper", @artwork.prints)
+            make_print("large", Print.ratio_to_large(ratio), "canvas", @artwork.prints)
         end
 
         if params[:enable_xl]
-            make_print("extra_large", Print.ratio_to_xlarge(ratio), "photopaper", prints)
-            make_print("extra_large", Print.ratio_to_xlarge(ratio), "canvas", prints)
+            make_print("extra_large", Print.ratio_to_xlarge(ratio), "photopaper", @artwork.prints)
+            make_print("extra_large", Print.ratio_to_xlarge(ratio), "canvas", @artwork.prints)
         end
         
-        is_sold_out = params[:is_sold_out] != nil
-        prints << Print.create(:price => params[:original_price], :size_name => "original", :material => "original", :dimensions => params[:original_size], :is_sold_out => is_sold_out)
-        
-        @artwork.prints = prints
+        if not @artwork.original
+            is_sold_out = params[:is_sold_out] != nil
+            @artwork.prints << Print.create(:price => params[:original_price], :size_name => "original", :material => "original", :dimensions => params[:original_size], :is_sold_out => is_sold_out)
+        end
 
         return true
     end

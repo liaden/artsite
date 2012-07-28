@@ -28,7 +28,7 @@
     <div class="control-group">
         <%= label_tag :original_size, "Size of Original", :class => "control-label" -%>
         <div class="controls">
-            <%= text_field_tag :original_size, "", :class => "span2" -%>
+            <%= text_field_tag :original_size, @artwork.original ? @artwork.original.dimensions : "11x14" , :disabled => @artwork.original != nil, :class => "span2" -%>
             <p class="help-inline">This creates prints of the correct size from the ratio.</p>
         </div>
     </div>
@@ -36,47 +36,26 @@
     <div class="control-group">
         <%= label_tag :is_sold_out, "NFS?", :class => "control-label" -%>
         <div class="controls">
-            <%= check_box_tag :is_sold_out, "yes", false -%>
+            <%= check_box_tag :is_sold_out, "yes", @artwork.original &&@artwork.original.is_sold_out -%>
         </div>
     </div>
 
     <div class="control-group">
         <%= label_tag :original_size, "Price of Original", :class => "control-label" -%>
         <div class="controls">
-            <%= text_field_tag :original_price, "", :class => "span2" -%>
+            <%= text_field_tag :original_price, @artwork.original ? number_to_currency(@artwork.original.price)[1..-1] : "", :class => "span2" -%>
             <p class="help-inline">Price in dollars.</p>
         </div>
     </div>
 
     <div class="control-group">
-        <%= label_tag :large, "Enable Sizes", :class => "control-label" -%>
-        <div class="controls">
-            <label class="checkbox">
-                <%= check_box_tag :enable_s, "yes", true -%>
-                Small
-            </label>
-        </div>
+        <%= label_tag :enable_sizes, "Enable Sizes", :class => "control-label" -%>
 
-        <div class="controls">
-            <label class="checkbox">
-                <%= check_box_tag :enable_m, "yes", true -%>
-                Medium
-            </label>
-        </div>
+        <%= render :partial => "print_size_field", :locals => { :size_abbr => 's', :size => 'small', :label => 'Small' } -%>
+        <%= render :partial => "print_size_field", :locals => { :size_abbr => 'm', :size => 'medium', :label => 'Medium'  } -%>
+        <%= render :partial => "print_size_field", :locals => { :size_abbr => 'l', :size => 'large', :label => "Large" } -%>
+        <%= render :partial => "print_size_field", :locals => { :size_abbr => 'xl', :size => 'extra large', :label => "Extra Large (16x20 or 20x30 depending upon ratio)" } -%>
 
-        <div class="controls">
-            <label class="checkbox">
-                <%= check_box_tag :enable_l, "yes", true -%>
-                Large
-            </label>
-        </div>
-
-        <div class="controls">
-            <label class="checkbox">
-                <%= check_box_tag :enable_xl -%>
-                Extra Large (16x20 or 20x30 depending upon ratio)
-            </label>
-        </div>
     </div>
 
     <div class="form-actions">

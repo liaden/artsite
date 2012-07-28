@@ -15,7 +15,7 @@ end -%>
 <div class="row-fluid">
     <div class="span8">
         <div class="row-fluid">
-            <h1><%= @artwork.title -%><small><%= admin_edit(@artwork) -%></small></h1>
+            <h1><%= @artwork.title -%><small><%= if_admin_edit(edit_artwork_path(@artwork)) -%></small></h1>
 
         <%= render :partial => 'partials/mediums', :locals => {:medium => @artwork.medium} -%>
         </div>
