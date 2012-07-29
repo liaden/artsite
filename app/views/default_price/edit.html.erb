@@ -1,21 +1,17 @@
-
-<div class="container">
-    <%= form_tag(price_update_path, :class => "form-horizontal") do  -%>
-    <div class="row">
-        <div class="span6">
-            <%= render :partial => 'price_list', :locals => { :title => 'Regular Prints', :items => @photopapers } -%>
-        </div>
-
-        <div class="span6">
-            <%= render :partial => 'price_list', :locals => { :title => 'Canvas Prints', :items => @canvases} -%>
-        </div>
-
+<%= form_tag(price_update_path, :class => "form-horizontal") do  -%>
+<div class="row">
+    <div class="span6">
+        <%= render :partial => 'price_list', :locals => { :title => 'Regular Prints', :items => @photopapers } -%>
     </div>
 
-    <div class="form-actions"> 
-        <%= submit_tag "Update" -%>
-        <%= submit_tag "Apply to all" -%>
+    <div class="span6">
+        <%= render :partial => 'price_list', :locals => { :title => 'Canvas Prints', :items => @canvases} -%>
     </div>
-    <% end # form -%> 
+
 </div>
+
+<div class="form-actions"> 
+    <%= submit_tag "Update" -%>
+    <%= submit_tag "Apply to all" -%>
 </div>
+<% end # form -%> 

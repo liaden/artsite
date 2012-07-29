@@ -147,6 +147,10 @@ a:hover.brand {
     font-style:normal;
 }
 
+.navbar {
+    font-variant: small-caps;
+}
+
 .alert > p > a:hover {
     color: @alertLinkHoverColor;
 }
@@ -172,7 +176,6 @@ a:hover.brand {
     border-bottom: 1px solid @printFormBorder;
 }
 
-
 // used to make the background of for print types not have colored corners
     li.art-tab > a {
         margin-top: -1px;
@@ -187,7 +190,7 @@ a:hover.brand {
     border: 1px solid @printFormBorder;
     color: @printFormTextColor;
     border-top:0px;
-    padding-top:2em;
+    padding-top: 2em;
     background: @printFormBackground;
 }
 
@@ -275,6 +278,14 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
     border-top: 1px solid @wet_sand;
 }
 
+.admin-navbar {
+    margin-top:40px;
+    .navbar-inner {
+        background-color: @wet_sand;
+        background-image: none;
+    }
+}
+
 .user-controls {
     float:right;
 }
@@ -304,4 +315,5 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
         text-align:center;
     }
 }
+
 

@@ -2,8 +2,6 @@
   javascript_include_tag "cart" 
 end -%>
 
-<div class="container">
-
 <%= form_tag verify_payment_path, :method => 'post', :name => 'checkout', :id => 'checkout', :class => 'form-horizontal' do  -%>
 <fieldset>
 
@@ -115,6 +113,4 @@ end -%>
 
 <%= render 'print_list' -%>
 <%= render 'lesson_list' -%>
-
-</div>
 

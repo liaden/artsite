@@ -37,8 +37,6 @@ end %>
                   <li class="divider-vertical" style="margin:0px"></li>
               <% if current_user -%>
                   <li><%= link_to "Logout", :logout -%></li>
-                  <li class="divider-vertical" style="margin:0px"></li>
-                  <%= render :partial => 'partials/admin_navbar' -%>
               <% else -%>
                   <li><%= link_to 'Login', login_path -%></li>
                   <li class="divider-vertical" style="margin:0px"></li>
@@ -50,4 +48,5 @@ end %>
     </div>
   </div>
 </div>
+<%= render :partial => 'partials/admin_navbar' -%>
 

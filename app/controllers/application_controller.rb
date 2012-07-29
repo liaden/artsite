@@ -10,7 +10,15 @@ class ApplicationController < ActionController::Base
     end
     
     helper_method :current_user
+    helper_method :admin?
 
+    def guest?
+        not current_user
+    end
+
+    def admin?
+        current_user and current_user.admin?
+    end
 
     private
 
@@ -24,13 +32,6 @@ class ApplicationController < ActionController::Base
         @current_user = current_user_session && current_user_session.record
     end
 
-    def guest?
-        not current_user
-    end
-
-    def admin?
-        current_user and current_user.admin?
-    end
 
     def active_order
         if current_user

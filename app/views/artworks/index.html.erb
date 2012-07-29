@@ -1,38 +1,36 @@
-<div class="container">
-    <div class="row-fluid">
-    <div class="span9">
-        <% if @media -%>
-            <div class="page-header">
-                <h1>Gallery <small><%= @media.name -%></small></h1>
-            </div>
-        <% elsif @tag -%>
-            <div class="page-header">
-                <h1>Gallery <small><%= @tag.name -%></small></h1>
-            </div>
-        <% else -%>
-            <div class="page-header">
-                <h1>Gallery</h1>
-            </div>
+<div class="row-fluid">
+<div class="span9">
+    <% if @media -%>
+        <div class="page-header">
+            <h1>Gallery <small><%= @media.name -%></small></h1>
+        </div>
+    <% elsif @tag -%>
+        <div class="page-header">
+            <h1>Gallery <small><%= @tag.name -%></small></h1>
+        </div>
+    <% else -%>
+        <div class="page-header">
+            <h1>Gallery</h1>
+        </div>
+    <% end -%>
+    <% offsetPercentage = "2.1276%" -%>
+    <ul class="thumbnails">
+        <li class="span4" style="margin-right: <%= offsetPercentage -%>">
+            <%= link_to image_tag(@artworks[0].image.url(:carousel)), @artworks[0], :class => 'thumbnail' -%>
+        </li>
+        <% @artworks[1..-1].each do |artwork| -%>
+            <%= render :partial => 'partials/artwork_thumbnail', :locals => { :artwork => artwork, :offsetPercentage => offsetPercentage } -%>
         <% end -%>
-        <% offsetPercentage = "2.1276%" -%>
-        <ul class="thumbnails">
-            <li class="span4" style="margin-right: <%= offsetPercentage -%>">
-                <%= link_to image_tag(@artworks[0].image.url(:carousel)), @artworks[0], :class => 'thumbnail' -%>
-            </li>
-            <% @artworks[1..-1].each do |artwork| -%>
-                <%= render :partial => 'partials/artwork_thumbnail', :locals => { :artwork => artwork, :offsetPercentage => offsetPercentage } -%>
-            <% end -%>
-        </ul>
+    </ul>
+</div>
+<div class="span3">
+    <div class="alert alert-info">
+        <h3 class="black">Mediums</h3>
+        <%= render :partial => 'partials/mediums', :locals => {:medium => Medium.all} -%>
     </div>
-    <div class="span3">
-        <div class="alert alert-info">
-            <h3 class="black">Mediums</h3>
-            <%= render :partial => 'partials/mediums', :locals => {:medium => Medium.all} -%>
-        </div>
-        <div class="alert alert-info">
-            <h3 class="black">Tags</h3>
-            <%= render :partial => 'partials/tags', :locals => {:tags => Tag.all} -%>
-        </div>
+    <div class="alert alert-info">
+        <h3 class="black">Tags</h3>
+        <%= render :partial => 'partials/tags', :locals => {:tags => Tag.all} -%>
     </div>
-    </div>
+</div>
 </div>

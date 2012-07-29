@@ -1,16 +1,23 @@
-<% if current_user.admin? -%>
-<li class="dropdown">
-  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin<b class="caret"></b></a>
-  <ul class="dropdown-menu">
-    <li><h4>New:</h4></li>
-    <li><%= link_to ' Artwork', new_artwork_path -%></li>
-    <li><%= link_to ' Show', new_show_path -%></li>
-    <li><%= link_to ' Class', new_lesson_path -%></li>
-    <li><h4>Management:</h4></li>
-    <li> Inventory</li>
-    <li><%= link_to ' Default Prices', price_edit_path -%></li>
-    <li> Con Sales</li>
-  </ul>
-</li>
+<% if admin? -%>
+<div class="navbar navbar-fixed-top admin-navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav" style="float:right;">
+                <li><%= link_to 'Artwork', new_artwork_path -%></li>
+                <li class="divider-vertical" style="margin:0px"></li>
+                <li><%= link_to 'Show', new_show_path -%></li>
+                <li class="divider-vertical" style="margin:0px"></li>
+                <li><%= link_to 'Class', new_lesson_path -%></li>
+                <li class="divider-vertical" style="margin:0px"></li>
+                <li><%= link_to 'Inventory', '#' -%></li>
+                <li class="divider-vertical" style="margin:0px"></li>
+                <li><%= link_to 'Default Prices', price_edit_path -%></li>
+                <li class="divider-vertical" style="margin:0px"></li>
+                <li><%= link_to 'Reports', '#' -%> </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <% end -%>
 
