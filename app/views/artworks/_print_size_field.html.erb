@@ -1,0 +1,10 @@
+<div class="controls">
+    <% if @artwork.has_size? size -%>
+    <% else -%>
+        <label class="checkbox">
+            <%= check_box_tag "enable_#{size_abbr}", "yes", true -%>
+            <%= label -%>
+        </label>
+    <% end -%>
+</div>
+
