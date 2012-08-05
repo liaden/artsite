@@ -21,6 +21,10 @@ class Print < ActiveRecord::Base
 
     validates :size_name, :inclusion => { :in => Print.sizes, :message => "%{value} is not a valid name" }
     validates :material, :inclusion => { :in => Print.materials, :message => "%{value} is not a valid material" }
+
+    validates_numericality_of :inventory_count, :greater_than => 0
+    validates_numericality_of :sold_count, :greater_than => 0
+
     validate do |print|
         if not print.dimensions
             errors.add :dimensions, "Please specify the dimensions for the print."

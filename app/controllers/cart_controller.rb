@@ -136,6 +136,11 @@ class CartController < ApplicationController
             @order.charge_id = charge.id
             @order.state = "closed"
             @order.placed_at = Time.now
+            @order.prints.each do |print|
+                print.sold_count ? print.sold_count += 1 : print.sold_count = 1
+                print.save
+            end
+                
             if @order.save
                 if params[:send_email]
                     logger.debug "Sending email"
