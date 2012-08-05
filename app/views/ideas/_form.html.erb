@@ -1,0 +1,24 @@
+<%= form_for @idea, :html => {:class => "form-horizontal" } do |f| -%>
+
+    <div class="control-group">
+        <%= f.label :description, "Description", :class => "control-label" -%>
+        <div class="controls"><%= f.text_area :description, :rows => 5, :class => "span6" -%>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :by, "By", :class => "control-label" -%>
+        <div class="controls"><%= f.text_field :by, :class => "span4" -%>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :reference, "Reference", :class => "control-label" -%>
+        <div class="controls"><%= file_field_tag :reference, :class => "span4" -%>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <%= f.submit "Create", :class => "btn btn-primary" -%>
+    </div>
+<% end -%>

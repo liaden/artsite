@@ -7,6 +7,7 @@ ArchaicSmiles::Application.routes.draw do
     resources :users
     resources :user_sessions
     resources :commissions
+    resources :ideas
 
     match '/news' => 'news#index', :as => :news
     match '/schedule' => 'schedule#index', :as => :schedule

@@ -1,0 +1,27 @@
+
+<div class="page-header">
+    <h1>Pending Ideas</h1>
+</div>
+
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Description</th>
+            <th>By</th>
+            <th>Reference</th>
+        </tr>
+    </thead>
+    <tbody> 
+    <% @ideas.each do |idea| -%>
+        <tr>
+            <td><%= link_to '', idea_path(idea), :method => :delete, :class => 'icon-remove' -%></td> 
+            <td><%= link_to idea.description[0,100], idea_path(idea) -%></td>
+            <td><%= idea.by -%></td>
+            <td><%= idea.reference -%></td>
+        </tr>
+    <% end -%>
+    <tbody>
+</table>
+
+<%= link_to 'New Idea', new_idea_path, :class => "btn btn-primary" -%>
