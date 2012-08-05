@@ -1,0 +1,20 @@
+<div class="row-fluid">
+    <div class="page-header">Inventory for <%= @artwork.title -%></div>
+
+    <%= form_tag(inventory_update_path, :class => "form-horizontal") do -%>
+        <% Print.materials_sans_original.each do |material| -%>
+            <div class="control-group">
+                <%= label_tag material, material, :class => "control-label" -%>
+                <% Print.sizes_sans_original.each do |size| -%>
+                    <div class="controls">
+                        <%= text_field_tag "#{material}_#{size}_count", print_count(@artwork, material, size), :disabled => !@artwork.has_size?(size) -%>
+                        <p class="help-inline"><%= size -%> count</p>
+                    </div>
+                <% end -%>
+            </div>
+        <% end -%>
+        <div class="form-actions">
+            <%= submit_tag "Update" -%>
+        </div>
+    <% end -%>
+</div>

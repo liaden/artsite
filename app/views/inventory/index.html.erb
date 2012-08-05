@@ -1,0 +1,38 @@
+
+<div class="page-header"><h1>Inventory</h1></div>
+
+<div class="row-fluid">
+    <table class="table inventory">
+        <thead>
+            <tr><th>&nbsp;</th>
+                <% Print.materials_sans_original.each do |material| -%>
+                    <th colspan=<%= Print.sizes.size - 1 -%>><%= material -%></th>
+                <% end -%>
+            </tr>
+            <tr>
+                <th>Print</th>
+                <% Print.materials_sans_original.each do |material| -%>
+                    <% Print.sizes_sans_original.each do |size| -%>
+                        <th><%= size -%></th>
+                    <% end -%>
+                <% end -%>
+                <th>Original</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @artworks.each do |artwork| -%>
+                <tr>
+                    <td><%= link_to image_tag(artwork.image.url(:thumbnail)), inventory_edit_path(artwork) -%></td>
+                    <% Print.materials_sans_original.each do |material| -%>
+                        <% Print.sizes_sans_original.each do |size| -%>
+                            <td class="inventory-td inventory-print-<%= size -%>"><%= print_count artwork,  material, size -%></td>
+                        <% end -%>
+                    <% end -%>
+                    <td class="inventory-td inventory-print-original"><%= artwork.original ? artwork.original.inventory_count : "N/A" -%></td>
+                </tr>
+            <% end -%>
+        </tbody>
+    </table>
+</div>
+
