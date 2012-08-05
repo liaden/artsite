@@ -37,6 +37,7 @@ class ArtworksController < ApplicationController
                 flash.now[:notice] = "'#{@artwork.title}' has been successfully created."
             else
                 flash.now[:error] = "Error saving artwork"
+                logger.debug @artwork.errors.messages
             end
 
         end
@@ -158,7 +159,7 @@ class ArtworksController < ApplicationController
         
         if not @artwork.original
             is_sold_out = params[:is_sold_out] != nil
-            @artwork.prints << Print.create(:price => params[:original_price], :size_name => "original", :material => "original", :dimensions => params[:original_size], :is_sold_out => is_sold_out)
+            @artwork.prints << Print.create(:price => params[:original_price], :size_name => "original", :material => "original", :dimensions => params[:original_size], :is_sold_out => is_sold_out, :inventory_count => is_sold_out ? 0 : 1, :sold_count => 0)
         end
 
         return true
@@ -172,7 +173,7 @@ class ArtworksController < ApplicationController
             return false
         end
 
-        print = Print.create :price => price.price, :size_name => size_name, :material => material, :dimensions => dimensions
+        print = Print.create :price => price.price, :size_name => size_name, :material => material, :dimensions => dimensions, :inventory_count => 0, :sold_count => 0
         prints.append print
 
         return true
