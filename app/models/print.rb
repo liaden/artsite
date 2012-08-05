@@ -3,8 +3,24 @@ class Print < ActiveRecord::Base
     has_many :print_orders
     has_many :orders, :through => :print_orders
 
-    validates :size_name, :inclusion => { :in => ["small", "medium", "large", "extra_large", "original"], :message => "%{value} is not a valid name" }
-    validates :material, :inclusion => { :in => ["photopaper", "canvas", "original"], :message => "%{value} is not a valid material" }
+    def self.sizes
+        ["small", "medium", "large", "extra_large", "original"]
+    end
+
+    def self.materials 
+        ["photopaper", "canvas", "original"]
+    end
+
+    def self.sizes_sans_original
+        sizes - ["original"]
+    end
+
+    def self.materials_sans_original
+        materials - ["original"]
+    end
+
+    validates :size_name, :inclusion => { :in => Print.sizes, :message => "%{value} is not a valid name" }
+    validates :material, :inclusion => { :in => Print.materials, :message => "%{value} is not a valid material" }
     validate do |print|
         if not print.dimensions
             errors.add :dimensions, "Please specify the dimensions for the print."

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712022653) do
+ActiveRecord::Schema.define(:version => 20120729225552) do
 
   create_table "addresses", :force => true do |t|
     t.string   "recipient"
@@ -112,9 +112,10 @@ ActiveRecord::Schema.define(:version => 20120712022653) do
     t.string   "size_name"
     t.string   "material"
     t.string   "dimensions"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.decimal  "price"
+    t.integer  "inventory_count"
   end
 
   create_table "shows", :force => true do |t|
