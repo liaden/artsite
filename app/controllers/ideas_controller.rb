@@ -6,14 +6,20 @@ class IdeasController < ApplicationController
     end
 
     def show
+        return redirect_to main_path unless admin?
+
         @idea = Idea.find(params[:id])
     end
 
     def new
+        return redirect_to main_path unless admin?
+
         @idea = Idea.new
     end
 
     def create
+        return redirect_to main_path unless admin?
+
         @idea = Idea.new(params[:idea])
 
         @idea.reference = params[:reference]
@@ -26,6 +32,8 @@ class IdeasController < ApplicationController
     end
 
     def destroy
+        return redirect_to main_path unless admin?
+
         @idea = Idea.find(params[:id])
 
         @idea.delete
