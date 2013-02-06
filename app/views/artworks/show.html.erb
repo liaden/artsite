@@ -16,14 +16,14 @@ end -%>
         <div class="row-fluid">
             <h1><%= @artwork.title -%><small><%= if_admin_edit(edit_artwork_path(@artwork)) -%></small></h1>
 
-        <%= render :partial => 'partials/mediums', :locals => {:medium => @artwork.medium} -%>
+        <div id="mediums"> <%= render :partial => 'partials/mediums', :locals => {:medium => @artwork.medium} -%> </div>
         </div>
-        <%= image_tag @artwork.image.url -%>
+        <%= image_tag @artwork.image.url, :id => 'artwork_image' -%>
         <div class="row-fluid">
             <div class="alert alert-info span8">
                 <h3>Description</h3><p><%= @artwork.description -%></p> 
             </div>
-            <div class="alert alert-info span4">
+            <div id="tags" class="alert alert-info span4">
                 <%= render :partial => 'partials/tags', :locals => {:tags => @artwork.tags} -%>
             </div>
         </div>

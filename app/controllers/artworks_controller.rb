@@ -24,12 +24,13 @@ class ArtworksController < ApplicationController
 
     def create
         return redirect_to :action => :index unless admin?
-
+        
         expire_action :action => :index
 
-        @artwork = Artwork.new(params[:artwork])
+        ActiveRecord::Base.transaction do
+            @artwork = Artwork.create(params[:artwork])
 
-        if set_prints
+            set_prints
             set_tags
             set_medium
 
@@ -37,9 +38,9 @@ class ArtworksController < ApplicationController
                 flash.now[:notice] = "'#{@artwork.title}' has been successfully created."
             else
                 flash.now[:error] = "Error saving artwork"
+                puts @artwork.errors.messages
                 logger.debug @artwork.errors.messages
             end
-
         end
 
         @artwork = Artwork.new
@@ -48,6 +49,10 @@ class ArtworksController < ApplicationController
 
     def show
         @artwork = Artwork.find(params[:id])
+
+        if request.path != artwork_path(@artwork)
+            redirect_to @artwork, :status => :moved_permanently
+        end
     end
 
     def edit
@@ -63,33 +68,42 @@ class ArtworksController < ApplicationController
 
     def update
         return redirect_to :action => :index unless admin?
-        
-        expire_action :action => :index
-        @artwork = Artwork.find(params[:id])
-        
-        set_tags
-        set_medium
 
-        if @artwork.update_attributes params[:artwork]
+        ActiveRecord::Base.transaction do
+            expire_action :action => :index
+            @artwork = Artwork.find(params[:id])
+            
+            @original = @artwork.original
+            params[:original_size] = @original.dimensions            
+            
+            set_tags
+            set_medium
 
-            if set_prints
-                original = @artwork.original
+            if @artwork.update_attributes params[:artwork]
 
-                original.price = params[:original_price]
-                original.is_sold_out = params[:is_sold_out] != nil
+                begin
+                    set_prints
+                rescue => e
+                    puts e.inspect
+                end
 
-                original.save
+                @original.price = params[:original_price]
+                @original.is_sold_out = params[:is_sold_out] != nil
+
+                @original.save
                 @artwork.save
-
-                return redirect_to artwork_path(@artwork)
-            else
-                flash[:error] = "Error in setting prints"
             end
-        else
-            flash[:error] = @artwork[:errors]
         end
 
-        return redirect_to artwork_edit_path(@artwork)
+    
+        unless @artwork.valid?
+            flash[:error] = @artwork.errors.messages 
+
+            return redirect_to edit_artwork_path(@artwork)
+        end
+
+        redirect_to @artwork
+
     end
 
     def destroy
@@ -125,57 +139,52 @@ class ArtworksController < ApplicationController
 
         if params[:original_size]
             begin
-                height, width = Print.height_and_width(params[:original_size])
-                ratio = Float(height)/Float(width)
+                dimensions = Print.height_width(params[:original_size])
+                ratio = Float(dimensions[:height])/Float(dimensions[:width])
             rescue
                 flash.now[:error] = "Invalid size specified for artwork"
-                return false
+                raise ActiveRecord::Rollback.new "Invalid size specified for artwork"
             end
-
-            # select option it is closer to: 3:4 or 2:3.
-            ratio = ratio > 0.733333 ? "16x20" : "12:18"
         else
             flash.now[:error] = "No size specified."
         end
 
         if params[:enable_s]
-            make_print("small", Print.ratio_to_small(ratio), "photopaper", @artwork.prints)
+            make_print("small", Print.ratio_to_small(ratio), "photopaper", @artwork)
         end
 
         if params[:enable_m]
-            make_print("medium", Print.ratio_to_medium(ratio), "photopaper", @artwork.prints)
-            make_print("medium", Print.ratio_to_medium(ratio), "canvas", @artwork.prints)
+            make_print("medium", Print.ratio_to_medium(ratio), "photopaper", @artwork)
+            make_print("medium", Print.ratio_to_medium(ratio), "canvas", @artwork)
         end
 
         if params[:enable_l]
-            make_print("large", Print.ratio_to_large(ratio), "photopaper", @artwork.prints)
-            make_print("large", Print.ratio_to_large(ratio), "canvas", @artwork.prints)
+            make_print("large", Print.ratio_to_large(ratio), "photopaper", @artwork)
+            make_print("large", Print.ratio_to_large(ratio), "canvas", @artwork)
         end
 
         if params[:enable_xl]
-            make_print("extra_large", Print.ratio_to_xlarge(ratio), "photopaper", @artwork.prints)
-            make_print("extra_large", Print.ratio_to_xlarge(ratio), "canvas", @artwork.prints)
+            make_print("extra_large", Print.ratio_to_xlarge(ratio), "photopaper", @artwork )
+            make_print("extra_large", Print.ratio_to_xlarge(ratio), "canvas", @artwork)
         end
         
         if not @artwork.original
             is_sold_out = params[:is_sold_out] != nil
-            @artwork.prints << Print.create(:price => params[:original_price], :size_name => "original", :material => "original", :dimensions => params[:original_size], :is_sold_out => is_sold_out, :inventory_count => is_sold_out ? 0 : 1, :sold_count => 0)
+            @artwork.prints << Print.create(:price => params[:original_price], :size_name => "original", :material => "original", :dimensions => params[:original_size], :is_sold_out => is_sold_out, :inventory_count => is_sold_out ? 0 : 1, :sold_count => 0, :artwork => @artwork)
         end
 
-        return true
     end
 
-    def make_print(size_name, dimensions, material, prints)
+    def make_print(size_name, dimensions, material, artwork)
         price = DefaultPrice.where(:dimension => dimensions, :material => material).first
         
         if not price
-            flash.now[:config_error] = "Default price has not been set for this material and dimension combination" unless price
-            return false
+            flash.now[:config_error] = "Default price has not been set for this material and dimension combination" 
+            raise ActiveRecord::Rollback.new "Default price has not been set for this material and dimension combination"
         end
 
-        print = Print.create :price => price.price, :size_name => size_name, :material => material, :dimensions => dimensions, :inventory_count => 0, :sold_count => 0
-        prints.append print
+        print = Print.create :price => price.price, :size_name => size_name, :material => material, :dimensions => dimensions, :inventory_count => 0, :sold_count => 0, :artwork => @artwork
+        @artwork.prints.append print
 
-        return true
     end
 end

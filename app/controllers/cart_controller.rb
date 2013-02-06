@@ -1,12 +1,13 @@
 class CartController < ApplicationController
 
     def purchase
-        handled_guest_and_order_has_user?
 
         if params[:transaction_type] == 'lessons'
             purchase_lessons
         elsif params[:transaction_type] == 'artwork' 
             purchase_prints
+        else 
+            redirect_to artworks_path
         end
     end
 
@@ -71,7 +72,7 @@ class CartController < ApplicationController
     end
 
     def verify_payment
-        return checkout unless params[:stripe_card_token]
+        return redirect_to :action => :checkout unless params[:stripe_card_token]
 
         logger.debug "we have #{Address.all.size} addresses in the table"
 
@@ -80,24 +81,22 @@ class CartController < ApplicationController
             return redirect_to :action => :index
         end
 
-
         @order = active_order
         @stripe_card_token = params[:stripe_card_token]
 
         # nothing is being purchased...
         return redirect_to :action => :index unless @order and not @order.empty?
 
+        @order.address ||= Address.new
         @order.address.update_attributes params[:address]
-        @order.address.save
-        
-        if current_user
-            if current_user.address
-                current_user.address.update_attributes params[:address]
+       
+        @user = current_user
+        if @user
+            if @user.address
+                @user.address.update_attributes params[:address]
             else
-                current_user.address = Address.create params[:address]
+                @user.address = Address.create params[:address]
             end
-
-            current_user.address.save
         end
 
         @base_amount = @order.total 
@@ -106,17 +105,17 @@ class CartController < ApplicationController
 
         @total_amount = @base_amount + @tax_amount + @shipping_amount
 
-        if not current_user
+        if not @user
             @order.guest_email = params[:guest_email]
             @email = @order.guest_email
         else
-            @email = current_user.email
+            @email = @user.email
         end
 
         logger.debug "amount is #{to_cents(@total_amount)}"
 
         begin
-        charge = Stripe::Charge.create :amount => to_cents(@total_amount), :currency => "usd", :card => params[:stripe_card_token], :description => "#{@email}"
+            charge = Stripe::Charge.create :amount => to_cents(@total_amount), :currency => "usd", :card => params[:stripe_card_token], :description => "#{@email}"
         rescue => e
             flash.now[:error] = e.class == Stripe::CardError ? e.message : "An unexpected error has occurred"
             return render :action => :checkout
@@ -160,6 +159,7 @@ class CartController < ApplicationController
 
         @order = active_order
 
+
         @item_id = Integer(params[:id]) rescue "" 
 
         if params[:transaction_type] == 'class'
@@ -197,9 +197,12 @@ class CartController < ApplicationController
         @order = active_order
         if params[:material] == 'original' 
             @print = Print.where(:material => "original", :artwork_id => params[:item_id]).first
-            flash.now[:error] = "Could not find original in database." unless @print
-            flash.now[:error] = "Not currently available" if @print.is_on_show? or @print.is_sold_out?
-        elsif params[:size] =~ /\d+x\d+/
+            if @print 
+                flash.now[:error] = "Not currently available" if @print.is_on_show? or @print.is_sold_out?
+            else
+                flash.now[:error] = "Could not find original in database." unless @print
+            end
+        elsif Dimension.valid_dimension? params[:size]
             if params[:item_id] =~ /\d+/
                 if params[:material] == 'photopaper' or params[:material] == 'canvas' 
                     @print = Print.where(:material => params[:material], :artwork_id => params[:item_id], :dimensions => params[:size]).first

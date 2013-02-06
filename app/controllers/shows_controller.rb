@@ -1,12 +1,12 @@
 class ShowsController < ApplicationController
     def new
-        redirect_to :action => :index unless admin?
+        return redirect_to :action => :index unless admin?
 
         @show = Show.new
     end
 
     def create
-        redirect_to :action => :index unless admin?
+        return redirect_to :action => :index unless admin?
 
         @show = Show.new(params[:show]) 
         if @show.save
@@ -21,14 +21,21 @@ class ShowsController < ApplicationController
     end
 
     def edit
-        redirect_to :action => :index unless admin?
+        return redirect_to :action => :index unless admin?
 
-        @show = Show.where :id => params[:id]
+        @show = Show.find_by_id params[:id]
+
     end
 
     def update
-        redirect_to :action => :index unless admin?
+        return redirect_to :action => :index unless admin?
 
-        @show = Show.where :id => params[:id]
+        @show = Show.find_by_id params[:id]
+
+        puts params
+
+        @show.update_attributes params[:show]
+
+        render :show
     end
 end

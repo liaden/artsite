@@ -24,11 +24,11 @@
     </ul>
 </div>
 <div class="span3">
-    <div class="alert alert-info">
+    <div id="mediums" class="alert alert-info">
         <h3 class="black">Mediums</h3>
         <%= render :partial => 'partials/mediums', :locals => {:medium => Medium.all} -%>
     </div>
-    <div class="alert alert-info">
+    <div id="tags" class="alert alert-info">
         <h3 class="black">Tags</h3>
         <%= render :partial => 'partials/tags', :locals => {:tags => Tag.all} -%>
     </div>

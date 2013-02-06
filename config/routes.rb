@@ -29,8 +29,8 @@ ArchaicSmiles::Application.routes.draw do
     match 'logout' => 'user_sessions#destroy', :as => :logout
 
     match 'inventory' => 'inventory#index', :as => :inventory
-    match 'inventory/:id' => 'inventory#edit', :as => :inventory_edit
     match 'inventory/update/:id' => 'inventory#update', :as => :inventory_update
+    match 'inventory/edit/:id' => 'inventory#edit', :as => :inventory_edit
 
     root :to => 'main#index'
 end

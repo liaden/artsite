@@ -1,7 +1,7 @@
 <div class="row-fluid">
     <div class="page-header">Inventory for <%= @artwork.title -%></div>
 
-    <%= form_tag(inventory_update_path, :class => "form-horizontal") do -%>
+    <%= form_tag(inventory_update_path(@artwork), :class => "form-horizontal") do -%>
         <% Print.materials_sans_original.each do |material| -%>
             <div class="control-group">
                 <%= label_tag material, material, :class => "control-label" -%>

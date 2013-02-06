@@ -14,9 +14,6 @@ class NewsController < ApplicationController
 
         @tumbles = Tumblr4r::Site.new("archaic-smiles.tumblr.com").find(:all, :limit => 50)
         render :index
-    rescue Twitter::Error::BadRequest => e
-        @tweets = []
-        
     end
 
     def caller

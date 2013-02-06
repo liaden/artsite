@@ -37,11 +37,6 @@ module ApplicationHelper
         end
     end
 
-
-    def admin?
-        current_user and current_user.admin?
-    end
-
     def if_admin_edit(url)
         if admin?
             link_to '(Edit)', url, :class => 'edit-link'

@@ -55,7 +55,11 @@ if Rails.env.development? or Rails.env.test?
                 Print.new(:is_sold_out => false, :is_on_show => :false, :price => 60.00, :size_name => "medium", :material => "canvas", :dimensions => "11x14"),
                 Print.new(:is_sold_out => false, :is_on_show => :false, :price => 90.00, :size_name => "large", :material => "canvas", :dimensions => "12x18")
             ]
-    (prints1+prints2).each {|print| print.save}
+    (prints1+prints2).each do |print| 
+        print.inventory_count = 0
+        print.sold_count = 0
+        print.save
+    end
 
 
     art1 = Artwork.new :title => 'Butterfly', :description => "The wings of the butterfly caused a typhoon halfway across the world", :image => File.open('db/seed_images/butterfly.jpg'), :prints => prints1, :tags => [ tags[0], tags[1] ], :medium => [ medium[0], medium[1] ]

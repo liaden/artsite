@@ -41,7 +41,7 @@
     </div>
 
     <div class="control-group">
-        <%= label_tag :original_size, "Price of Original", :class => "control-label" -%>
+        <%= label_tag :original_price, "Price of Original", :class => "control-label" -%>
         <div class="controls">
             <%= text_field_tag :original_price, @artwork.original ? number_to_currency(@artwork.original.price)[1..-1] : "", :class => "span2" -%>
             <p class="help-inline">Price in dollars.</p>
@@ -59,7 +59,7 @@
     </div>
 
     <div class="form-actions">
-        <%= f.submit "Create", :class => "btn btn-primary" -%>
+        <%= f.submit "Finish", :class => "btn btn-primary" -%>
     </div>
     </fieldset>
 <% end -%>

@@ -12,10 +12,11 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'execjs'
-  gem 'therubyracer'
+  gem 'therubyracer', '~> 0.10.2'
 
   gem 'uglifier', '>= 1.0.3'
 end
+
 
 # caching
 gem 'dalli'
@@ -41,19 +42,17 @@ gem 'stripe'
 group :development, :test do
     gem 'rspec-rails'
     gem 'watchr'
+    gem 'factory_girl_rails'
 end
 
 gem 'pg'
 
-group :development do
-    #gem 'factory_girl'
-end
-
 group :test do
-    gem 'factory_girl'
-    gem 'factory_girl_rails'
+    gem 'simplecov'
     gem 'capybara'
-    gem 'cucumber-rails'
+    gem 'guard-rspec'
+    gem 'launchy'
+    gem 'faker'
     gem 'database_cleaner'
 end
 
@@ -63,19 +62,6 @@ if RUBY_PLATFORM =~ /(win|w)32$/
 else
   gem "eventmachine"
 end
+
 gem "thin"
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'

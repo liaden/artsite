@@ -21,17 +21,20 @@ class Print < ActiveRecord::Base
 
     validates :size_name, :inclusion => { :in => Print.sizes, :message => "%{value} is not a valid name" }
     validates :material, :inclusion => { :in => Print.materials, :message => "%{value} is not a valid material" }
+    validates :artwork_id, :dimensions, :price, :presence => true
 
     validates_numericality_of :inventory_count, :greater_than => -1
     validates_numericality_of :sold_count, :greater_than => -1
 
     validate do |print|
-        if not print.dimensions
-            errors.add :dimensions, "Please specify the dimensions for the print."
+        width, height = print.dimensions.split 'x'
+        
+        Integer(width) and Integer(height) rescue errors.add :dimensions, "Format for dimensions must be [width]x[height]."
+
+        if print.price
+            errors.add :price, "A #{print.size_name} print should be free" unless print.price > 0.00
         else
-            width, height = print.dimensions.split 'x'
-            
-            Integer(width) and Integer(height) rescue errors.add :dimensions, "Format for dimensions must be [width]x[height]."
+            errors.add :price, "No price specified for the #{print.size_name} print of #{print.artwork.title}"
         end
     end
 
@@ -57,28 +60,40 @@ class Print < ActiveRecord::Base
         not is_on_show
     end
 
-    def height_and_width
-        Print.height_and_width dimensions
-    end
+    #def height_and_width
+    #    Print.height_and_width dimensions
+    #end
 
-    def self.height_and_width(dimension)
-        match = dimension.match /(\d+)x(\d+)/
-        [ match[1], match[2] ]
+    #def self.height_and_width(dimension)
+    #    warn "height_and_width is deprecated. use height_width. called from #{caller.first}"
+    #    match = dimension.match /(\d+)x(\d+)/
+    #    [ match[1], match[2] ]
+    #end
+
+    def self.height_width(dimensions)
+        parts = dimensions.split('x')
+        return :height => parts[0], :width => parts[1]
     end
 
     def self.ratio_to_small(ratio)
-        ratio == "16x20" ? "5x7" : "4x6"
+        ratio > 0.7 ? "5x7" : "4x6"
     end
 
     def self.ratio_to_medium(ratio)
-        ratio == "16x20" ? "8x10" : "8x12"
+        self.pick_best_aspect_ratio(ratio) ? "8x10" : "8x12"
     end
 
     def self.ratio_to_large(ratio)
-        ratio == "16x20" ? "11x14": "12x18"
+        self.pick_best_aspect_ratio(ratio) ? "11x14": "12x18"
     end
 
     def self.ratio_to_xlarge(ratio)
-        ratio == "16x20" ? "16x20" : "20x30"
+        self.pick_best_aspect_ratio(ratio) ? "16x20" : "20x30"
     end
+
+    private 
+    def self.pick_best_aspect_ratio(original_ratio)
+        original_ratio > 0.733333 # true when closer to 3:4 ratio, false when closer to 2:3
+    end
+
 end

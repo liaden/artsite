@@ -3,7 +3,7 @@
 
 <div class="row" style="border-top:1px solid rgb(238, 238, 238)">
     <div class="span4 offset8">
-        <% if not @order.empty_cart? -%> 
+        <% if not @order.empty? -%> 
             <table class="table table-condensed no-background">
             <thead>
                 <tr><th>&nbsp;</th><th class="amount-column">Amount</th></tr>
@@ -20,7 +20,7 @@
 
         <%= link_to  "#{"Guest "if not @user }Checkout", checkout_path, :class => "btn btn-primary" if @order.lessons.size > 0 or @order.prints.size > 0 -%>
     </div>
-    <% if @order.empty_cart? -%>
+    <% if @order.empty? -%>
         <p>Note: all orders $50 or more receive free shipping.</p>
     <% end -%>
 </div>

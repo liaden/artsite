@@ -6,11 +6,33 @@ describe Medium do
     end
 
     it "can create with name" do
-        Medium.create(:name => "Test").should be_persisted
+        FactoryGirl.create(:medium ).should be_persisted
     end
 
     it "fails without name" do
-        Medium.create.should_not be_persisted
+        FactoryGirl.build(:medium, :name => nil).should_not be_valid
+        FactoryGirl.build(:medium, :name => "").should_not be_valid
     end
+
+    it "trims trailing spaces" do
+        medium = FactoryGirl.create(:medium, :name => "watercolor   ")
+        medium.name.should_not have_trailing_spaces
+    end
+
+    it "trims leading spaces" do
+        medium = FactoryGirl.create(:medium, :name => "   watercolor")
+        medium.name.should_not have_leading_spaces
+    end
+
+    it "can have spaces" do
+        FactoryGirl.create(:medium, :name => "water color").should_not
+    end
+
+    it "should be unique by name" do
+        medium1 = FactoryGirl.create(:medium, :name => "unique")
+        medium2 = FactoryGirl.build(:medium, :name => "unique")
+        medium2.should_not be_valid
+    end
+
 end
 

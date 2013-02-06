@@ -6,10 +6,35 @@ describe Tag do
     end
 
     it "can create with name" do
-        Tag.create(:name => "Test").should be_persisted
+        FactoryGirl.create(:tag).should be_persisted
     end
 
     it "fails without name" do
-        Tag.create.should_not be_persisted
+        FactoryGirl.build(:tag, :name => nil).should_not be_valid
     end
+
+    it "can have spaces" do
+        tag_name = "This is a test tag"
+        tag = FactoryGirl.create(:tag, :name => tag_name )
+        tag.should be_persisted
+        tag.name.size.should  eql(tag_name.size)
+    end
+
+    it "trims leading space" do
+        tag = FactoryGirl.create(:tag, :name => "   Emer")
+        tag.name.should_not have_leading_spaces
+    end
+
+    it "trims trailing space"  do
+        tag = FactoryGirl.create(:tag, :name => "Emer   ")
+        tag.name.should_not have_trailing_spaces
+    end
+
+    it "should be unique by name" do
+        tag1 = FactoryGirl.create(:tag, :name => "unique")
+        tag2 = FactoryGirl.build(:tag, :name => "unique")
+        tag2.should_not be_valid
+
+    end
+
 end

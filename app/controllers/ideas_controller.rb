@@ -1,24 +1,24 @@
 class IdeasController < ApplicationController
     def index
-        return redirect_to main_path unless admin?
+        return redirect_to home_path unless admin?
 
         @ideas = Idea.all
     end
 
     def show
-        return redirect_to main_path unless admin?
+        return redirect_to home_path unless admin?
 
         @idea = Idea.find(params[:id])
     end
 
     def new
-        return redirect_to main_path unless admin?
+        return redirect_to home_path unless admin?
 
         @idea = Idea.new
     end
 
     def create
-        return redirect_to main_path unless admin?
+        return redirect_to home_path unless admin?
 
         @idea = Idea.new(params[:idea])
 
@@ -32,7 +32,7 @@ class IdeasController < ApplicationController
     end
 
     def destroy
-        return redirect_to main_path unless admin?
+        return redirect_to home_path unless admin?
 
         @idea = Idea.find(params[:id])
 

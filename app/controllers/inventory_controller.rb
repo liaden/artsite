@@ -1,18 +1,18 @@
 class InventoryController < ApplicationController
     def index
-        return redirect_to main_path unless admin?
+        return redirect_to home_path unless admin?
 
         @artworks = Artwork.all
     end
 
     def edit
-        return redirect_to main_path unless admin?
+        return redirect_to home_path unless admin?
 
         @artwork = Artwork.find(params[:id])
     end
 
     def update
-        return redirect_to main_path unless admin?
+        return redirect_to home_path unless admin?
 
         @artwork = Artwork.find(params[:id])
 
@@ -24,9 +24,9 @@ class InventoryController < ApplicationController
             update_by_key key
         end
 
-        if false
+        #if true
             flash[:notice] = "Inventory updated!"
-        end
+        #end
 
         redirect_to inventory_path(@artwork)
     end
@@ -36,12 +36,13 @@ private
         material, size, ignored = key.split('_')
 
         # "N/A" for material and size combination that does not exist
-        count = Integer(params[key]) rescue return
+        count = Integer(params[key]) rescue return 
 
         if count >= 0
             print = @artwork.prints.where(:material => material, :size_name => size).first
 
-            return flash[:error] = "No print found for #{material} and #{size_name}" unless print
+            return flash[:error] = "No print found for #{material} and #{size}" unless print
+
 
             print.inventory_count = count
             print.save

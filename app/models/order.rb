@@ -16,7 +16,12 @@ class Order < ActiveRecord::Base
 
     def total
         prices = (print_orders + lessons).map { |item| item.price }
-        prices.size > 0 ? prices.reduce(:+) : 0
+        prices << 0
+        prices.reduce(:+) 
+    end
+
+    def open?
+        state == "open"
     end
 
     def closed?
@@ -26,10 +31,6 @@ class Order < ActiveRecord::Base
     def shipping_cost
         return 0 if total >= 50 or prints.size == 0
         return SHIPPING_COST
-    end
-
-    def empty_cart?
-        prints.size == 0 and lessons.size == 0
     end
 
     def empty?

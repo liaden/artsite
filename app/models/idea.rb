@@ -1,5 +1,3 @@
 class Idea < ActiveRecord::Base
-    validates :by, :presence => true
-    validates :description, :presence => true
-    validates :reference, :presence => true
+    validates :by, :description, :reference, :presence => true
 end

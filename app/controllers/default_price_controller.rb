@@ -1,13 +1,13 @@
 class DefaultPriceController < ApplicationController
     def edit
-        return redirect_to main_path unless admin?
+        return redirect_to home_path unless admin?
 
         @photopapers = DefaultPrice.where(:material => "photopaper")
         @canvases = DefaultPrice.where(:material => "canvas")
     end
 
     def update
-        return redirect_to main_path unless admin?
+        return redirect_to home_path unless admin?
        
         ids = params.keys.grep /^\d+/
 
@@ -15,6 +15,12 @@ class DefaultPriceController < ApplicationController
 
         ids.each do |id|
             default = DefaultPrice.find_by_id id
+
+            if default == nil
+                flash[:error] = "Could not find instance of default price that matched id specified: #{id}."
+                return redirect_to price_edit_path
+            end
+
             new_price = BigDecimal(params[id])
 
             if params[:commit] == "Apply to all"
@@ -30,7 +36,7 @@ class DefaultPriceController < ApplicationController
             default.save
         end
 
-        redirect_to home_path
+        redirect_to price_edit_path
     end
 
 end
