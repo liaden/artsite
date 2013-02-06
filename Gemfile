@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.2'
 
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'less-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
