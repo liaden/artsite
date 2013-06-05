@@ -32,8 +32,6 @@ class ShowsController < ApplicationController
 
         @show = Show.find_by_id params[:id]
 
-        puts params
-
         @show.update_attributes params[:show]
 
         render :show
