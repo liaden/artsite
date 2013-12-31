@@ -66,6 +66,9 @@ module ArchaicSmiles
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # As specified by heroku
+    config.assets.initialize_on_precompile = false
+
     # for rspec
 
     config.generators do |g|
