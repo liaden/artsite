@@ -118,7 +118,6 @@ describe 'Manage Prints' do
 
                 fill_in :print_dimensions, :with => '10x10'
                 fill_in :print_price, :with => '10.00'
-                puts page.body
                 choose('print_is_sold_out_false')
 
                 click_button 'Save'
