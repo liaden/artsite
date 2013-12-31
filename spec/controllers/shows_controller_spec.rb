@@ -7,11 +7,7 @@ describe ShowsController do
     end
 
     context "as admin" do
-        before(:each) do
-            activate_authlogic
-            @user = FactoryGirl.create(:admin)
-            UserSession.create(@user)
-        end
+        before(:each) { login :admin }
 
         context "GET #new" do
             it "assigns @show" do
@@ -29,10 +25,7 @@ describe ShowsController do
 
         context "POST #create" do
             it "creates a new show" do
-                num_shows = Show.all.size 
-                post :create, :show => FactoryGirl.attributes_for(:show)
-                puts flash[:error]
-                Show.all.size.should == num_shows + 1
+                expect { post :create, :show => FactoryGirl.attributes_for(:show) }.to change{Show.count}.by(1)
             end
 
             it "redirects back to #new" do
@@ -85,9 +78,7 @@ describe ShowsController do
             end
 
             it "does not create the show" do
-                num_shows = Show.all.size
-                post :create, FactoryGirl.attributes_for(:show)
-                Show.all.size.should == num_shows
+                expect { post :create, FactoryGirl.attributes_for(:show) }.to_not change { Show.count }
             end
         end
 

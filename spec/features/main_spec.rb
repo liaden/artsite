@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe "Homepage" do
+    before(:each) { mock_paperclip_post_process }
+    before(:each) { FactoryGirl.create(:artwork) }
     it "has a carousel" do
-        FactoryGirl.create(:artwork)
-
         visit home_path
 
         page.should have_selector("div.carousel")

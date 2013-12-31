@@ -1,0 +1,25 @@
+<h1><%= @artwork.title -%></h1>
+<p> Select print to edit or new print to create</p>
+<dl>
+    <dt>Photopaper</dt>
+    <dd id='photopaper-prints'><% @artwork.prints.photopapers.each do |print| -%>
+        <%= link_to print.dimensions, edit_artwork_print_path(@artwork, print) -%>,
+    <% end -%>
+    or <%= link_to 'Add new photopaper print', photopaper_artwork_prints_path(@artwork) -%>
+    </dd>
+    <dt>Canvas</dt>
+    <dd id='canvas-prints'><% @artwork.prints.canvas.each do |print| -%>
+        <%= link_to print.dimensions, edit_artwork_print_path(@artwork, print) -%>,
+    <% end -%>
+    or <%= link_to 'Add new canvas print', canvas_artwork_prints_path(@artwork) -%>
+    </dd>
+    <dt>Original</dt>
+    <dd id='original-artwork'>
+    <% if @artwork.prints.original.empty? -%>
+        <%= link_to 'Add original', original_artwork_prints_path(@artwork, Print.original) %>
+    <% else -%>
+        <%= link_to @artwork.original_dimensions, edit_artwork_print_path(@artwork, @artwork.original) %>
+    <% end -%>
+    </dd>
+</dl>
+

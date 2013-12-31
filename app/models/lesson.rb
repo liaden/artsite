@@ -4,4 +4,6 @@ class Lesson < ActiveRecord::Base
     
     has_many :lesson_orders
     has_many :orders, :through => :lesson_orders
+
+    scope :upcoming, where('date > ?', Date.yesterday)
 end

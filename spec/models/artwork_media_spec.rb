@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe ArtworkMedium  do
     
+    before(:each) { mock_paperclip_post_process }
+
     before(:each) do
     end
 

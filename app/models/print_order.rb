@@ -1,51 +1,69 @@
 class PrintOrder < ActiveRecord::Base
     belongs_to :print
-    belongs_to :order
+    belongs_to :order, :autosave => true
+    belongs_to :frame, :autosave => true
+    belongs_to :matte, :autosave => true
+    
+    validates :print_id, :order_id, :frame_id, :matte_id, :presence => true
 
-    def framed?
-        PrintOrder.framed? frame_size
+    before_validation  :default_values
+    before_save :delete_potential_orphaned_matte
+
+    def delete_potential_orphaned_matte
+        database_version = PrintOrder.find_by_id(self.id)
+
+        if database_version != nil
+            if self.matte_id != database_version.matte_id
+                database_version.matte.destroy
+            end
+        end
     end
 
-    def self.framed?(frame_size)
-        not_framed = frame_size == "no_frame" || frame_size.nil?
-        !not_framed
+    def default_values
+        self.frame ||= Frame.unframed
+        self.matte ||= Matte.unmatted
+    end
+
+    def framed?
+        frame.framed?
+    end
+
+    def matted?
+        matte.matted?
     end
 
     def price
-        print.price + frame_price
+        return print.price if print.original?
+
+        # todo: give frame something that can give the right size if it is matted
+        print.price + frame.price(print) # + matte.price(print)
     end
 
-    def self.frame_price(dimensions, frame_size)
-        return 0 unless framed? frame_size
-
-        dimensions = Print.height_width dimensions
-
-        PrintOrder.frame_price_helper dimensions[:height], dimensions[:width]
+    def cost
     end
 
-    def frame_price
-        return 0 if print.original? or not framed?
-
-        dimensions = Print.height_width print.dimensions
-
-        PrintOrder.frame_price_helper dimensions[:height], dimensions[:width]
+    def height_width
+        print_dims = print.height_width
+        matte_dims = matte.height_width print_dims
+        frame_dims = frame.height_width matte_dims
+        frame.height_width(matte.height_width(print.height_width))
     end
 
-    private
+    validates_each :frame_id do |record, attr, value|
+        if record.frame and record.print
+            dimensions = record.height_width
+            if dimensions[:height] > 60 or dimensions[:width] > 60
+                record.errors.add "The specified frame is too large."
+            end
+        end
+    end
 
-    def self.frame_price_helper(height, width)
-        perimeter = (Integer(height)+Integer(width))*2
-        
-        # costs $0.2/inch
-        cost = perimeter * 0.2
-
-        # make sure profit is at least 50% (covers extra shipping cost and assembly time)
-        cost *= 2
-
-        # round up to nearest 5
-        temp = Integer(cost/5)
-        price = temp * 5 < cost ? (temp+1)*5 : temp * 5
-
-        return price
+    validates_each :matte_id do |record, attr, value|
+        if record.matte and record.print
+            dimensions = record.matte.height_width record.print.height_width
+            if dimensions[:height] > 40 or dimensions[:width] > 40
+                record.errors.add "The specified matte cannot exceed 30x40"
+            end
+        end
     end
 end

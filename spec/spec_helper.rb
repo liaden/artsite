@@ -16,15 +16,13 @@ SimpleCov.start do
     add_group 'Views', 'app/views'
 end
 
-
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+
 require 'rspec/autorun'
 require 'capybara/rspec'
 require 'database_cleaner'
 require 'authlogic/test_case'
-
-
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -62,6 +60,7 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.clean
   end
+
 end
 
 include Authlogic::TestCase
@@ -80,22 +79,22 @@ end
 
 RSpec::Matchers.define :have_created do |params|
     match do |model|
-        model.all.size - params[:starting_count] == params[:amount] 
+        model.count - params[:starting_count] == params[:amount] 
     end
 
     failure_message_for_should do |model|
-        "Created #{model.all.size - params[:starting_count]} of #{model.name} when #{params[:amount]} was expected"
+        "Created #{model.count - params[:starting_count]} of #{model.name} when #{params[:amount]} was expected"
     end
 
 end
 
 RSpec::Matchers.define :have_facebook_metatags do |params|
     match do |page|
-        page.has_selector?("meta[property='og:title']") and
-        page.has_selector?("meta[property='og:type']") and
-        page.has_selector?("meta[property='og:url']") and
-        page.has_selector?("meta[property='og:site_name']") and
-        page.has_selector?("meta[property='og:description']") 
+        page.has_selector?("meta[property='og:title']",       :visible => false) and
+        page.has_selector?("meta[property='og:type']",        :visible => false) and
+        page.has_selector?("meta[property='og:url']",         :visible => false) and
+        page.has_selector?("meta[property='og:site_name']",   :visible => false) and
+        page.has_selector?("meta[property='og:description']", :visible => false) 
     end
 end
 

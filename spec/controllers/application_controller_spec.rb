@@ -8,15 +8,15 @@ describe ApplicationController do
         end
 
         it "is a guest"  do
-            @controller.guest?.should be_true
+            @controller.should be_guest 
         end
 
         it "is not admin" do
-            @controller.admin?.should be_false
+            @controller.should_not be_admin
         end
 
         it "is not checking out" do
-            @controller.checking_out?.should be_false
+            @controller.should_not be_checking_out
         end
 
         # can't figure out how to test these so leave as pending
@@ -88,11 +88,11 @@ describe ApplicationController do
         end
 
         it "is not a guest" do
-            ApplicationController.new.guest?.should_not be_true
+            ApplicationController.new.should_not be_guest
         end
 
         it "is an admin" do
-            ApplicationController.new.admin?.should be_true
+            ApplicationController.new.should be_admin
         end
     end
 end

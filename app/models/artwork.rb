@@ -1,7 +1,12 @@
 class Artwork < ActiveRecord::Base
+    extend Taggable
+
+    taggable Medium, :plural => :medium # JOEL TODO: fix the plural
+    taggable Tag
+
     validates :title, :description, :image_file_name, :presence => true
 
-    if Rails.env.production?
+    if Rails.env.production? or Rails.env.staging?
         has_attached_file :image, 
                           :styles => { :carousel => "500x500", :thumbnail => "100x100" },
                           :storage => :s3,
@@ -17,16 +22,16 @@ class Artwork < ActiveRecord::Base
     end
 
 
-    has_many :artwork_tags
-	has_many :tags, :through => :artwork_tags, :uniq => true
-
-    has_many :artwork_medium
-    has_many :medium, :through => :artwork_medium
-
-    has_many :prints
+    # prints / purchasing relation
+    has_many :prints, :autosave => true do
+        def canvas() where(:material => 'canvas') end
+        def photopapers() where(:material => 'photopaper') end
+        def original() where(:material => 'original') end
+    end
 
     accepts_nested_attributes_for :prints
 
+    # pretty url stuff
     extend FriendlyId
     friendly_id :title, :use => [:slugged, :history]
 
@@ -60,37 +65,13 @@ class Artwork < ActiveRecord::Base
         price_point.price
     end
 
-    def canvases
-        prints.where(:material => "canvas" ).sort if id
-    end
-
-    def photopapers
-        prints.where(:material => "photopaper").sort if id
-    end
-
-    def original
-        prints.where(:material => "original").first if id
-    end
-
     def has_size?( size_name )
         prints.where(:size_name => size_name).size > 0 if id
     end
 
-    def self.create_with(params)
-        tag_params = params.delete :tags
-        medium_params = params.delete :mediums
-
-        artwork = create params
-
-        if tag_params
-            artwork.tags = tag_params.map { |tag| Tag.find_or_create_by_name(tag) }
-        end
-
-        if medium_params
-            artwork.medium = medium_params.map { |medium| Medium.find_or_create_by_name(medium)}
-        end
-
-        return artwork
+    def original
+        prints.original.first
     end
 
+    delegate :dimensions, :to => :original, :prefix => true
 end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Show do
     it "creates with valid data" do
-        FactoryGirl.create(:show).should be_valid
+        FactoryGirl.create(:show).should be_an_instance_of(Show)
     end
 
     it "fails without a date" do
@@ -32,6 +32,13 @@ describe Show do
 
     it "cannot be an invalid show" do
         FactoryGirl.build(:show, :show_type => "xyz").should_not be_valid
+    end
+
+    it 'does not list already finished shows' do
+        FactoryGirl.create( :show )
+        FactoryGirl.create( :show, :date => 7.days.ago )
+
+        Show.upcoming.should have(1).item
     end
 
 end

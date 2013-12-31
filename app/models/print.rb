@@ -1,7 +1,20 @@
 class Print < ActiveRecord::Base
     belongs_to :artwork
+    belongs_to :matte  # for originals 
+    belongs_to :frame  # for originals
     has_many :print_orders
     has_many :orders, :through => :print_orders
+
+    after_initialize :set_defaults
+
+    def set_defaults
+        self.is_sold_out ||= false
+        self.inventory_count ||= 0
+        self.is_on_show ||= false
+        self.sold_count ||= 0
+        self.frame || Frame.unframed
+        self.matte || Matte.unmatted
+    end
 
     def self.sizes
         ["small", "medium", "large", "extra_large", "original"]
@@ -19,6 +32,18 @@ class Print < ActiveRecord::Base
         materials - ["original"]
     end
 
+    def self.canvas(attrs = {})
+        Print.new attrs.merge(:material => 'canvas')
+    end
+
+    def self.photopaper(attrs = {})
+        Print.new attrs.merge(:material => 'photopaper')
+    end
+
+    def self.original(attrs = {})
+        Print.new attrs.merge(:material => 'original', :size_name => 'original')
+    end
+
     validates :size_name, :inclusion => { :in => Print.sizes, :message => "%{value} is not a valid name" }
     validates :material, :inclusion => { :in => Print.materials, :message => "%{value} is not a valid material" }
     validates :artwork_id, :dimensions, :price, :presence => true
@@ -27,25 +52,41 @@ class Print < ActiveRecord::Base
     validates_numericality_of :sold_count, :greater_than => -1
 
     validate do |print|
-        width, height = print.dimensions.split 'x'
-        
-        Integer(width) and Integer(height) rescue errors.add :dimensions, "Format for dimensions must be [width]x[height]."
+        if print.dimensions
+            width, height = print.dimensions.split 'x'
+            
+            Integer(width) and Integer(height) rescue errors.add :dimensions, "Format for dimensions must be [width]x[height]."
 
-        if print.price
-            errors.add :price, "A #{print.size_name} print should be free" unless print.price > 0.00
+            if print.price
+                errors.add :price, "A #{print.size_name} print should be free" unless print.price > 0.00
+            else
+                errors.add :price, "No price specified for the #{print.size_name} print of #{print.artwork.title}"
+            end
         else
-            errors.add :price, "No price specified for the #{print.size_name} print of #{print.artwork.title}"
+            errors.add :dimensions, "No dimensions for the print were specified."
         end
     end
 
+    def for_sale?
+        not is_sold_out and not is_on_show
+    end
+
     def print_type
-        if material == "photopaper"
+        if photopaper?
             "Art Print"
-        elsif material == "canvas"
+        elsif canvas?
             "Canvas Print"
         else
             "Original Artwork"
         end
+    end
+
+    def canvas?
+        material == 'canvas'
+    end
+
+    def photopaper?
+        material == 'photopaper'
     end
 
     def original?
@@ -59,20 +100,14 @@ class Print < ActiveRecord::Base
     def is_not_on_show?
         not is_on_show
     end
-
-    #def height_and_width
-    #    Print.height_and_width dimensions
-    #end
-
-    #def self.height_and_width(dimension)
-    #    warn "height_and_width is deprecated. use height_width. called from #{caller.first}"
-    #    match = dimension.match /(\d+)x(\d+)/
-    #    [ match[1], match[2] ]
-    #end
+    
+    def height_width
+        Print.height_width dimensions
+    end
 
     def self.height_width(dimensions)
         parts = dimensions.split('x')
-        return :height => parts[0], :width => parts[1]
+        return :height => parts[0].to_i, :width => parts[1].to_i
     end
 
     def self.ratio_to_small(ratio)

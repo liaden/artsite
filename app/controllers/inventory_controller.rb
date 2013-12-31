@@ -14,7 +14,7 @@ class InventoryController < ApplicationController
     def update
         return redirect_to home_path unless admin?
 
-        @artwork = Artwork.find(params[:id])
+        @artwork = Artwork.find(params[:id], :include => :prints)
 
         params.keys.grep(/canvas/).each do |key|
             update_by_key key

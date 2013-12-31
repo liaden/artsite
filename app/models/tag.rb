@@ -13,4 +13,31 @@ class Tag < ActiveRecord::Base
         true
     end
 
+    def self.merge_duplicate_names!
+        Tag.transaction do
+            tags_with_whitespace = Tag.all.select do |t|
+                t.name.first == ' ' or t.name.last == ' '
+            end
+
+            tags_with_whitespace.each do |t|
+                t.cleanup_data
+
+                # try to save without whitespace
+                # if we can't, it's cause we are not unique
+                unless t.save
+                    other = Tag.find_by_name t.name
+
+                    # save with exception to cancel transaction
+                    # since the error is not caused from duplicates
+                    t.save! if other.nil?
+
+                    other.artworks << t.artworks
+                    other.save!
+
+                    t.destroy
+                end
+            end
+        end
+    end
+
 end

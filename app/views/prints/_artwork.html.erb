@@ -1,0 +1,27 @@
+<div class="row">
+    <h1><%= @artwork.title -%></h1>
+    <div class="span4">
+    <dl>
+        <dt>Canvas</dt>
+        <% @artwork.prints.canvas.each do |print| -%>
+            <dd><%= print.dimensions -%>: <%= print.size_name -%></dd>
+        <% end -%>
+    <dl>
+    </div>
+    <div class="span4">
+    <dl>
+        <dt>Photopaper</dt>
+        <% @artwork.prints.photopapers.each do |print| -%>
+            <dd><%= print.dimensions -%>: <%= print.size_name -%></dd>
+        <% end -%>
+    </dl>
+    </div>
+    <div class="span4">
+    <dl>
+        <dt>Original<dt>
+        <% @artwork.prints.original.each do |print| -%>
+            <dd><%= print.dimensions -%></dd>
+        <% end -%>
+    <dl>
+    </div>
+</div>

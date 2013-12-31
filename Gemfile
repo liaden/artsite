@@ -1,9 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '~> 3.2.x'
 
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'less-rails'
+
+gem 'virtus', :git => 'git://github.com/solnic/virtus.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -15,9 +17,13 @@ group :assets do
   gem 'execjs'
   gem 'therubyracer', '~> 0.10.2'
 
+  gem 'backbone-rails'
+
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'draper'
+gem 'mustache-rails', :require => 'mustache/railtie', :git => 'http://github.com/liaden/mustache-rails.git'
 
 # caching
 gem 'dalli'
@@ -33,6 +39,7 @@ gem 'tumblr4r'
 gem 'paperclip'
 gem 'aws-s3'
 gem 'aws-sdk'
+gem "active_attr"
 
 # replacement for lack of autolink in rails 3.1+
 gem 'rails_autolink'
@@ -55,6 +62,7 @@ group :test do
     gem 'launchy'
     gem 'faker'
     gem 'database_cleaner'
+    gem 'sqlite3-ruby'
 end
 
 # use thin server instead of WEBrick

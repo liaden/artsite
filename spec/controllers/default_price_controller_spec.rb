@@ -2,11 +2,7 @@ require 'spec_helper'
 
 describe DefaultPriceController do
     context "as admin" do
-        before(:each) do 
-            activate_authlogic
-            @user = FactoryGirl.create(:admin)
-            UserSession.create(@user)
-        end
+        before(:each) { login :admin }
 
         describe "GET #edit" do
 

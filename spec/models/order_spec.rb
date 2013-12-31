@@ -1,24 +1,26 @@
 require 'spec_helper'
 
 describe Order do
+    before(:each) { mock_paperclip_post_process }
+
     it "fails on bad data" do
         FactoryGirl.build(:order, :state => "herp derp").should_not be_valid
     end
 
     it "is closed?" do
-        FactoryGirl.create(:order, :state => "open").closed?.should be_false
+        FactoryGirl.create(:order, :state => "open").should_not be_closed
     end
 
     it "is not closed?" do
-        FactoryGirl.create(:order, :state => "closed").closed?.should be_true
+        FactoryGirl.create(:order, :state => "closed").should be_closed
     end
 
     it "is open?" do
-        FactoryGirl.create(:order, :state => "open").open?.should be_true
+        FactoryGirl.create(:order, :state => "open").should be_open
     end
 
     it "is not open?" do
-        FactoryGirl.create(:order, :state => "closed").open?.should be_false
+        FactoryGirl.create(:order, :state => "closed").should_not be_open
     end
 
 
@@ -28,23 +30,44 @@ describe Order do
         end
 
         it "is empty" do
-            FactoryGirl.create(:order).empty?.should be_true
+            FactoryGirl.create(:order).should be_empty
         end
 
     end
 
-    context "prints only" do
+    context "with only prints" do
         before(:each) do
-            @order = FactoryGirl.create(:order)
+            FactoryGirl.create :no_frame
 
-            @prints = [ FactoryGirl.create(:print, :price => 25), FactoryGirl.create(:print, :price => 5) ]
-            @order.prints = @prints
+            @order = FactoryGirl.create(:order)
+            print_orders =  [ FactoryGirl.create(:print_order, :order => @order), FactoryGirl.create(:print_order, :order => @order) ]
+
+            @prints = @order.prints
+
             @order.save
+        end
+        
+        it "does not leave an orphan matte" do
+            # production code should have this in a transaction so that if an rollback occurs,
+            # the original matte would be restored, but I'd rather detect there is an error
+            # because at this time I expect no rollbacks to be triggered in this case
+            expect {
+                # set things up like we are using objects normally
+                @order = FactoryGirl.create :order, :prints => [ FactoryGirl.create(:print) ]
+                
+                # oh, let's change from unmatted to matted
+                @print_order = @order.print_orders.first
+                @print_order.matte = FactoryGirl.create :matte
+
+                @print_order.save
+
+            # is orphaned matte deleted?
+            }.to change{ Matte.count }.by(0)
         end
 
         context "small order" do
             it "has a total" do
-                @order.total.to_i.should == 30
+                @order.total.to_i.should == 10
             end
 
             it "has a shipping cost"  do
@@ -52,10 +75,8 @@ describe Order do
             end
 
             it "is not empty" do
-                @order.empty?.should be_false
+                @order.should_not be_empty
             end
-
-
         end
 
         context "large order" do

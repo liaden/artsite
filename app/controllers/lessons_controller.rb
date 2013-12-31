@@ -1,8 +1,7 @@
 class LessonsController < ApplicationController
   # GET /lessons
   def index
-    @lessons = Lesson.all
-    puts "@{lessons}"
+    @lessons = Lesson.upcoming
   end
 
   # GET /lessons/1

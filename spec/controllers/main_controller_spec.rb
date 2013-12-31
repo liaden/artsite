@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe MainController do
+    before(:each) { mock_paperclip_post_process }
 
     describe "GET index" do
         it "should assign @artworks" do

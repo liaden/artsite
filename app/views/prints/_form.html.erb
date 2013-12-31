@@ -1,0 +1,70 @@
+<% if print.errors -%>
+<div id='model-errors'>
+    <ul>
+    <% print.errors.each do |error| -%>
+        <li><%= error -%></li>
+    <% end -%>
+    </ul>
+</div>
+<% end -%>
+<legend>Print type: <%= print.material -%></legend>
+<%= form_for [artwork, print], :html => { :class => "form-horizontal" } do |f| -%>
+
+<%= f.hidden_field :material, :value => print.material -%>
+<%= f.hidden_field :is_on_show, :value => false -%>
+
+<div class="control-group">
+    <%= f.label :dimensions, :class => "control-label" -%>
+    <div class="controls">
+        <%= f.text_field :dimensions -%>
+    </div>
+<div>
+
+<% if not print.original? -%>
+    <%= f.hidden_field :is_sold_out, :value => false -%>
+    <div class="control-group">
+        <%= f.label :size_name, :class => "control-label" -%>
+        <div class="controls">
+            <%= f.select :size_name, Print.sizes_sans_original.zip(Print.sizes_sans_original) -%>
+        </div>
+    </div>
+
+<% end -%>
+
+<div class="control-group">
+    <%= f.label :price, :class => "control-label" -%>
+    <div class="controls">
+        <%= f.text_field :price -%>
+    </div>
+</div>
+
+<% if print.original? -%>
+    <div class="control-group">
+        <%= f.label :is_sold_out, :class => "control-label" -%>
+        <div class="controls">
+            <label class='radio'><%= f.radio_button(:is_sold_out, 'false', :checked => true) -%></label>
+            <label class='radio'><%= f.radio_button(:is_sold_out, 'true') -%></label>
+        </div>
+    </div>
+
+    <%= f.hidden_field :size_name, :value => 'original' -%>
+<% end -%>
+
+<div class="control-group">
+    <%= f.label :inventory_count, :class => 'control-label' -%>
+    <div class="controls">
+        <%= f.text_field :inventory_count -%>
+    </div>
+</div>
+
+<div class="control-group">
+    <%= f.label :sold_count, :class => 'control-label' -%>
+    <div class="controls">
+        <%= f.text_field :sold_count, :disable => true -%>
+    </div>
+</div>
+
+<div class="form-actions">
+    <%= f.submit :Save, :class => "btn btn-danger" -%>
+</div>
+<% end -%>

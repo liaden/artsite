@@ -15,8 +15,7 @@ class Order < ActiveRecord::Base
     attr_accessor :stripe_card_token
 
     def total
-        prices = (print_orders + lessons).map { |item| item.price }
-        prices << 0
+        prices = (print_orders + lessons).map(&:price) + [ 0 ]
         prices.reduce(:+) 
     end
 

@@ -12,7 +12,7 @@ end -%>
 <% end -%>
 
 <div class="row-fluid">
-    <div class="span8">
+    <div class="span12">
         <div class="row-fluid">
             <h1><%= @artwork.title -%><small><%= if_admin_edit(edit_artwork_path(@artwork)) -%></small></h1>
 
@@ -28,10 +28,7 @@ end -%>
             </div>
         </div>
         <div class="row">
-<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.archaicsmiles.com<%= CGI.escape(url_for(@artwork)) -%>&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>
+            <%= @artwork.facebook_like -%>
         </div>
-    </div>
-    <div class="span4">
-        <%= render 'prices'-%>
     </div>
 </div>

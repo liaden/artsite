@@ -24,7 +24,6 @@ class ShowsController < ApplicationController
         return redirect_to :action => :index unless admin?
 
         @show = Show.find_by_id params[:id]
-
     end
 
     def update

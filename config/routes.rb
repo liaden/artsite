@@ -1,6 +1,20 @@
 ArchaicSmiles::Application.routes.draw do
-    resources :artworks
-    resources :tags
+    resources :artworks do
+        resources :prints do
+            collection do
+                get 'canvas'
+                get 'photopaper'
+                get 'original'
+            end
+        end
+    end
+
+    resources :tags do
+        collection do
+            post 'clear_orphans'
+        end
+    end
+
     resources :lessons, :path => 'classes/'
     resources :shows, :path => 'shows/'
     resources :medium

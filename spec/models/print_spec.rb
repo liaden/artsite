@@ -3,9 +3,7 @@ require 'spec_helper'
 
 describe Print do
 
-    before(:each) do
-        @artwork = FactoryGirl.create(:artwork)
-    end
+    before(:each) { mock_paperclip_post_process } 
 
     it 'fails without artwork' do
         FactoryGirl.build(:print, :artwork => nil).should_not be_valid

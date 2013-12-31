@@ -1,8 +1,13 @@
 require 'spec_helper'
 
 describe ArtworksController do
+    let(:artwork) { FactoryGirl.create(:artwork) }
+    let(:tagged_artwork) { FactoryGirl.create(:tagged_artwork) }
+    let(:artwork_in_medium) { FactoryGirl.create(:artwork_in_medium) }
+
+    before(:each) { mock_paperclip_post_process }
+
     before(:each) do
-        @artwork = FactoryGirl.create(:artwork)
 
         @containing_folder = './spec/images/'
         @watercolor = "#{@containing_folder}watercolor.png"
@@ -12,49 +17,69 @@ describe ArtworksController do
         DefaultPrice.add_test_defaults_to_database
     end
 
-    context "as a visitor" do
+    context "as a guest" do
+        let(:item) { artwork }
+        let(:redirect_url) { artworks_path }
+        let(:attrs) { FactoryGirl.attributes_for(:artwork) }
+        let(:table) { Artwork }
+
+        it_behaves_like 'unauthorized GET new'
+        it_behaves_like 'unauthorized POST create'
+        it_behaves_like 'unauthorized GET edit'
+        it_behaves_like 'unauthorized DELETE destroy'
+
         describe "GET index" do
             it "assigns @artworks" do
+                artwork
+
                 get :index
-                assigns(:artworks).should_not be_empty
+                assigns[:artworks].should_not be_empty
             end
         end
 
-        describe "GET new" do
-            it "redirects" do
-                get :new
-                response.should redirect_to(artworks_path)
-            end
-        end
+        #describe "GET new" do
+        #    it "redirects" do
+        #        get :new
+        #        response.should redirect_to(artworks_path)
+        #    end
+        #end
 
-        describe "POST create" do
-            it "redirects" do
-                post :create
-                response.should redirect_to(artworks_path)
-            end
-        end
+        #describe "POST create" do
+        #    it "redirects" do
+        #        expect { post :create
+        #               }.to change { Artwork.count }.by(0)
 
-        describe "GET edit" do
-            it "redirects" do
-                get :edit, :id => @artwork.id
-                response.should redirect_to(artworks_path)
-            end
-        end
+        #        response.should redirect_to(artworks_path) 
+        #    end
 
-        describe "PUT update" do
-            it "redirects" do
-                put :update, :id => @artwork.id
-                response.should redirect_to(artworks_path)
-            end
-        end
+        #    it "does not create a new artwork" do
+        #        expect { post :create }.to change { Artwork.count }.by(0)
+        #   end
+
+        #end
+
+        #describe "GET edit" do
+        #    it "redirects" do
+        #        get :edit, :id => artwork.id
+        #        response.should redirect_to(artworks_path)
+        #    end
+        #end
+
+        #describe "PUT update" do
+        #    it "redirects" do
+        #        put :update, :id => artwork.id, :artwork => { :title => 'DIFFERENT' }
+        #        response.should redirect_to(artworks_path)
+        #    end
+
+        #    it "does not update teh artwork" do
+        #        put :update, :id => artwork.id, :artwork => { :title => 'DIFFERENT' }
+        #        artwork.reload.title.should_not eq('DIFFERENT')
+        #    end
+        #end
     end
 
     context "as an admin" do
-        before(:each) do
-            activate_authlogic
-            @user = FactoryGirl.create(:admin)
-            UserSession.create(@user)
-        end
+        before(:each) { login :admin }
 
         describe "GET new" do
             it "assigns artwork" do
@@ -65,81 +90,110 @@ describe ArtworksController do
 
         describe "POST create" do
             before(:each) do
-                @starting_print_count = Print.all.size
-                @starting_artwork_count = Artwork.all.size
                 @attrs = { :artwork => FactoryGirl.attributes_for(:artwork, :image => Rack::Test::UploadedFile.new(@rails)),
-                          :tags => "big,buterflies,dancing",
-                          :mediums => "watercolor",
-                          :original_size => "16x20",
-                          :original_price => "800.00"
-                        }
+                           :tags => "big,buterflies,dancing",
+                           :mediums => "watercolor",
+                         }
             end
 
             it "saves a new artwork" do
-                post :create, @attrs
-                Artwork.all.size.should == @starting_artwork_count + 1
+                expect {
+                    post :create, @attrs
+                }.to change {Artwork.count }.by(1)
             end
 
-            it "saves with only the original prints" do
+            #it "saves with only the original prints" do
+            #    expect {
+            #        post :create, @attrs
+            #    }.to change { Print.count }.by(1)
+            #end
 
-                post :create, @attrs
-                @artwork = Artwork.last
+            #it "saves only one in the small size" do
+            #    @attrs[:enable_s] = "yes"
 
-                @artwork.prints.size.should == @starting_print_count + 1 
-            end
+            #    expect {
+            #        post :create, @attrs
+            #    }.to change { Print.count }.by(2)
+            #end
 
-            it "saves only one in the small size" do
-                @attrs[:enable_s] = "yes"
+            #it "saves 8 prints with all options selected"  do
+            #    expect {
+            #        post :create, @attrs
+            #    }.to change { Print.count }.by(8)
+            #
+            #end
 
-                post :create, @attrs
-                @artwork = Artwork.last
+            #it "saves with the original already sold out"  do
+            #    @attrs[:is_sold_out] = "yes"
+            #
+            #    post :create, @attrs
+            #    artwork = Artwork.last
+            #
+            #    artwork.original.is_sold_out.should == true
+            #end
 
-                # +2 for one for small, one for original
-                @artwork.prints.size.should == @starting_print_count + 2
-            end
+            #it "does not create an artwork given a bad size" do
+            #    @attrs[:original_size] = "not a valid size"
 
-            it "saves 8 prints with all options selected"  do
-                @attrs[:enable_s] = "yes"
-                @attrs[:enable_m] = "yes"
-                @attrs[:enable_l] = "yes"
-                @attrs[:enable_xl] = "yes"
+            #    expect {
+            #        post :create, @attrs
+            #    }.to_not change { Artwork.count }
+            #end
 
-                post :create, @attrs
-                @artwork = Artwork.last
+            #it "does not create any prints given a bad size" do
+            #    expect { 
+            #        @attrs[:original_size] = "not a valid size"
+            #        post :create, @attrs
+            #    }.to_not change { Artwork.count }
+            #end
 
-                @artwork.prints.size.should == @starting_print_count + 8
-            end
 
-            it "saves with the original already sold out"  do
-                @attrs[:is_sold_out] = "yes"
-
-                post :create, @attrs
-                @artwork = Artwork.last
-
-                @artwork.original.is_sold_out.should == true
-            end
-
-            it "does not create an artwork given a bad size" do
-                @attrs[:original_size] = "not a valid size"
-                post :create, @attrs
-                Artwork.all.size.should == @starting_artwork_count
-            end
-
-            it "does not create any prints given a bad size" do
-                @attrs[:original_size] = "not a valid size"
-                post :create, @attrs
-                Print.all.size.should == @starting_print_count
-            end
         end
 
         describe "GET edit" do
+
             it "sets the artwork" do
-                get :edit, :id => @artwork.id
-                assigns(:artwork).should == @artwork
+                get :edit, :id => artwork.id
+                assigns[:artwork].should == artwork
             end
+
+            it "sets csv tags" do
+                get :edit, :id => tagged_artwork.id
+                assigns[:tags].should_not be_empty
+            end
+            it "sets csv mediums" do
+                get :edit, :id => artwork_in_medium.id
+                assigns[:medium].should_not be_empty
+            end
+
         end
 
         describe "PUT update" do
+            it "updates the attributes" do
+                post :update, :id => artwork.id, :artwork => { :title => 'DIFFERENT' }
+                artwork.reload.title.should == 'DIFFERENT'
+            end
+
+            it "updates new tags" do
+                post :update, :id => artwork.id, :artwork => {}, :tags => 'x,y,z'
+                sorted_tag_names = artwork.tags.map(&:name).sort 
+                
+                sorted_tag_names.should == ['x', 'y', 'z']
+            end
+
+        end
+
+        describe "POST destroy" do
+
+            it "destroys the artwork" do
+                artwork
+                expect { post :destroy, :id => artwork.id }.to change{Artwork.count}.by(-1)
+            end
+
+            it "destroys associated prints" do
+                artwork
+                expect { post :destroy, :id => artwork.id }.to change{Print.count}.by(-1*artwork.prints.count)
+            end
         end
     end
 

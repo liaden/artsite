@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe MediumController do
+    before(:each) { mock_paperclip_post_process }
+
     describe "GET show" do
         before(:each) do
             @mediums = [ FactoryGirl.create(:medium), FactoryGirl.create(:medium), FactoryGirl.create(:medium) ]

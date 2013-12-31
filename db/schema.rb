@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118223857) do
+ActiveRecord::Schema.define(:version => 20130607210136) do
 
   create_table "addresses", :force => true do |t|
     t.string   "recipient"
@@ -69,6 +69,13 @@ ActiveRecord::Schema.define(:version => 20130118223857) do
     t.integer "width"
   end
 
+  create_table "frames", :force => true do |t|
+    t.decimal "thickness"
+    t.decimal "depth"
+    t.decimal "price_per_inch"
+    t.integer "linear_inches"
+  end
+
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
     t.integer  "sluggable_id",                 :null => false
@@ -104,6 +111,22 @@ ActiveRecord::Schema.define(:version => 20130118223857) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "matte_colors", :force => true do |t|
+    t.string  "color"
+    t.string  "image_file_name"
+    t.string  "image_content_type"
+    t.string  "image_file_size"
+    t.decimal "price_per_square_inch"
+    t.integer "inventory_count"
+  end
+
+  create_table "mattes", :force => true do |t|
+    t.integer  "matte_color_id"
+    t.float    "size"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "media", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -126,7 +149,8 @@ ActiveRecord::Schema.define(:version => 20130118223857) do
     t.integer  "order_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "frame_size"
+    t.integer  "frame_id"
+    t.integer  "matte_id"
   end
 
   create_table "prints", :force => true do |t|
@@ -141,6 +165,13 @@ ActiveRecord::Schema.define(:version => 20130118223857) do
     t.decimal  "price"
     t.integer  "inventory_count"
     t.integer  "sold_count"
+    t.integer  "frame_id"
+    t.integer  "matte_id"
+  end
+
+  create_table "recommended_matte_colors", :force => true do |t|
+    t.integer "artwork_id"
+    t.integer "matte_color_id"
   end
 
   create_table "shows", :force => true do |t|

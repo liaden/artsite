@@ -1,7 +1,11 @@
 
-
 <div class="tabbable">
     <ul id="print-tabs" class="nav nav-tabs">
+        <%= @artwork.photopapers.tab -%>
+        <%= @artwork.canvas.tab -%>
+        <%= @artwork.original.tab -%>
+
+        <!--
         <li class="active art-tab">
             <a href="#artprints" data-toggle="tab" style="margin-right:-3px"><span class="visible-desktop">Art </span>Prints</a>
         </li>
@@ -11,23 +15,30 @@
         <li class="art-tab">
             <a href="#original" data-toggle="tab" style="margin-right:-3px">Original</a>
         </li>
+       -->
     </ul>
-    <div class="tab-content" style="padding-bottom:0px;">
+    <div class="tab-content artwork-price-box" >
+        <%= @artwork.photopaper.context_box -%>
+        <%= @artwork.canvas.context_box -%>
+        <%= @artwork.original.context_box -%>
+
+        <!--
         <div class="tab-pane active" id="artprints">
             <div class="content-box">
-            <%= render :partial => 'print_form', :locals => { :prints => @artwork.photopapers } -%>
+            <%= render :partial => 'print_form', :locals => { :prints => @artwork.prints.photopapers } -%>
             </div>
         </div>
         <div class="tab-pane" id="canvasprints">
             <div class="content-box"">
-            <%= render :partial => 'print_form', :locals => { :prints => @artwork.canvases } -%>
+            <%= render :partial => 'print_form', :locals => { :prints => @artwork.prints.canvas } -%>
             </div>
         </div>
         <div class="tab-pane" id="original">
             <div class="content-box">
-            <%= render :partial => 'print_form', :locals => { :prints => [@artwork.original] } -%>
+            <%= render :partial => 'print_form', :locals => { :prints => @artwork.prints.original } -%>
             </div>
         </div>
+        -->
     </div>
 </div>
 

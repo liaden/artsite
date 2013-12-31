@@ -1,5 +1,17 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery
+
+    def require_admin  
+       redirect_to :action => :index unless admin?
+    end
+
+    def require_admin_or_send_home
+        redirect_to home_path unless admin?
+    end
+
+    def set_artwork
+        @artwork = Artwork.find( params[:artwork_id] || params[:id], :include => :prints )
+    end
     
     def caller
         "ArchaicSmiles"
@@ -45,7 +57,7 @@ class ApplicationController < ActionController::Base
     end
 
 
-    private
+private
 
     def current_user_session
         @current_user_session = UserSession.find
@@ -55,10 +67,7 @@ class ApplicationController < ActionController::Base
         @current_user = current_user_session && current_user_session.record
     end
 
-
-
     def to_cents(price)
         (price * 100).to_i
     end
-    
 end
