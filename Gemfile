@@ -25,7 +25,7 @@ group :assets do
 end
 
 gem 'draper'
-gem 'mustache-rails', :require => 'mustache/railtie', :git => 'http://github.com/liaden/mustache-rails.git'
+#gem 'mustache-rails', :require => 'mustache/railtie', :git => 'http://github.com/liaden/mustache-rails.git'
 
 # caching
 gem 'dalli'
