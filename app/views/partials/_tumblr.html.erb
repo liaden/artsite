@@ -2,13 +2,14 @@
 <div class="page-header">
 <h1>Tumblr <small class="pull-right">
     <a href="http://www.tumblr.com/follow/archaic-smiles" class="btn btn-primary">Follow Me</a>
+    </small>
 </h1>
 </div>
 
 <div class="row">
 </div>
 
-<% @tumbles.each do |tumble| -%>
+<% @tumbles.take(3).each do |tumble| -%>
     <div class="alert alert-info news">
     <% if tumble.type == "photo" -%>
         <p><img src="<%= tumble.photo_url -%>"><%= tumble.photo_caption.html_safe -%></p>

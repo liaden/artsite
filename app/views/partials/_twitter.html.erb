@@ -1,16 +1,4 @@
-<div class="page-header">
-    <h1>Twitter <small class="pull-right">
-        <a href="https://twitter.com/intent/follow?original_referer=https%3A%2F%2Ftwitter.com%2Fabout%2Fresources%2Fbuttons&region=follow_link&screen_name=archaicsmiles&source=followbutton&variant=2.0" class="btn btn-primary twitter-follow">Follow Me</a>
-    </small>
-    </h1>
+<div id='twitter-feed'>
+  <a class="twitter-timeline" height="700" width="400" href="https://twitter.com/archaicsmiles" data-widget-id="418446846831239169">Tweets by @archaicsmiles</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </div>
-<% if @tweets.size == 0 -%>
-    <div class="alert alert-info news">
-        <p>An error has occurred accessing twitter.</p>
-    </div>
-<% end -%>
-<% @tweets.each do |tweet| -%>
-    <div class="alert alert-info news">
-        <p><%= auto_link(tweet.text) -%></p>
-    </div>
-<% end -%>
