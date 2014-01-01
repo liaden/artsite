@@ -28,6 +28,7 @@ gem 'draper'
 #gem 'mustache-rails', :require => 'mustache/railtie', :git => 'http://github.com/liaden/mustache-rails.git'
 
 # caching
+gem 'memcachier'
 gem 'dalli'
 
 gem 'authlogic'
