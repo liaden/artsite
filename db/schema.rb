@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130607210136) do
+ActiveRecord::Schema.define(:version => 20140105012852) do
 
   create_table "addresses", :force => true do |t|
     t.string   "recipient"
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(:version => 20130607210136) do
     t.string   "city"
     t.string   "state"
     t.string   "zipcode"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -70,10 +77,12 @@ ActiveRecord::Schema.define(:version => 20130607210136) do
   end
 
   create_table "frames", :force => true do |t|
-    t.decimal "thickness"
-    t.decimal "depth"
-    t.decimal "price_per_inch"
-    t.integer "linear_inches"
+    t.decimal  "thickness"
+    t.decimal  "price_per_inch"
+    t.decimal  "depth"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "linear_inches"
   end
 
   create_table "friendly_id_slugs", :force => true do |t|

@@ -5,6 +5,7 @@ class MainController < ApplicationController
 
     def index
         @artworks = Artwork.find(:all, :order => "created_at DESC").first MOST_RECENT_LIMIT
+        @artist_statement = Article.find_by_title :artist_statement
     end
 
 end

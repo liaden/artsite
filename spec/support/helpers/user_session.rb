@@ -5,6 +5,7 @@ def login(as)
 end
 
 def login_step(as)
+    FactoryGirl.create(:artist_statement)
     @user = FactoryGirl.create(as, :username => :user1)
 
     visit login_path

@@ -31,5 +31,21 @@ describe "Homepage" do
     end
 
     it "has a 404 for unknown resources"
+
+    context 'as admin' do
+      before(:each) { login_step :admin }
+
+      it 'shows admin navbar'
+
+      it 'edits artist statement' do
+        visit home_path
+
+        click_link 'Edit'
+        fill_in :article_content, :with => 'abcd'
+        click_button 'Save'
+
+        page.should have_content('abcd')
+      end
+    end
 end
 
