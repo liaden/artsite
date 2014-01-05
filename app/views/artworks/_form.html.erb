@@ -7,6 +7,11 @@
     <ul>
   </div>
 <% end -%>
+
+<% if not @artwork.new_record? -%>
+    <%= link_to 'Edit purchasing optins', artwork_print_path(@artwork), :class => 'btn' -%>
+<% end -%>
+
 <%= form_for @artwork, :html => {:class => "form-horizontal"} do |f| -%>
     <fieldset>
     <div class="control-group">
