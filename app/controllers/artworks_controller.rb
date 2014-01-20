@@ -53,6 +53,8 @@ class ArtworksController < ApplicationController
             redirect_to @artwork, :status => :moved_permanently
         end
 
+        impressionist(@artwork)
+
         @artwork = @artwork.decorate
     end
 

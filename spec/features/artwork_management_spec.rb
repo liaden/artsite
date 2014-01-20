@@ -34,7 +34,7 @@ describe "Manage Artworks" do
             visit artwork_path(artwork)
             page.should have_facebook_metatags
         end
-       
+
        it "has the navbar/footer" do
             visit artworks_path
             check_footer_header page
@@ -65,7 +65,6 @@ describe "Manage Artworks" do
         end
 
         it "shows all three purchase categories" 
-
         it "has all sizes listed for purchase"
         it "shows soldout for the original" 
         #    artwork.prints.original.update_attributes :is_sold_out => true

@@ -25,6 +25,8 @@ group :assets do
 end
 
 gem 'draper'
+gem 'impressionist'
+gem 'geocoder'
 #gem 'mustache-rails', :require => 'mustache/railtie', :git => 'http://github.com/liaden/mustache-rails.git'
 
 # caching
@@ -43,6 +45,7 @@ gem 'paperclip'
 gem 'aws-s3'
 gem 'aws-sdk'
 gem "active_attr"
+#gem "active_enum"
 
 # replacement for lack of autolink in rails 3.1+
 gem 'rails_autolink'

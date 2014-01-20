@@ -123,6 +123,7 @@ GEM
     formatador (0.2.4)
     friendly_id (4.0.10.1)
       activerecord (>= 3.0, < 4.0)
+    geocoder (1.1.9)
     guard (2.2.5)
       formatador (>= 0.2.4)
       listen (~> 2.1)
@@ -136,8 +137,12 @@ GEM
     http (0.5.0)
       http_parser.rb
     http_parser.rb (0.6.0)
+    httpclient (2.3.4.1)
     i18n (0.6.9)
     ice_nine (0.11.0)
+    impressionist (1.5.1)
+      httpclient (~> 2.2)
+      nokogiri (~> 1.5)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -304,7 +309,9 @@ DEPENDENCIES
   factory_girl_rails
   faker
   friendly_id
+  geocoder
   guard-rspec
+  impressionist
   jquery-rails
   launchy
   less-rails
