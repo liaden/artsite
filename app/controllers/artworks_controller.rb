@@ -8,9 +8,6 @@ class ArtworksController < ApplicationController
     before_filter :require_admin, :only => [:new, :create, :edit, :update, :destroy ]
     before_filter :set_artwork, :only  => [:edit, :update, :show, :destroy ]
 
-    caches_action :index
-    caches_action :show
-
     def index
         @artworks = Artwork.find( :all, :order => "created_at DESC")
     end
@@ -26,8 +23,6 @@ class ArtworksController < ApplicationController
     end
 
     def create
-        expire_action :action => :index
-
         ActiveRecord::Base.transaction do
             @artwork = Artwork.new params[:artwork] do |art|
                 art.create_tags_from_csv params[:tags]
@@ -71,7 +66,6 @@ class ArtworksController < ApplicationController
             @artwork.update_attributes(params[:artwork])
 
             if @artwork.valid?
-                expire_action :action => :show
                 return redirect_to @artwork
             end
 
@@ -86,7 +80,6 @@ class ArtworksController < ApplicationController
 
         Artwork.transaction do
             @artwork.destroy
-            expire_action :action => :index
         end
 
         @artworks = Artwork.all
