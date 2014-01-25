@@ -45,7 +45,7 @@ gem 'paperclip'
 gem 'aws-s3'
 gem 'aws-sdk'
 gem "active_attr"
-#gem "active_enum"
+gem "active_enum"
 
 # replacement for lack of autolink in rails 3.1+
 gem 'rails_autolink'
@@ -64,6 +64,7 @@ gem 'pg'
 group :test do
     gem 'simplecov'
     gem 'capybara'
+    gem 'selenium-webdriver'
     gem 'guard-rspec'
     gem 'launchy'
     gem 'faker'

@@ -35,7 +35,10 @@ describe "Homepage" do
     context 'as admin' do
       before(:each) { login_step :admin }
 
-      it 'shows admin navbar'
+      it 'shows admin navbar' #, :js => true do
+      #  visit home_path
+      #  page.should have_css('div#admin-navbar')
+      #end
 
       it 'edits artist statement' do
         visit home_path

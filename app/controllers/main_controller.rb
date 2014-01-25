@@ -8,4 +8,11 @@ class MainController < ApplicationController
         @artist_statement = Article.find_by_title :artist_statement
     end
 
+    def subnavbar
+      if admin?
+         return render :admin_sub_navbar, :layout => false
+      end
+
+      render :subnavbar, :layout => false
+    end
 end
