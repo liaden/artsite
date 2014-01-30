@@ -1,0 +1,85 @@
+{
+  "action": "<%= artwork_prints_path(@artwork) -%>",
+  "method": "post",
+  "html":
+  [
+    {
+      "type": "legend",
+      "html": "<%= @print.material -%>"
+    },
+    {
+      "type": "hidden",
+      "name": "print[material]",
+      "value": "<%= @print.material -%>"
+    },
+    {
+      "type": "hidden",
+      "name": "print[is_on_show]",
+      "value": "false"
+    },
+    {
+      "type": "text",
+      "name": "print[dimensions]",
+      "caption": "dimensions",
+      "placeholder": "<%= @print.dimensions -%>"
+    },
+    <% if @print.original? -%>
+    { 
+      "type": "radiobuttons",
+      "name": "print[is_sold_out]",
+      "caption": "is sold out",
+      "options": {
+        "no": {
+          "checked": "checked",
+          "caption": "no"
+        },
+        "yes": "yes" 
+      }
+    },
+    {
+      "type": "hidden",
+      "name": "print[size_name]",
+      "value": "original"
+    },
+    <% else -%>
+    {
+      "type": "hidden",
+      "name": "print[is_sold_out]",
+      "value": "false"
+    },
+    {
+      "type": "select",
+      "name": "print[size_name]",
+      "caption": "size name",
+      "options": {
+        "small": "small",
+        "medium": "medium",
+        "large": "large",
+        "extra_large": "extra large"
+      }
+    },
+    <% end -%>
+    {
+      "type": "text",
+      "name": "print[price]",
+      "caption": "price",
+      "placeholder": "<%= @print.price -%>"
+    },
+    {
+      "type": "text",
+      "name": "print[sold_count]",
+      "placeholder": "0",
+      "caption": "sold count"
+    },
+    {
+      "type": "hidden",
+      "name": "ajax",
+      "value": "true"
+    },
+    {
+      "type": "submit",
+      "value": "Save",
+      "id": "save-button"
+    }
+  ]
+}

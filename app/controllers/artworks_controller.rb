@@ -1,6 +1,5 @@
 require 'twitter'
 require 'tumblr4r'
-#require 'print_purchases'
 
 class ArtworksController < ApplicationController
 

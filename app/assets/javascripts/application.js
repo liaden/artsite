@@ -14,3 +14,5 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require navbar.js
+//= require jquery.dform-1.1.0.min
+

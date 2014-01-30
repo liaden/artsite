@@ -2,12 +2,15 @@ class PrintsController < ApplicationController
     before_filter :redirect_to_root_unless_admin, :set_artwork
     before_filter :set_print, :except => [ :index, :new, :canvas, :photopaper, :original, :create ]
 
+    respond_to :html, :json
+
     def index
         @prints = @artwork.prints
     end
 
     def new
-        @print = Print.new
+        @print = Print.new :material => params.fetch(:material, :photopaper)
+        respond_with @print
     end
 
     def canvas
@@ -29,17 +32,16 @@ class PrintsController < ApplicationController
     end
 
     def create
-        @print = Print.new params[:print].merge(
-            :artwork => @artwork, :frame => Frame.unframed, :matte => Matte.unmatted )
+      @print = Print.new params[:print].merge(
+        :artwork => @artwork, :frame => Frame.unframed, :matte => Matte.unmatted )
 
-        if @print.save
-            flash[:notice] = "Created new print!"
+      if @print.save
+        flash[:notice] = "Created new print!"
 
-            return redirect_to artwork_prints_path(@artwork.id)
-        end
+        return render :action => :show, :layout => params[:ajax].nil?
+      end
 
-        flash[:error] = "Error: could not save print"
-        render :action => :new
+      render 'errors', :head => :unprocessable_entity
     end
 
     def edit
@@ -48,7 +50,9 @@ class PrintsController < ApplicationController
     def update
         @print.update_attributes params[:print]
         if @print.valid?
+            expire_action :controller => :artwork, :action => :show, :id => @artwork.id
             flash[:notice] = "Updated the print"
+
             return redirect_to edit_artwork_path(@print.artwork)
          end
 

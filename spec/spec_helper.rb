@@ -61,6 +61,8 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  config.after(:each) { Capybara.use_default_driver }
+
 end
 
 # monkey patch active record for capybara with selenium
