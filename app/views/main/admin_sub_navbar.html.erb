@@ -1,23 +1,17 @@
-<div class="navbar navbar-fixed-top admin-navbar">
-    <div class="navbar-inner">
-        <div class="container">
-            <ul class="nav" style="float:right;">
-                <li><%= link_to 'Artwork', new_artwork_path -%></li>
-                <li class="divider-vertical" style="margin:0px"></li>
-                <li><%= link_to 'Ideas', ideas_path -%></li>
-                <li class="divider-vertical" style="margin:0px"></li>
-                <li><%= link_to 'Show', new_show_path -%></li>
-                <li class="divider-vertical" style="margin:0px"></li>
-                <li><%= link_to 'Class', new_lesson_path -%></li>
-                <li class="divider-vertical" style="margin:0px"></li>
-                <li><%= link_to 'Inventory', inventory_path -%></li>
-                <li class="divider-vertical" style="margin:0px"></li>
-                <li><%= link_to 'Default Prices', price_edit_path -%></li>
-                <li class="divider-vertical" style="margin:0px"></li>
-                <li><%= link_to 'Reports', '#' -%> </li>
-            </ul>
-        </div>
-    </div>
-</div>
+<nav class="top-bar" id="admin-navbar" data-topbar>
+  <ul class="title-area">
+    <li class="name"></li>
+  </ul>
 
-
+  <section class="top-bar-section">
+    <ul class="right">
+      <li><%= link_to 'Artwork', new_artwork_path -%></li>
+      <li><%= link_to 'Ideas', ideas_path -%></li>
+      <li><%= link_to 'Show', new_show_path -%></li>
+      <li><%= link_to 'Class', new_lesson_path -%></li>
+      <li><%= link_to 'Inventory', inventory_path -%></li>
+      <li><%= link_to 'Default Prices', price_edit_path -%></li>
+      <li><%= link_to 'Reports', '#' -%> </li>
+    </ul>
+  <section>
+</nav>

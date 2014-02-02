@@ -3,12 +3,11 @@ require 'spec_helper'
 describe "Homepage" do
     before(:each) { mock_paperclip_post_process }
     before(:each) { FactoryGirl.create(:artwork) }
+
     it "has a carousel" do
         visit home_path
 
-        page.should have_selector("div.carousel")
-        page.should have_selector("div.item")
-        page.should have_selector("div.item img")
+        page.should have_selector('#banner-image')
     end
 
     it "has artist's name" do
@@ -27,27 +26,23 @@ describe "Homepage" do
 
     it "has the navbar/footer" do
         visit home_path
-        check_footer_header page
+        page.should have_selector('footer')
+        page.should have_selector('nav')
     end
 
     it "has a 404 for unknown resources"
 
+    it "has commission information"
+    it "has latest tutorial"
+    it "has latest artwork"
+    it "has next upcoming convention"
+
     context 'as admin' do
       before(:each) { login_step :admin }
 
-      it 'shows admin navbar' #, :js => true do
-      #  visit home_path
-      #  page.should have_css('div#admin-navbar')
-      #end
-
-      it 'edits artist statement' do
+      it 'shows admin navbar', :js => true do
         visit home_path
-
-        click_link 'Edit'
-        fill_in :article_content, :with => 'abcd'
-        click_button 'Save'
-
-        page.should have_content('abcd')
+        page.should have_css('nav#admin-navbar')
       end
     end
 end

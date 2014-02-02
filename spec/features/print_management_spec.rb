@@ -3,6 +3,10 @@ require 'spec_helper'
 describe 'Manage Prints' do
     before(:each) { mock_paperclip_post_process }
     let(:artwork) { FactoryGirl.create(:artwork) }
+    before(:each) { @artwork = artwork }
+
+    # need javascript for the dynamic form creation
+    before(:each) { Capybara.current_driver = :selenium }
 
     context 'as admin' do
         before(:each) { login_step :admin }

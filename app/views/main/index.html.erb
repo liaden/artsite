@@ -7,20 +7,55 @@
     <%= tag :meta, :property => "og:description", :content => "The art of Holly Morningstar" %>
 <% end -%>
 
-<div class="row-fluid">
-<div class="page-header">
-    <h1>ArchaicSmiles: <small>The Art of Holly Morningstar</small></h1>
-</div>
-<%= render :partial => "partials/art_carousel", :locals => { :artworks => @artworks } %>
-
-<% if admin? -%>
-  <%= link_to 'Edit', edit_article_path(@artist_statement) -%>
-<% end -%>
-
-<% if @artist_statement -%>
-    <%= @artist_statement.content.html_safe -%>
-<% end -%>
-</div>
+    <div id="banner-image" style="height:300px;width:100%;overflow:hidden;margin-top:0px">
+    <%= image_tag "http://s3.amazonaws.com/ArchaicSmiles/artworks/images/000/000/023/original/magiclanternssmall.jpg" -%>
+    </div>
+    <hr />
+  
+<!-- Three-up Content Blocks -->
+ 
 <div class="row">
-<iframe id="facebook_like" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.archaicsmiles.com&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>"
+  <div class="large-4 columns">
+    <img src="http://placehold.it/400x300&text=[img]" />
+    <h4>Tutorials.</h4>
+    <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>
+  </div>
+  
+  <div class="large-4 columns">
+    <%= image_tag @artwork.image.url(:thumbnail), :alt => 'new artwork' -%>
+    <h4><%= @artwork.title -%></h4>
+    <p><%= @artwork.description -%> </p>
+  </div>
+  
+  <div class="large-4 columns">
+    <img src="http://placehold.it/400x300&text=[img]" />
+    <h4>Upcoming conventions.</h4>
+    <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.<%= link_to 'Upcoming conventions', schedule_path -%></p>
+  </div>
+
+</div>
+    
+<!-- Call to Action Panel -->
+<div class="row">
+    <div class="large-12 columns">
+    
+      <div class="panel">
+        <h4>Accepting commissions!</h4>
+            
+        <div class="row">
+          <div class="large-9 columns">
+            <p>If you would like to commission me for any art, shoot me an email with your idea. SciFi, steampunk, fantasy, and critters are my speciality.</p>
+          </div>
+          <div class="large-3 columns">
+            <%= mail_to "archaicsmiles@gail.com", "Contact Me", :class => "radius button right" -%>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+</div>
+ 
+<div class="row">
+
+  <iframe id="facebook_like" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.archaicsmiles.com&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe>"
 </div>

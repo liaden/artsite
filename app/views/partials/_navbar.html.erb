@@ -1,55 +1,46 @@
-
-<%
-def active?(x, y)
-    if x == y
-        "active"
-    else
-        ""
-    end
-end %>
-
-<!-- JOEL TODO: REMOVE STYLE FROM DIVIDER-VERTICAL AND MOVE INTO CSS PAGE -->
-
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </a>
-    <div class="container">
-      <div class="nav-collapse">
-        <ul class="nav">
-          <li><a class="brand" href="<%= home_path -%>">ArchaicSmiles</a></li>
-          <li class="<%= active?(caller, 'Gallery') -%>"><%= link_to "Gallery", artworks_path -%></li>
-          <li class="divider-vertical" style="margin:0px"></li>
-          <li class="<%= active?(caller, 'News') -%>"><%= link_to "News", news_path -%></li>
-          <li class="divider-vertical" style="margin:0px"></li>
-          <li class="<%= active?(caller, 'Classes') -%>"><%= link_to "Classes", lessons_path -%></li>
-          <li class="divider-vertical" style="margin:0px"></li>
-          <li class="<%= active?(caller, 'Schedule') -%>"><%= link_to "Schedule", schedule_path -%></li>
-          <li class="divider-vertical" style="margin:0px"></li>
-          <li class="<%= active?(caller, 'Commission') -%>"><%= link_to "Comission", new_commission_path -%></li>
-        </ul>
-        <div class="user-controls">
-            <ul class="nav">
-                  <li><a href='/cart'>Cart</a></li>
-                  <li class="divider-vertical" style="margin:0px"></li>
-              <% if current_user -%>
-                  <li><%= link_to "Logout", :logout -%></li>
-              <% else -%>
-                  <li><%= link_to 'Login', login_path -%></li>
-                  <li class="divider-vertical" style="margin:0px"></li>
-                  <li><%= link_to 'Register', new_user_path -%></li>
-              <% end -%>
-            </ul>  
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="fixed">
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <li class="name">
+        <h1>
+          <%= link_to 'ArchaicSmiles', home_path -%>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon">
+      </li>
+    </ul>
+  
+    <section class="top-bar-section">
+      <ul class="left">
+        <li class="divider"></li>
+        <li>
+          <%= link_to "Gallery", artworks_path -%>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <%= link_to "News", news_path -%>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <%= link_to "Classes", lessons_path -%>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <%= link_to "Schedule", schedule_path -%></li>
+        </li>
+      </ul>
+  
+      <ul class="right">
+        <% if current_user -%>
+          <li><%= link_to "Logout", logout_path -%></li>
+        <% else -%>
+          <li><%= link_to "Login", login_path -%></li>
+          <li class="divider"></li>
+          <li><%= link_to "Register", new_user_path -%></li>
+        <% end -%>
+    </section>
+  </nav>
 </div>
-
 <div id="subnav-container">
 </div>
-<% #render :partial => 'partials/admin_navbar' -%>
 

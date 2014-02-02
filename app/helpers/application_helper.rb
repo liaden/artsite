@@ -1,5 +1,4 @@
 module ApplicationHelper
-
     def control_group_tag
         "<div class='control-group'>#{yield}</div>".html_safe
     end
