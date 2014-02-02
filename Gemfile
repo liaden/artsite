@@ -4,7 +4,6 @@ ruby '1.9.3'
 
 gem 'rails', '~> 3.2.x'
 
-#gem 'twitter-bootstrap-rails'
 #gem 'less-rails'
 
 gem 'virtus', :git => 'git://github.com/solnic/virtus.git'
