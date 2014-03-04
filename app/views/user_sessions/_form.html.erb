@@ -1,25 +1,31 @@
-<%= form_for(@user_session, :html => { :class => "form-horizontal"} ) do |f| %>
-  <% if @user_session.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user_session.errors.count, "error") %> prohibited this user_session from being saved:</h2>
+<%= form_for(user_session) do |f| %>
 
-      <ul>
-      <% @user_session.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <%= render :partial => 'partials/form_errors', :locals => { :item => user_session } -%>
+
+  <div class="row">
+    <div class="small-6">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :username, :class => "inline" %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.text_field :username %>
+        </div>
+      </div>
     </div>
-  <% end %>
 
-  <div class="control-group">
-    <%= f.label :username, :class => "control-label" %><br />
-    <div class="controls"><%= f.text_field :username %></div>
+    <div class="small-6">
+      <div class="row">
+        <div class="small-3 columns">
+          <%= f.label :password, :class => "inline" %>
+        </div>
+        <div class="small-9 columns">
+          <%= f.password_field :password %>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="control-group">
-    <%= f.label :password, :class => "control-label" %><br />
-    <div class="controls"><%= f.password_field :password %></div>
-  </div>
-  <div class="form-actions">
-    <%= f.submit "Login", :class => "btn btn-primary" %>
+  <div class="row">
+    <%= f.submit "Login", :class => "button" %>
   </div>
 <% end %>

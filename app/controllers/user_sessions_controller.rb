@@ -1,4 +1,6 @@
 class UserSessionsController < ApplicationController
+    decorates_assigned :user_session
+
     def new
         @user_session = UserSession.new
 

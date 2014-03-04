@@ -1,4 +1,6 @@
 class UserSession < Authlogic::Session::Base
+    include Draper::Decoratable
+
     def to_key
         new_record? ? nil : [ self.send(self.class.primary_key) ]
     end
@@ -7,3 +9,4 @@ class UserSession < Authlogic::Session::Base
         false
     end
 end
+

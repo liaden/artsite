@@ -1,6 +1,5 @@
 class ArtworkDecorator < ApplicationDecorator
   delegate_all
-  decorates :artwork
 
   def canvas
     CanvasOptions.decorate_collection prints.canvas
