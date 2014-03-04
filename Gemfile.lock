@@ -117,6 +117,9 @@ GEM
     foundation-rails (5.1.1.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
+    foundation_rails_helper (0.4)
+      actionpack (>= 3.0)
+      railties (>= 3.0)
     friendly_id (4.0.10.1)
       activerecord (>= 3.0, < 4.0)
     geocoder (1.1.9)
@@ -313,6 +316,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   foundation-rails
+  foundation_rails_helper
   friendly_id
   geocoder
   guard-rspec
