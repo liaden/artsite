@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
+//= require foundation
 //= require navbar.js
 //= require jquery.dform-1.1.0.min
 
+
+$(function(){ $(document).foundation(); });
