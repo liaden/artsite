@@ -2,7 +2,7 @@ require 'twitter'
 require 'tumblr4r'
 
 class ArtworksController < ApplicationController
-
+    decorates_assigned :artwork
 
     before_filter :require_admin, :only => [:new, :create, :edit, :update, :destroy ]
     before_filter :set_artwork, :only  => [:edit, :update, :show, :destroy ]
@@ -18,7 +18,6 @@ class ArtworksController < ApplicationController
 
         # defaults sizes for a 2:3 ratio
         @sizes = [ '4x6', '8x12', '12x18' ]
-        
     end
 
     def create
@@ -48,8 +47,6 @@ class ArtworksController < ApplicationController
         end
 
         impressionist(@artwork)
-
-        @artwork = @artwork.decorate
     end
 
     def edit

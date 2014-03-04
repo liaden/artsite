@@ -1,46 +1,31 @@
-<% if @artwork.errors.any? -%>
-  <div id='model-errors' class='alert alert-error'>
-    <ul>
-    <% @artwork.errors.each do |error| -%>
-      <li><%= error -%></li>
-    <% end -%>
-    <ul>
-  </div>
-<% end -%>
+<%= artwork.form_title -%>
+<%= artwork.edit_prints_link -%>
 
-<% if not @artwork.new_record? -%>
-    <%= link_to 'Edit purchasing optins', artwork_prints_path(@artwork), :class => 'btn' -%>
-<% end -%>
+<%= render :partial => 'partials/form_errors', :locals => { :item => artwork } -%>
 
-<%= form_for @artwork, :html => {:class => "form-horizontal"} do |f| -%>
-    <fieldset>
-    <div class="control-group">
-        <%= f.label :title, :class => "control-label" -%>
-        <div class="controls"><%= f.text_field :title, :class => "span5" -%></div>
+<div class="row">
+  <%= form_for artwork do |f| -%>
+    <div class="large-6">
+      <%= f.text_field :title -%>
     </div>
 
-    <div class="control-group">
-        <%= f.label :description, :class => "control-label" -%>
-        <div class="controls"><%= f.text_area :description, :rows => 5, :class => "span5" -%></div>
+    <div class="large-6">
+      <%= f.text_area :description -%>
     </div>
 
-    <div class="control-group">
-        <%= f.label :image, :class => "control-label" -%>
-        <div class="controls"><%= f.file_field :image -%></div>
+    <div class="large-3 columns">
+      <%= f.file_field :image -%>
     </div>
 
-    <div class="control-group">
-        <%= f.label :tags, :class => "control-label" -%>
-        <div class="controls"><%= text_field_tag :tags, @tags -%></div>
+    <div class="large-4 columns">
+      <%= f.label :tags -%>
+      <%= text_field_tag :tags, @tags -%>
     </div>
 
-    <div class="control-group">
-        <%= f.label :mediums, :class => "control-label" -%>
-        <div class="controls"><%= text_field_tag :mediums, @medium -%></div>
+    <div class="large-4 columns">
+      <%= f.label :mediums -%>
+      <%= text_field_tag :mediums, @medium -%>
     </div>
-
-    <div class="form-actions">
-        <%= f.submit "Finish", :class => "btn btn-primary" -%>
-    </div>
-    </fieldset>
-<% end -%>
+    <%= f.submit "Finish", :class => "button" -%>
+  <% end -%>
+</div>

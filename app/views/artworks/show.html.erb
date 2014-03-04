@@ -3,32 +3,32 @@
 end -%>
 
 <%= content_for :og do -%>
-    <%= tag :meta, :property => "og:title", :content => @artwork.title %>
+    <%= tag :meta, :property => "og:title", :content => artwork.title %>
     <%= tag :meta, :property => "og:type", :content => :article %>
-    <%= tag :meta, :property => "og:url", :content => "http://www.archaicsmiles.com#{url_for(@artwork)}" %>
-    <%= tag :meta, :property => "og:image", :content => @artwork.image.url(:thumbnail) %>
+    <%= tag :meta, :property => "og:url", :content => "http://www.archaicsmiles.com#{url_for(artwork)}" %>
+    <%= tag :meta, :property => "og:image", :content => artwork.image.url(:thumbnail) %>
     <%= tag :meta, :property => "og:site_name", :content => "ArchaicSmiles" %>
-    <%= tag :meta, :property => "og:description", :content => @artwork.description %>
+    <%= tag :meta, :property => "og:description", :content => artwork.description %>
 <% end -%>
 
 <div class="row-fluid">
     <div class="span12">
         <div class="row-fluid">
-            <h1><%= @artwork.title -%><small><%= if_admin_edit(edit_artwork_path(@artwork)) -%></small></h1>
+            <h1><%= artwork.title -%><small><%= if_admin_edit(edit_artwork_path(artwork)) -%></small></h1>
 
-        <div id="mediums"> <%= render :partial => 'partials/mediums', :locals => {:medium => @artwork.medium} -%> </div>
+        <div id="mediums"> <%= render :partial => 'partials/mediums', :locals => {:medium => artwork.medium} -%> </div>
         </div>
-        <%= image_tag @artwork.image.url, :id => 'artwork_image' -%>
+        <%= image_tag artwork.image.url, :id => 'artwork_image' -%>
         <div class="row-fluid">
             <div class="alert alert-info span8">
-                <h3>Description</h3><p><%= @artwork.description -%></p> 
+                <h3>Description</h3><p><%= artwork.description -%></p> 
             </div>
             <div id="tags" class="alert alert-info span4">
-                <%= render :partial => 'partials/tags', :locals => {:tags => @artwork.tags} -%>
+                <%= render :partial => 'partials/tags', :locals => {:tags => artwork.tags} -%>
             </div>
         </div>
         <div class="row">
-            <%= @artwork.facebook_like -%>
+            <%= artwork.facebook_like -%>
         </div>
     </div>
 </div>
