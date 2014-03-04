@@ -8,20 +8,9 @@ class Artwork < ActiveRecord::Base
 
     validates :title, :description, :image_file_name, :presence => true
 
-    if Rails.env.production? or Rails.env.staging?
-        has_attached_file :image, 
-                          :styles => { :carousel => "500x500", :thumbnail => "100x100" },
-                          :storage => :s3,
-                          :bucket => ENV['S3_BUCKET_NAME'],
-                          :s3_credentials => {
-                              :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-                              :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
-                          }
-    else
-        has_attached_file :image, 
-                          :styles => { :carousel => "500x500", :thumbnail => "100x100" },
-                          :path => ":rails_root/tmp/paperclip_test"
-    end
+    has_attached_file :image, {
+                        :styles => { :carousel => "500x500", :thumbnail => "100x100" },
+                      }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
 
     # prints / purchasing relation

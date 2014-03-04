@@ -67,3 +67,11 @@ ArchaicSmiles::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
+
+PAPERCLIP_STORAGE_OPTIONS = { :storage => :s3,
+  :bucket => ENV['S3_BUCKET_NAME'],
+  :s3_credentials => {
+    :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+    :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+  }
+}

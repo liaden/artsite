@@ -4,7 +4,7 @@ FactoryGirl.define do
     factory :artwork do |f|
         f.title { Faker::Lorem::words }
         f.description { Faker::Lorem::paragraphs }
-        f.image { File.new('./spec/images/watercolor.png') }               
+        f.image { File.new('./spec/images/watercolor.jpg') }               
     end
 
     factory :artwork_in_medium, :parent => :artwork do |f|
