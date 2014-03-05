@@ -114,6 +114,9 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.9.3)
     formatador (0.2.4)
+    foundation-icons-sass-rails (3.0.0)
+      railties (>= 3.1.1)
+      sass-rails (>= 3.1.1)
     foundation-rails (5.1.1.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
@@ -315,6 +318,7 @@ DEPENDENCIES
   execjs
   factory_girl_rails
   faker
+  foundation-icons-sass-rails
   foundation-rails
   foundation_rails_helper
   friendly_id

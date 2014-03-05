@@ -20,7 +20,7 @@ group :assets do
   gem 'therubyracer', '~> 0.10.2'
 
   gem 'backbone-rails'
-
+  gem 'foundation-icons-sass-rails'
   gem 'uglifier', '>= 1.0.3'
 end
 

@@ -2,7 +2,13 @@
  *= require foundation_and_overrides
 */
 
+@import 'foundation-icons';
+
 .small-form-container { 
   max-width:20rem;
   padding-right:0.5em;
+}
+
+i {
+  font-size:2rem;
 }
