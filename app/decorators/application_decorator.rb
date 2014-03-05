@@ -6,23 +6,4 @@ class ApplicationDecorator < Draper::Decorator
   def error_message_title
     "There has been error."
   end
-
-private
-  def control_group
-    h.content_tag :div, :class => 'control-group' do
-      yield
-    end
-  end
-
-  def controls
-    h.content_tag :div, :class => 'controls' do
-      yield
-    end
-  end
-
-  def form_actions
-    h.content_tag :div, :class => 'form-actions' do
-    end
-  end
-    
 end
