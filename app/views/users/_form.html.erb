@@ -1,7 +1,36 @@
-<%= form_for @user do |f| -%>
-    <%= f.label :username -%><%= f.text_field :username -%>
-    <%= f.label :email -%><%= f.text_field :email -%>
-    <%= f.label :password -%><%= f.password_field :password -%>
-    <%= f.label :password_confirmation -%><%= f.password_field :password_confirmation -%>
-    <%= f.submit "Register" -%>
+<%= form_for user do |f| -%>
+  <%= render :partial => 'partials/form_errors', :locals => {:item => user } -%>
+  <% label_writer = HorizontalLabel.new(f) -%>
+
+  <div class="row">
+    <div class="small-form-container">
+      <div class="row">
+        <%= label_writer.tag(:username) do -%>
+          <%= f.text_field :username, :label => false -%>
+        <% end -%>
+      </div>
+
+      <div class="row">
+        <%= label_writer.tag(:email) do -%>  
+          <%= f.text_field :email, :label => false -%>
+        <% end -%>
+      </div>
+
+      <div class="row">
+        <%= label_writer.tag(:password) do -%>
+          <%= f.password_field :password, :label => false -%>
+        <% end -%>
+      </div>
+
+      <div class="row">
+        <%= label_writer.tag(:confirmation) do -%>
+          <%= f.password_field :password_confirmation, :label => false -%>
+        <% end -%>
+      </div>
+
+      <div class="row">
+        <%= f.submit "Register", :class => 'button' -%>
+      </div>
+    </div>
+  </div>
 <% end -%>

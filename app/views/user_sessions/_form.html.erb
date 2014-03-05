@@ -1,31 +1,25 @@
 <%= form_for(user_session) do |f| %>
 
+  <% label_writer = HorizontalLabel.new(f) -%>
   <%= render :partial => 'partials/form_errors', :locals => { :item => user_session } -%>
 
   <div class="row">
-    <div class="small-6">
+    <div class="small-form-container">
       <div class="row">
-        <div class="small-3 columns">
-          <%= f.label :username, :class => "inline" %>
-        </div>
-        <div class="small-9 columns">
-          <%= f.text_field :username, :label => false %>
-        </div>
+        <%= label_writer.tag(:username) do -%>
+          <%= f.text_field :username, :class => 'small', :label => false %>
+        <% end -%>
       </div>
-    </div>
 
-    <div class="small-6">
       <div class="row">
-        <div class="small-3 columns">
-          <%= f.label :password, :class => "inline" %>
-        </div>
-        <div class="small-9 columns">
+        <%= label_writer.tag(:password) do -%>
           <%= f.password_field :password, :label => false %>
-        </div>
+        <% end -%>
+      </div>
+
+      <div class="row">
+        <%= f.submit "Login", :class => "button" %>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <%= f.submit "Login", :class => "button" %>
   </div>
 <% end %>

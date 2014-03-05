@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+    decorates_assigned :user
+
     def new
         @user = User.new
     end
