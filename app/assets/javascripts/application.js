@@ -11,10 +11,11 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery.ui.datepicker
 //= require jquery_ujs
 //= require foundation
 //= require navbar.js
 //= require jquery.dform-1.1.0.min
-
+//= require artwork.js
 
 $(function(){ $(document).foundation(); });

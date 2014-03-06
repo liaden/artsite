@@ -26,6 +26,7 @@ class ArtworksController < ApplicationController
                 art.create_tags_from_csv params[:tags]
                 art.create_medium_from_csv params[:mediums]
             end
+            @artwork.created_at = Date.strptime(params[:artwork][:created_at], '%m/%d/%Y') 
 
             if @artwork.save
                 flash[:notice] = "'#{@artwork.title}' has been successfully created."

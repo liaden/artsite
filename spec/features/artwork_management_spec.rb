@@ -84,7 +84,7 @@ describe "Manage Artworks" do
         before(:each) { login_step :admin }
         let(:upload_image) { 'spec/images/watercolor.png' }
         let(:default_attrs) do
-            { :title => 'new title', :description => 'tada', :image => upload_image, :tags => 'a,b,c,d', :mediums => 'oil,watercolor pastel' } 
+            { :title => 'new title', :description => 'tada', :image => upload_image, :tags => 'a,b,c,d', :mediums => 'oil,watercolor pastel', :created => Date.today } 
         end
 
         def new_artwork_workflow attrs 
@@ -92,6 +92,7 @@ describe "Manage Artworks" do
           
             fill_in 'artwork_title', :with => attrs[:title]
             fill_in 'artwork_description', :with => attrs[:description]
+            fill_in 'artwork_created_at', :with => attrs[:created].strftime('%m/%d/%Y')
 
             attach_file 'artwork_image',  attrs[:image] 
 
@@ -102,12 +103,18 @@ describe "Manage Artworks" do
         end
 
         describe "creating artwork" do
-            it "makes a new artwork" do
+            it "gives positive feedback" do
                 new_artwork_workflow default_attrs
 
                 within('#flash-notice') do
                     page.should have_content('successfully created')
                 end
+            end
+
+            it "allows for setting creation date" do
+              new_artwork_workflow default_attrs.merge(:created => Date.today - 7)
+
+              Artwork.last.created_at.should < Date.today
             end
 
             it "moves to print creation step on success" do

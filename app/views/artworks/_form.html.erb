@@ -5,27 +5,40 @@
 
 <div class="row">
   <%= form_for artwork do |f| -%>
-    <div class="large-6">
-      <%= f.text_field :title -%>
+      <div class="small-6">
+        <%= f.text_field :title -%>
+      </div>
+
+    <div id='' class="row date collapse" data-date-format="yyyy-mm-dd" data-date="<%= Date.today -%>">
+      <%= f.label :created_at -%>
+      <div class="small-3 columns">
+        <%= f.text_field :created_at, :label => false -%>
+      </div>
+      <div class="small-2 columns end">
+        <span class="postfix">
+          <i class="fi-calendar"></i>
+        </span>
+      </div>
     </div>
 
-    <div class="large-6">
+    <div class="small-6">
       <%= f.text_area :description -%>
     </div>
 
-    <div class="large-3 columns">
+    <div class="small-3 columns">
       <%= f.file_field :image -%>
     </div>
 
-    <div class="large-4 columns">
+    <div class="small-4 columns">
       <%= f.label :tags -%>
       <%= text_field_tag :tags, @tags -%>
     </div>
-
-    <div class="large-4 columns">
+    
+    <div class="small-4 columns">
       <%= f.label :mediums -%>
       <%= text_field_tag :mediums, @medium -%>
     </div>
     <%= f.submit "Finish", :class => "button" -%>
   <% end -%>
+
 </div>
