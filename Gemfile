@@ -40,6 +40,7 @@ gem 'authlogic'
 gem 'friendly_id'
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 gem 'twitter'
 gem 'tumblr4r'

@@ -146,9 +146,11 @@ GEM
       httpclient (~> 2.2)
       nokogiri (~> 1.5)
     journey (1.0.4)
-    jquery-rails (3.0.4)
+    jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (4.2.0)
+      railties (>= 3.2.16)
     json (1.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
@@ -167,7 +169,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
-    multi_json (1.8.4)
+    multi_json (1.9.0)
     multipart-post (2.0.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
@@ -326,6 +328,7 @@ DEPENDENCIES
   guard-rspec
   impressionist
   jquery-rails
+  jquery-ui-rails
   launchy
   memcachier
   paperclip
