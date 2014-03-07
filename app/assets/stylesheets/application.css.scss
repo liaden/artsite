@@ -1,6 +1,8 @@
 /*
- *= require jquery.ui.all
+ *= require jquery.ui.datepicker
  *= require foundation_and_overrides
+ *= require artwork
+ *= require header
 */
 
 @import 'foundation-icons';
@@ -13,3 +15,4 @@
 i {
   font-size:2rem;
 }
+

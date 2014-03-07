@@ -11,24 +11,31 @@ end -%>
     <%= tag :meta, :property => "og:description", :content => artwork.description %>
 <% end -%>
 
-<div class="row-fluid">
-    <div class="span12">
-        <div class="row-fluid">
-            <h1><%= artwork.title -%><small><%= if_admin_edit(edit_artwork_path(artwork)) -%></small></h1>
-
-        <div id="mediums"> <%= render :partial => 'partials/mediums', :locals => {:medium => artwork.medium} -%> </div>
-        </div>
-        <%= image_tag artwork.image.url, :id => 'artwork_image' -%>
-        <div class="row-fluid">
-            <div class="alert alert-info span8">
-                <h3>Description</h3><p><%= artwork.description -%></p> 
-            </div>
-            <div id="tags" class="alert alert-info span4">
-                <%= render :partial => 'partials/tags', :locals => {:tags => artwork.tags} -%>
-            </div>
-        </div>
-        <div class="row">
-            <%= artwork.facebook_like -%>
-        </div>
+<div class="header">
+  <div class='row'>
+    <h1 class="left"><%= artwork.title -%> <%= artwork.edit_link_if_admin -%></h1>
+    <h3 class="subheader right"> 
+      <%= artwork.created -%>
+    </h3>
     </div>
+  </div>
+  <hr></hr>
+<div>
+
+<div class="row">
+  <div class="small-12 columns center">
+  <%= image_tag artwork.image.url, :id => 'artwork-image', :class => 'th' -%>
+  </div>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 columns">
+    <h3>Description</h3>
+    <div style="padding-left:1em;">
+      <blockquote><%= artwork.description -%></blockquote>
+    </div>
+  </div> 
+</div>
+<div class="row">
+  <%= artwork.facebook_like -%>
 </div>

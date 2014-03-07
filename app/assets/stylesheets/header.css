@@ -1,0 +1,22 @@
+.header {
+  height:5.8em;
+  width:100%;
+}
+
+.header .row {
+  margin-bottom:0px;
+}
+
+.header h1 {
+  padding-top:1rem;
+  margin-bottom:0px;
+}
+
+.header h3 {
+  padding-top:2rem;
+  margin-bottom:0px;
+}
+
+.header hr {
+  margin-top:-2.5em;
+}

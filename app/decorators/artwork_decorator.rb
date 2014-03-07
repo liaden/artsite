@@ -21,9 +21,18 @@ class ArtworkDecorator < ApplicationDecorator
     end
   end
 
+  def edit_link_if_admin
+    return '' unless h.admin? 
+    h.link_to('Edit',  h.edit_artwork_path(self), :class => 'edit-link button')
+  end
+
   def edit_prints_link
     unless self.new_record?
       h.link_to('Edit purchasing options', artwork_prints_path(self), :class => 'button')
     end
+  end
+
+  def created
+    self.created_at.strftime('%m/%d/%Y')
   end
 end
