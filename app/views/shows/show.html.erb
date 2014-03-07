@@ -1,1 +1,20 @@
-<h1><%= @show.name -%><small><%= if_admin_edit( edit_show_path(@show)) -%></small></h1>
+<div class='header'>
+  <div class='row'>
+    <h1 class='left'>
+      <%= art_show.name -%>
+      <small><%= if_admin_edit( edit_show_path(art_show)) -%></small>
+    </h1>
+    <h3 class='subheader right'><%= art_show.date -%></h3>
+  </div>
+</div>
+<div class='row'>
+  <dl>
+    <dt>Building</dt>
+    <dd><%= art_show.building -%></dd>
+    <dt>Address</dt>
+    <dd><%= art_show.google_maps_address_link -%></dd>
+    <dt>Description</dt>
+    <dd><%= art_show.description -%></dd>
+  </dl>
+</div>
+
