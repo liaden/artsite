@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140115222922) do
+ActiveRecord::Schema.define(:version => 20140307164810) do
 
   create_table "addresses", :force => true do |t|
     t.string   "recipient"
@@ -215,9 +215,10 @@ ActiveRecord::Schema.define(:version => 20140115222922) do
     t.datetime "date"
     t.string   "building"
     t.string   "address"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.string   "show_type"
+    t.text     "description", :default => ""
   end
 
   create_table "tags", :force => true do |t|

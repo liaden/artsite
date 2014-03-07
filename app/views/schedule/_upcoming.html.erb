@@ -1,0 +1,14 @@
+  <div class="small-10 medium-6 large-4 columns upcoming-event <%= styling -%>">
+        <%= link_to(show) do -%>
+        <h3 class="subheader"><%= show.name -%></h3>
+        <% end -%>
+        <div class="row clearfix">
+        <span class='small-8 columns left'><%= show.building-%></span><span class='small-4 columns right'><%= show.date -%></span>
+        </div>
+        <p><%= show.address -%></p>
+        <p><%= show.description -%>
+            <%= link_to( "more info", show) -%>
+        </p>
+  </div>
+<hr class='show-for-small-only'></hr>
+

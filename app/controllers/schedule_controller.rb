@@ -1,6 +1,6 @@
 class ScheduleController < ApplicationController
     def index
-        @shows = Show.upcoming || []
+        @shows = Show.upcoming.decorate || []
     end
 
     def caller

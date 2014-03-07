@@ -2,6 +2,7 @@
  *= require jquery.ui.datepicker
  *= require foundation_and_overrides
  *= require artwork
+ *= require schedule
  *= require header
 */
 
@@ -23,4 +24,8 @@ i {
 .button .fi-heart {
   font-size:1rem;
   padding-left:0.5rem;
+}
+
+.left-border {
+  border-left:1px solid black;
 }
