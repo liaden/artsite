@@ -13,9 +13,9 @@ end -%>
 
 <div class="header">
   <div class='row'>
-    <h1 class="left"><%= artwork.title -%> <%= artwork.edit_link_if_admin -%></h1>
-    <h3 class="subheader right"> 
-      <%= artwork.created -%>
+    <h1 class="left"><%= best_in_place_if artwork.editable?, artwork, :title -%> <%= artwork.edit_link_if_admin -%></h1>
+    <h3 class="subheader right">
+      <%= best_in_place_if artwork.editable?, artwork, :created, :type => :date -%>
     </h3>
     </div>
   </div>
@@ -32,7 +32,7 @@ end -%>
   <div class="small-12 columns">
     <h3>Description</h3>
     <div style="padding-left:1em;">
-      <blockquote><%= artwork.description -%></blockquote>
+      <blockquote><%= best_in_place_if artwork.editable?, artwork, :description, :type => :textarea, :ok_button => 'Save changes', :cancel_button => 'Cancel' -%></blockquote>
     </div>
   </div> 
 </div>

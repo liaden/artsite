@@ -26,6 +26,7 @@ end
 
 gem 'draper'
 gem 'foundation_rails_helper'
+gem 'best_in_place'
 
 
 gem 'impressionist'
@@ -59,6 +60,7 @@ gem 'stripe'
 
 group :development, :test do
     gem 'rspec-rails'
+    gem 'pry'
     gem 'watchr'
     gem 'factory_girl_rails'
 end
@@ -84,4 +86,3 @@ else
 end
 
 gem "thin"
-

@@ -13,10 +13,14 @@
 //= require jquery
 //= require jquery.ui.datepicker
 //= require jquery_ujs
+//= require best_in_place
 //= require foundation
 //= require navbar.js
 //= require jquery.dform-1.1.0.min
 //= require artwork.js
 //= require show
 
-$(function(){ $(document).foundation(); });
+$(function() { 
+  $(document).foundation();
+  $(".best_in_place").best_in_place(); 
+});

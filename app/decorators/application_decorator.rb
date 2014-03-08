@@ -6,4 +6,8 @@ class ApplicationDecorator < Draper::Decorator
   def error_message_title
     "There has been error."
   end
+
+  def editable?
+    h.admin?
+  end
 end

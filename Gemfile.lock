@@ -62,6 +62,9 @@ GEM
       ice_nine (~> 0.9)
     backbone-rails (1.0.0.1)
       rails (>= 3.0.0)
+    best_in_place (2.1.0)
+      jquery-rails
+      rails (~> 3.1)
     buftok (0.2.0)
     builder (3.0.4)
     capybara (2.2.1)
@@ -149,8 +152,9 @@ GEM
     jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (4.2.0)
-      railties (>= 3.2.16)
+    jquery-ui-rails (3.0.1)
+      jquery-rails
+      railties (>= 3.1.0)
     json (1.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
@@ -311,6 +315,7 @@ DEPENDENCIES
   aws-s3
   aws-sdk
   backbone-rails
+  best_in_place
   capybara
   coffee-rails (~> 3.2.1)
   dalli
@@ -333,6 +338,7 @@ DEPENDENCIES
   memcachier
   paperclip
   pg
+  pry
   rails (~> 3.2.x)
   rails_autolink
   rspec-rails
