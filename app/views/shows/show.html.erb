@@ -1,20 +1,23 @@
 <div class='header'>
   <div class='row'>
     <h1 class='left'>
-      <%= art_show.name -%>
+      <%= best_in_place_if art_show.editable?, art_show, :name -%>
       <small><%= if_admin_edit( edit_show_path(art_show)) -%></small>
     </h1>
-    <h3 class='subheader right'><%= art_show.date -%></h3>
+    <h3 class='subheader right'><%= best_in_place_if art_show.editable?, art_show, :date, :type => :date -%></h3>
   </div>
 </div>
 <div class='row'>
   <dl>
     <dt>Building</dt>
-    <dd><%= art_show.building -%></dd>
-    <dt>Address</dt>
-    <dd><%= art_show.google_maps_address_link -%></dd>
+    <dd><%= best_in_place_if art_show.editable?, art_show, :building -%></dd>
+    <dt>Address <% if art_show.editable? -%>
+                    <a href='#' id='edit-address'>(edit address)</a>
+                <% end -%>
+    </dt>
+    <dd><%= best_in_place_if art_show.editable?, art_show, :address, :display_as => :google_maps_address_link, :activator => '#edit-address' -%></dd>
     <dt>Description</dt>
-    <dd><%= art_show.description -%></dd>
+    <dd><%=  best_in_place_if art_show.editable?, art_show, :description -%></dd>
   </dl>
 </div>
 
