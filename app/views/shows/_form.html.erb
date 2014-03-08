@@ -1,50 +1,75 @@
-<%= form_for @show, :html => {:class => "form-horizontal"} do |f| -%>
-<fieldset>
+<div class='header'>
+  <div class='row'>
+  <h1 class='left'>New Show<h1>
+  </div>
+  <hr></hr>
+</div>
+<%= form_for @art_show, :auto_labels => false do |f| -%>
 
-<div class="control-group">
-    <%= f.label :name, :class => "control-label" -%>
-    <div class="controls">
-        <%= f.text_field :name -%>
+  <% label_writer = HorizontalLabel.new(f) -%>
+  
+  <div class="row">
+    <div class='small-6 columns'>
+      <%= label_writer.tag(:name) do -%>
+        <%= f.text_field :name, :label => false -%>
+      <% end -%>
     </div>
-</div>
 
-<div class="control-group">
-    <%= f.label :building, :class => "control-label" -%>
-    <div class="controls">
-        <%= f.text_field :building -%>
+    <div class='small-6 columns'>
+      <div class='row collapse'>
+        <%= label_writer.tag(:date, :label_size => '4', :field_size => '6') do -%>
+          <%= f.text_field :date, :label => false -%>
+        <% end -%>
+
+        <div class='small-2 columns end'>
+          <span class='postfix'>
+            <i class='fi-calendar'></i>
+          </span>
+        </div>
+
+      </div>
     </div>
-</div>
 
-<div class="control-group">
-    <%= f.label :address, :class => "control-label" -%>
-    <div class="controls">
-        <%= f.text_field :address -%>
+  </div>
+  
+  <div class="row">
+    <div class='small-6 columns '>
+      <%= label_writer.tag(:building) do -%>
+        <%= f.text_field :building, :label => false -%>
+      <% end -%>
     </div>
-</div>
 
-<div class="control-group">
-    <%= f.label :show_type, :class => "control-label" -%>
-    <div class="controls">
-        <label class="radio">
-            <%= f.radio_button :show_type, "Convention" -%>
-            Convention
-        </label>
-        <label class="radio">
-            <%= f.radio_button :show_type, "Gallery" -%>
-            Gallery
-        </label>
+    <div class='small-6 columns'>
+      <div class='row'>
+      <%= label_writer.tag(:address) do -%>
+          <%= f.text_field :address, :label => false -%>
+      <% end -%> 
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="control-group">
-    <%= f.label :date, :class => "control-label" -%>
-    <div class="controls">
-        <%= f.date_select :date -%>
+  
+  <div class="row">
+    <div class='small-9 columns'>
+      <%= f.text_area :description -%>
     </div>
-</div>
 
-<div class="form-actions">
-    <%= f.submit :Create, :class => "btn btn-primary" -%>
-</div>
-</fieldset>
+    <div class='small-3 columns'>
+      <div class='row'>
+        <%= f.label :show_type -%>
+        <div class="small-8 offset-4 columns">
+
+            <%= f.radio_button :show_type, "Convention", :text => "Convention" -%>
+            <%= f.radio_button :show_type, "Gallery", :text => "Gallery" -%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class='small-12'>
+    </div>
+
+  <div class="row">
+    <%= f.submit :Create, :class => "button" -%>
+  </div>
 <% end -%>

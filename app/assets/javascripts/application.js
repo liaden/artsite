@@ -17,5 +17,6 @@
 //= require navbar.js
 //= require jquery.dform-1.1.0.min
 //= require artwork.js
+//= require show
 
 $(function(){ $(document).foundation(); });
