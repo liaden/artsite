@@ -9,7 +9,7 @@ class Artwork < ActiveRecord::Base
     validates :title, :description, :image_file_name, :presence => true
 
     has_attached_file :image, {
-                        :styles => { :carousel => "200x300", :thumbnail => "100x100" },
+                        :styles => { :thumbnail => "100x100#" },
                       }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
 
