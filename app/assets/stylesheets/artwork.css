@@ -1,3 +1,50 @@
 #artwork-image {
   border: 5px solid black;
 }
+
+.side-nav {
+  padding-top:0px;
+}
+
+.side-nav li {
+  display:list-item;
+  min-width:9em;
+}
+
+.side-nav a.button {
+  min-width:9em;
+  margin-bottom:-8px;
+}
+
+.side-nav a.active {
+  border:1px solid #333;
+  border-right:0px;
+}
+
+a.active:after{
+  content:"\25C0";
+  font-size:2rem;
+  position:absolute;
+  margin-top:-0.8rem;
+  padding-left:2rem;
+  color:#fff;
+}
+
+#featured-filter.active:after{
+  padding-left:1.1rem;
+}
+#fanart-filter.active:after{
+  padding-left:1.6rem;
+}
+
+#all-filter.active:after{
+  padding-left: 2.4rem;
+}
+
+#page-title:after {
+}
+
+.artwork-admin-controls {
+  font-size:1em;
+  padding-right:1em;
+}

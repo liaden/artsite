@@ -7,6 +7,7 @@ class Artwork < ActiveRecord::Base
     taggable Tag
 
     validates :title, :description, :image_file_name, :presence => true
+    validates :fanart, :featured, :inclusion => { :in => [true, false] }
 
     has_attached_file :image, {
                         :styles => { :thumbnail => "100x100#" },
@@ -19,6 +20,11 @@ class Artwork < ActiveRecord::Base
         def photopapers() where(:material => 'photopaper') end
         def original() where(:material => 'original') end
     end
+
+    scope :for_year, lambda {|year| where("created_at >= ? and created_at <= ?", "#{year}-01-01", "#{year}-12-31") }
+    scope :featured, where(:featured => true)
+    scope :fanart, where(:fanart => true)
+    scope :original, where(:fanart => false)
 
     accepts_nested_attributes_for :prints
 
@@ -62,6 +68,10 @@ class Artwork < ActiveRecord::Base
 
     def original
         prints.original.first
+    end
+
+    def original?
+      not fanart?
     end
 
     delegate :dimensions, :to => :original, :prefix => true

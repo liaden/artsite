@@ -1,4 +1,6 @@
 ArchaicSmiles::Application.routes.draw do
+    match '/artworks/filter/:category/' => 'artworks#filter_by_category', :as => :artworks_by_category
+
     resources :artworks do
         resources :prints do
             collection do
@@ -23,6 +25,7 @@ ArchaicSmiles::Application.routes.draw do
     resources :commissions
     resources :ideas
     resources :articles
+
 
     match '/news' => 'news#index', :as => :news
     match '/schedule' => 'schedule#index', :as => :schedule

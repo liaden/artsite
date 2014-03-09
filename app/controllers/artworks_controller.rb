@@ -7,8 +7,11 @@ class ArtworksController < ApplicationController
     before_filter :require_admin, :only => [:new, :create, :edit, :update, :destroy ]
     before_filter :set_artwork, :only  => [:edit, :update, :show, :destroy ]
 
+    respond_to :html, :json
+
     def index
-      @artworks = Artwork.find( :all, :order => "created_at DESC")
+      @category = 'Featured'
+      @artworks = Artwork.featured( :order => "created_at DESC")
     end
 
     def new
@@ -64,7 +67,13 @@ class ArtworksController < ApplicationController
          respond_to do |format|
            if @artwork.update_attributes(params[:artwork])
              format.html { redirect_to(@artwork, :notice => "Artwork #{@artwork.title} has been successfully updated.") }
-             format.json { respond_with_bip(@artwork) }
+             format.json do
+               if params[:bip] == 'skip'
+                 respond_with @artwork.to_json
+              else
+                respond_with_bip(@artwork) 
+              end
+             end
            else
              format.html { render :action => "edit" }
              format.json { respond_with_bip(@artwork) }
@@ -74,15 +83,37 @@ class ArtworksController < ApplicationController
     
     end
 
+    def filter_by_category
+      categories = %w(All Featured Fanart)
+      @category = params[:category] || 'Featured'
+
+      if @category.match /^\d\d\d\d$/
+        @artworks = Artwork.for_year(@category)
+      elsif categories.any? { |category| category == @category  }
+        @artworks = Artwork.send(@category.downcase, :order => 'created_at DESC') 
+      else
+        tag = Tag.find_by_name(@category)
+        @artworks = tag.artworks if tag
+      end
+
+      @artworks ||= []
+
+      render :index
+    end
+
     def destroy
       return redirect_to :action => :index unless admin?
 
       Artwork.transaction do
-          @artwork.destroy
+        @artwork.destroy
       end
 
       @artworks = Artwork.all
-      render :action => :index
+
+      respond_to do |format|
+        format.html { redirect_to artworks_path }
+        format.json { respond_with {} }
+      end
     end
 
     def caller
@@ -90,4 +121,9 @@ class ArtworksController < ApplicationController
     end
 
 private
+    def artworks
+      @decorated_artworks ||= ArtworksDecorator.decorate(@artworks, :context => { :category => @category } )
+    end
+
+    helper_method :artworks
 end

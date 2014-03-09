@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140307164810) do
+ActiveRecord::Schema.define(:version => 20140309163325) do
 
   create_table "addresses", :force => true do |t|
     t.string   "recipient"
@@ -43,13 +43,15 @@ ActiveRecord::Schema.define(:version => 20140307164810) do
 
   create_table "artworks", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.string   "image_file_size"
     t.string   "slug"
     t.text     "description"
+    t.boolean  "featured",           :default => false
+    t.boolean  "fanart",             :default => false
   end
 
   add_index "artworks", ["slug"], :name => "index_artworks_on_slug", :unique => true

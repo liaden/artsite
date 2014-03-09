@@ -13,7 +13,7 @@ end -%>
 
 <div class="header">
   <div class='row'>
-    <h1 class="left"><%= best_in_place_if artwork.editable?, artwork, :title -%> <%= artwork.edit_link_if_admin -%></h1>
+    <h1 class="left"><%= best_in_place_if artwork.editable?, artwork, :title -%> </h1>
     <h3 class="subheader right">
       <%= best_in_place_if artwork.editable?, artwork, :created, :type => :date -%>
     </h3>
@@ -38,4 +38,9 @@ end -%>
 </div>
 <div class="row">
   <%= artwork.facebook_like -%>
+</div>
+
+<div class="row">
+  <%= artwork.edit_link_if_admin -%>
+  <%= artwork.delete_link_if_admin -%>
 </div>

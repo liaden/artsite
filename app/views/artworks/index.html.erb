@@ -1,36 +1,31 @@
-<div class="row-fluid">
-<div class="span9">
-    <% if @media -%>
-        <div class="page-header">
-            <h1>Gallery <small><%= @media.name -%></small></h1>
-        </div>
-    <% elsif @tag -%>
-        <div class="page-header">
-            <h1>Gallery <small><%= @tag.name -%></small></h1>
-        </div>
-    <% else -%>
-        <div class="page-header">
-            <h1>Gallery</h1>
-        </div>
-    <% end -%>
-    <% offsetPercentage = "2.1276%" -%>
-    <ul class="thumbnails">
-        <li class="span4" style="margin-right: <%= offsetPercentage -%>">
-            <%= link_to image_tag(@artworks[0].image.url(:carousel)), @artworks[0], :class => 'thumbnail' -%>
+<div class="header">
+  <div class='row'>
+    <h1 class='left' id='page-title'><%= artworks.category_title -%></h1>
+  </div>
+  <hr></hr>
+</div>
+
+<div class='row'>
+  <div class='medium-2 columns hide-for-small'>
+    <ul class='side-nav'>
+      <% artworks.categories.each do |category| -%>
+        <li>
+          <%= artworks.filter_link(category) -%>
         </li>
-        <% @artworks[1..-1].each do |artwork| -%>
-            <%= render :partial => 'partials/artwork_thumbnail', :locals => { :artwork => artwork, :offsetPercentage => offsetPercentage } -%>
-        <% end -%>
+      <% end -%>
     </ul>
-</div>
-<div class="span3">
-    <div id="mediums" class="alert alert-info">
-        <h3 class="black">Mediums</h3>
-        <%= render :partial => 'partials/mediums', :locals => {:medium => Medium.all} -%>
-    </div>
-    <div id="tags" class="alert alert-info">
-        <h3 class="black">Tags</h3>
-        <%= render :partial => 'partials/tags', :locals => {:tags => Tag.all} -%>
-    </div>
-</div>
+  </div>
+    
+  <div class='small-12 medium-10 columns end'>
+    <ul class="small-block-grid-2 medium-block-grid-5 large-block-grid-6" >
+      <% artworks.each do |artwork| -%>
+        <li class='artwork-cell'>
+          <%= link_to(artwork) do -%>
+            <%= image_tag artwork.image.url(:thumbnail), :class => 'th', :alt => artwork.title, :title => artwork.title -%>
+          <% end -%>
+          <%= artwork.admin_controls -%>
+        </li>
+      <% end -%>
+    </ul>
+  </div>
 </div>
