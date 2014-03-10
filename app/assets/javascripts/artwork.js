@@ -43,3 +43,35 @@ function toggle_feature(caller) {
         }
   });
 }
+
+function toggle_field(caller, field) {
+
+  var current_state = $(caller).data('is-'+field);
+  if(current_state === true){
+    var new_text = $(caller).data('add-'+field);
+  } else {
+    var new_text = $(caller).data('remove-'+field);
+  }
+
+  params = new Object;
+  params[field] = !current_state;
+
+  $.ajax( {
+    url: $(caller).data('update-url'),
+    type: 'PUT',
+    data: {
+      artwork: params,
+      bip: 'skip'
+    },
+    success: function() {
+      caller.innerHTML = new_text;
+      $(caller).data('is-'+field, !current_state);
+      if($('#'+field+'-filter').hasClass('active')) {
+        $(caller).closest('.artwork-cell').remove();
+      }
+    },
+    error: function() {
+      console.log("An error has occurred in toggling "+field+" status.");
+    }
+  });
+}

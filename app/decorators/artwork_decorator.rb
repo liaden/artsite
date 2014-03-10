@@ -42,18 +42,38 @@ class ArtworkDecorator < ApplicationDecorator
   end
 
   def async_toggle_feature_link 
-    text = object.featured? ? 'Remove from featured' : 'Feature'
-    h.link_to(text, '#', :onclick => "toggle_feature(this)", :data => { 'update-url' => h.artwork_path(object, :format => :json) })
+    add_text = 'Feature'
+    remove_text = 'Remove from featured'
+    text = object.featured? ? remove_text : add_text
+    h.link_to(text, '#', :onclick => "toggle_field(this, 'featured')", 
+        :data => { 'update-url' => h.artwork_path(object, :format => :json),
+                   'is-featured' => object.featured?,
+                   'add-featured' => add_text,
+                   'remove-featured' => remove_text
+                 })
   end
 
   def async_delete_link
     h.link_to('Delete', '#', :onclick => "delete_artwork(this)", :data => { 'delete-url' => h.artwork_path(object, :format => :json)})
   end
 
+  def async_flag_fanart_link
+    add_text = 'Flag fanart'
+    remove_text = 'Unflag fanart'
+    
+    text = object.original? ? add_text : remove_text 
+
+    h.link_to(text, '#', :onclick => 'toggle_field(this, "fanart")', 
+        :data => { 'update-url' => h.artwork_path(object, :format => :json),
+                   'is-fanart' => object.fanart?,
+                   'remove-fanart' => remove_text,
+                   'add-fanart' => add_text })
+  end
+
   def admin_controls
     return '' unless h.admin?
     
-    controls = [ method(:async_delete_link), method(:async_toggle_feature_link) ]
+    controls = [ method(:async_delete_link), method(:async_toggle_feature_link), method(:async_flag_fanart_link) ]
    
     content = h.link_to('#', :data => { :dropdown => "admin-#{object.id}"}) do
       h.content_tag(:i, :class => 'fi-widget right artwork-admin-controls' ) { }
