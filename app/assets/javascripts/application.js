@@ -13,14 +13,28 @@
 //= require jquery
 //= require jquery.ui.datepicker
 //= require jquery_ujs
+//= require svg
 //= require best_in_place
 //= require foundation
-//= require navbar.js
+//= require navbar
 //= require jquery.dform-1.1.0.min
-//= require artwork.js
+//= require artwork
 //= require show
+//= require main
 
 $(function() { 
   $(document).foundation();
   $(".best_in_place").best_in_place(); 
 });
+
+function circular_pictures(node) {
+  var image_url = $('#'+node).children('img').first().attr('src');
+  $('#'+node).empty();
+
+  var drawing = SVG(node).size(250,250).move(-150,0);
+  var image = drawing.image(image_url);
+  var circle = drawing.circle(250);
+  
+  image.clipWith(circle);
+}
+

@@ -10,7 +10,7 @@ class Artwork < ActiveRecord::Base
     validates :fanart, :featured, :inclusion => { :in => [true, false] }
 
     has_attached_file :image, {
-                        :styles => { :thumbnail => "100x100#" },
+                        :styles => { :thumbnail => "100x100#", :medium => '250x250#' },
                       }.merge(PAPERCLIP_STORAGE_OPTIONS)
 
 
