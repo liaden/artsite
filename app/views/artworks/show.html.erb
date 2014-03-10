@@ -43,4 +43,14 @@ end -%>
 <div class="row">
   <%= artwork.edit_link_if_admin -%>
   <%= artwork.delete_link_if_admin -%>
+  <div class="right">
+    <% if artwork.editable? -%>
+      <span class='button'>
+        <%= best_in_place artwork, :featured, :type => :checkbox, :collection => [ 'unfeatured', 'featured' ] -%>
+      </span>
+      <span class='button'>
+        <%= best_in_place artwork, :fanart, :type => :checkbox, :collection => [ 'not fanart', 'fanart' ] -%>
+      </span>
+    <% end -%>
+  </div>
 </div>
