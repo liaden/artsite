@@ -26,6 +26,10 @@ class Artwork < ActiveRecord::Base
     scope :fanart, where(:fanart => true)
     scope :original, where(:fanart => false)
 
+    def self.newest
+      Artwork.limit(1).order('created_at DESC').first
+    end
+
     accepts_nested_attributes_for :prints
 
     # pretty url stuff

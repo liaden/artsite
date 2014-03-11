@@ -7,13 +7,12 @@
     <%= tag :meta, :property => "og:description", :content => "The art of Holly Morningstar" %>
 <% end -%>
 
-    <div id="banner-image" style="height:300px;width:100%;overflow:hidden;margin-top:0px">
-    <%= image_tag "http://s3.amazonaws.com/ArchaicSmiles/artworks/images/000/000/023/original/magiclanternssmall.jpg" -%>
-    </div>
-    <hr />
+
+<% banner = Banner.new('magic_lanterns') -%>
+<%= banner.tag('banner-image') -%>
+
+<hr></ hr>
   
-<!-- Three-up Content Blocks -->
- 
 <div class="row">
   <div class="large-4 columns main-tri-column">
     <div class='row'>
@@ -25,7 +24,8 @@
       </div>
 
       <div class='small-12 medium-7 large-12 columns'>
-        <h4>Tutorials.</h4>
+        <h2>Latest Video.</h2>
+        <h4 class='subheader'>Something</h4>
         <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>
       </div>
     </div>
@@ -39,8 +39,10 @@
         </div>
       </div>
       <div class='small-12 medium-7 large-12 columns'>
-        <h4><%= @artwork.title -%></h4>
+        <h2>Newest Artwork</h2>
+        <h4 class='subheader'><%= @artwork.title -%></h4>
         <p><%= @artwork.description -%></p>
+        <p>Browse all of Holly's <%= link_to 'artwork', artworks_path -%> in her gallery.
       </div>
     </div>
   </div>
@@ -49,20 +51,21 @@
     <div class='row'>
       <div class='small-12 medium-5 large-12 columns'>
         <div id='next-convention' class='left'>
-          <img src="http://placehold.it/400x300&text=[img]" />
+          <img src="https://s3.amazonaws.com/ArchaicSmiles/convention/froliconbadge.jpg" />
         </div>
       </div>
 
       <div class='small-12 medium-7 large-12 columns'>
-        <h4>Upcoming conventions.</h4>
-        <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef. <%= link_to 'Upcoming conventions', schedule_path -%></p>
+        <h2>Next convention:</h2>
+        <h4 class='subheader'><%= @next_show.name -%></h4>
+        <p><%= @next_show.description -%></p>
+        <p>See all upcoming <%= link_to 'conventions', schedule_path -%>.</p>
       </div>
     </div>
   </div>
 
 </div>
     
-<!-- Call to Action Panel -->
 <div class="row">
     <div class="large-12 columns">
     
