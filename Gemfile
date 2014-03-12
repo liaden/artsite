@@ -45,6 +45,7 @@ gem 'jquery-ui-rails'
 
 gem 'twitter'
 gem 'tumblr4r'
+gem 'ruby-oembed'
 
 gem 'paperclip'
 gem 'aws-s3'

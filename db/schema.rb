@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140309163325) do
+ActiveRecord::Schema.define(:version => 20140312003656) do
 
   create_table "addresses", :force => true do |t|
     t.string   "recipient"
@@ -225,6 +225,13 @@ ActiveRecord::Schema.define(:version => 20140309163325) do
 
   create_table "tags", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "tweets", :force => true do |t|
+    t.string   "twitter_id"
+    t.string   "html"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
