@@ -1,23 +1,18 @@
 
-<div class="page-header">
-<h1>Tumblr <small class="pull-right">
-    <a href="http://www.tumblr.com/follow/archaic-smiles" class="btn btn-primary">Follow Me</a>
-    </small>
-</h1>
-</div>
-
-<div class="row">
-</div>
-
-<% @tumbles.take(3).each do |tumble| -%>
-    <div class="alert alert-info news">
-    <% if tumble.type == "photo" -%>
-        <p><img src="<%= tumble.photo_url -%>"><%= tumble.photo_caption.html_safe -%></p>
-    <% elsif tumble.type == "regular" -%>
-        <div class="page-header darker-bottom">
-        <h3 ><%= tumble.regular_title -%></h3>
-        </div>
-        <p><%= tumble.regular_body.html_safe -%></p>
-    <% end -%>
+<% @tumbles.each do |tumble| -%>
+    <div class='tumble'>
+      <div class='right'>
+      <%= tumble.date.to_date.strftime('%B %-d, %Y') -%>
+      </div>
+      <div class='content'>
+        <% if tumble.type == "photo" -%>
+            <p><img src="<%= tumble.photo_url -%>"><%= tumble.photo_caption.html_safe -%></p>
+        <% elsif tumble.type == "regular" -%>
+            <div class="page-header darker-bottom">
+            <h3 ><%= tumble.regular_title -%></h3>
+            </div>
+            <p><%= tumble.regular_body.html_safe -%></p>
+        <% end -%>
+      <div>
     </div>
 <% end -%>
