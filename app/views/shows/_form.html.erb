@@ -1,9 +1,10 @@
-<div class='header'>
-  <div class='row'>
-  <h1 class='left'>New Show<h1>
+<div class='row'>
+  <div class='header'>
+    <h1 class='left'>New Show<h1>
   </div>
-  <hr></hr>
 </div>
+<hr class='header-hr'></hr>
+
 <%= form_for @art_show, :auto_labels => false do |f| -%>
 
   <% label_writer = HorizontalLabel.new(f) -%>

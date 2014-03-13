@@ -1,6 +1,9 @@
 .header {
+  padding-top:2rem;
   height:5.8em;
   width:100%;
+}
+.header:after{
 }
 
 .header .row {
@@ -8,15 +11,16 @@
 }
 
 .header h1 {
-  padding-top:1rem;
+  padding-top:0rem;
   margin-bottom:0px;
 }
 
 .header h3 {
-  padding-top:2rem;
+  padding-top:1rem;
   margin-bottom:0px;
 }
 
-.header hr {
+.header-hr {
   margin-top:-2.5em;
+  width: 100vw;
 }

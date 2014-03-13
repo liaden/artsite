@@ -1,12 +1,5 @@
-<div class='header'>
-  <div class='row'>
-    <h1 class='left'>
-      <%= best_in_place_if art_show.editable?, art_show, :name -%>
-      <small><%= if_admin_edit( edit_show_path(art_show)) -%></small>
-    </h1>
-    <h3 class='subheader right'><%= best_in_place_if art_show.editable?, art_show, :date, :type => :date -%></h3>
-  </div>
-</div>
+<%= art_show.header -%>
+
 <div class='row'>
   <dl>
     <dt>Building</dt>

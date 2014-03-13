@@ -1,16 +1,10 @@
 class ArtworkDecorator < ApplicationDecorator
   delegate_all
 
-  def canvas
-    CanvasOptions.decorate_collection prints.canvas
-  end
-
-  def photopaper
-    PhotopaperOptions.decorate_collection prints.photopaper  
-  end
-
-  def original
-    OriginalOptions.decorate_collection prints.original
+  def header
+    Header.new \
+      :title => Proc.new { best_in_place_if artwork.editable?, artwork, :title  },
+      :subheader => Proc.new { best_in_place_if artwork.editable?, artwork, :created, :type => :date  }
   end
 
   def form_title

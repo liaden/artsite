@@ -1,9 +1,4 @@
-<div class="header">
-  <div class="row">
-    <h1 class="left">Upcoming Events</h1>
-  </div>
-  <hr></hr>
-</div>
+<%= Header.new(:title => 'Upcoming Events', :subheader => '') -%>
 
 <div id='upcoming-events' class="row">
   <%= render :partial => 'upcoming', :locals => { :show => @shows[0], :styling => '' } -%>

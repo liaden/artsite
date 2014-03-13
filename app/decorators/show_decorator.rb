@@ -1,6 +1,16 @@
 class ShowDecorator < ApplicationDecorator
   delegate_all
 
+  def header
+    Header.new(
+      :title => lambda do 
+        raw best_in_place_if(art_show.editable?, art_show, :name) +
+        content_tag(:small) { if_admin_edit( edit_show_path(art_show)) }
+      end,
+      :subheader => lambda { best_in_place_if art_show.editable?, art_show, :date, :type => :date }
+    )
+  end
+
   def date
     object.date.strftime('%m/%d/%Y') 
   end

@@ -11,16 +11,7 @@ end -%>
     <%= tag :meta, :property => "og:description", :content => artwork.description %>
 <% end -%>
 
-<div class="header">
-  <div class='row'>
-    <h1 class="left"><%= best_in_place_if artwork.editable?, artwork, :title -%> </h1>
-    <h3 class="subheader right">
-      <%= best_in_place_if artwork.editable?, artwork, :created, :type => :date -%>
-    </h3>
-    </div>
-  </div>
-  <hr></hr>
-<div>
+<%= artwork.header -%>
 
 <div class="row">
   <div class="small-12 columns center">
