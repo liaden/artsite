@@ -23,15 +23,21 @@
 //= require main
 
 $(function() { 
-  $(document).foundation();
   $(".best_in_place").best_in_place(); 
+  $(document).foundation();
 });
 
-function circular_pictures(node) {
-  var image_url = $('#'+node).children('img').first().attr('src');
-  $('#'+node).empty();
+function circular_pictures(node_name) {
+  var node = $('#'+node_name)
+  if (node.length == 0) {
+    console.log('did not find '+node);
+    return;
+  }
 
-  var drawing = SVG(node).size(250,250).move(-150,0);
+  var image_url = node.children('img').first().attr('src');
+  node.empty();
+
+  var drawing = SVG(node_name).size(250,250).move(-150,0);
   var image = drawing.image(image_url);
   var circle = drawing.circle(250);
   
