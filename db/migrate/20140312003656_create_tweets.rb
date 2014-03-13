@@ -2,7 +2,7 @@ class CreateTweets < ActiveRecord::Migration
   def change
     create_table :tweets do |t|
       t.string :twitter_id
-      t.string :html
+      t.text :html
 
       t.timestamps
     end

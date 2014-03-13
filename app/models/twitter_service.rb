@@ -1,5 +1,4 @@
 class TwitterService
-  include Twitter::REST::Utils
 
   def initialize
     @client = Twitter::REST::Client.new do |config|
@@ -8,9 +7,10 @@ class TwitterService
     end
   end
 
-  def timeline_options(since = nil)
-    options = { :include_rts => false, :exclude_replies => true, :count => 200 }
-    options[:since_id] = since unless since
+  def timeline_options(since)
+    options = { :include_rts => false, :exclude_replies => true, :count => 5, :since_id => (since || 1) }
+    puts "options: #{options.inspect}"
+    options
   end
 
   def oembed_options
@@ -24,7 +24,7 @@ class TwitterService
   def sync
     latest = Tweet.last
 
-    new_tweets = client.user_timeline('370187188', timeline_options(latest.try(:twitter_id)))
+    new_tweets = client.user_timeline('archaicsmiles', timeline_options(latest.try(:twitter_id)))
     client.oembeds(new_tweets, oembed_options).each do |oembed_tweet|
       Tweet.create! :html => oembed_tweet.html, :twitter_id => oembed_tweet.url.to_s.split('/').last
     end
