@@ -48,7 +48,12 @@ describe ShowsController do
       it "shows the updated show" do
         post :update, :id => show.id, :show => FactoryGirl.attributes_for(:show)
 
-        response.should render_template('show')
+        response.should redirect_to(show_path(show))
+      end
+
+      it 'renders edit page on error' do
+        post :update, :id => show.id, :show => { :name => nil }
+        response.should render_template('edit')
       end
     end
   end
