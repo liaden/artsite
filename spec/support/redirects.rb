@@ -14,7 +14,6 @@ end
 
 shared_examples 'unauthorized POST create' do
     it 'redirects' do
-        puts attrs.inspect
         post :create, attrs
         response.should redirect_to(redirect_url)
     end
