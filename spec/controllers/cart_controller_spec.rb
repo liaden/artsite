@@ -3,8 +3,6 @@ require 'stripe'
 require 'stripe_mock'
 
 describe CartController do
-    before(:each) { mock_paperclip_post_process }
-
     #context "as a guest" do
     #    context "GET #index" do
     #        context "has an empty cart" do

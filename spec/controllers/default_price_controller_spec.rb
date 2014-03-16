@@ -22,7 +22,6 @@ describe DefaultPriceController do
                 get :edit
                 assigns(:photopapers).should eq( [default_print] )
             end
-
         end
 
         describe "POST #update" do
@@ -64,7 +63,6 @@ describe DefaultPriceController do
                 it "has a negative price" do
                     post :update, @default_price.id.to_s => "-5"
                 end
-                
             end
         end
     end
@@ -77,7 +75,5 @@ describe DefaultPriceController do
                 response.code.should == "302"
             end
         end
-
     end
-
 end

@@ -1,11 +1,8 @@
 require 'spec_helper'
 
 describe InventoryController do
-    before(:each) { mock_paperclip_post_process }
-
     let(:print) { FactoryGirl.create :print }
     let(:canvas) { FactoryGirl.create :canvas }
-
 
     context "as admin" do
         before(:each) { login :admin }

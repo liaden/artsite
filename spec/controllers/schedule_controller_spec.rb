@@ -15,7 +15,6 @@ describe ScheduleController do
             get :index
             assigns(:shows).should_not be_empty
         end
-
     end
 end
 

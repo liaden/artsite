@@ -3,7 +3,6 @@ require 'spec_helper'
 describe PrintsController do
     let(:print) { FactoryGirl.create(:print) }
     let(:artwork_without_prints) { FactoryGirl.create(:artwork) }
-    before(:each) { mock_paperclip_post_process }
 
     context 'as admin' do
         before(:each) { login(:admin) }
@@ -18,7 +17,6 @@ describe PrintsController do
             it 'assigns @prints' do
                 assigns(:prints).should_not be_empty
             end
-
         end
 
         context 'canvas' do 

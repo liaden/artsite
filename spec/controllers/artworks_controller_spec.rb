@@ -5,8 +5,6 @@ describe ArtworksController do
   let(:tagged_artwork) { FactoryGirl.create(:tagged_artwork) }
   let(:artwork_in_medium) { FactoryGirl.create(:artwork_in_medium) }
 
-  before(:each) { mock_paperclip_post_process }
-
   before(:each) do
 
     @containing_folder = './spec/images/'

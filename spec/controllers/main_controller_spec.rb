@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe MainController do
-  before(:each) { mock_paperclip_post_process }
   before(:each) { FactoryGirl.create(:artwork) }
 
   describe "GET index" do

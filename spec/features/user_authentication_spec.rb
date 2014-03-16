@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'User Authentication' do
-  before(:each) { mock_paperclip_post_process }
   let(:visits_home_page) do
     FactoryGirl.create(:artwork)
     FactoryGirl.create(:show)

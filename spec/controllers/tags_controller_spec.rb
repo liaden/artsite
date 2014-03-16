@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe TagsController do
-    before(:each) { mock_paperclip_post_process }
-
     let(:tag) { FactoryGirl.create(:tag, :name => 'tag1') }
     let(:tags) {[ tag, FactoryGirl.create(:tag, :name => 'tag2'), FactoryGirl.create(:tag, :name => 'tag3') ] }
 
