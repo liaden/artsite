@@ -1,5 +1,8 @@
 class MainController < ApplicationController
     helper :all
+    
+    decorates_assigned :artwork
+    decorates_assigned :next_show
 
     def index
       @artwork = Artwork.newest

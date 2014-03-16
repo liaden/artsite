@@ -35,13 +35,13 @@
     <div class='row'>
       <div class='small-12 medium-5 large-12 columns'>
         <div id='newest-artwork'>
-          <%= image_tag @artwork.image.url(:medium), :alt => 'new artwork' -%>
+          <%= image_tag artwork.image.url(:medium), :alt => 'new artwork' -%>
         </div>
       </div>
       <div class='small-12 medium-7 large-12 columns'>
         <h2>Newest Artwork</h2>
-        <h4 class='subheader'><%= @artwork.title -%></h4>
-        <p><%= @artwork.description -%></p>
+        <h4 class='subheader'><%= artwork.title -%></h4>
+        <p><%= artwork.description -%></p>
         <p>Browse all of Holly's <%= link_to 'artwork', artworks_path -%> in her gallery.
       </div>
     </div>
@@ -57,8 +57,8 @@
 
       <div class='small-12 medium-7 large-12 columns'>
         <h2>Next convention:</h2>
-        <h4 class='subheader'><%= @next_show.name -%></h4>
-        <p><%= @next_show.description -%></p>
+        <h4 class='subheader'><%= next_show.name -%></h4>
+        <p><%= next_show.description -%></p>
         <p>See all upcoming <%= link_to 'conventions', schedule_path -%>.</p>
       </div>
     </div>
@@ -69,7 +69,7 @@
 <div class="row">
     <div class="large-12 columns">
     
-      <div class="panel">
+      <div id="commission-notification" class="panel">
         <h4>Accepting commissions!</h4>
             
         <div class="row">
