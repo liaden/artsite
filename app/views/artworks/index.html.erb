@@ -7,7 +7,7 @@
 
 <div class='row'>
   <div class='medium-2 columns hide-for-small'>
-    <ul class='side-nav'>
+    <ul id='gallery-filters' class='side-nav'>
       <% artworks.categories.each do |category| -%>
         <li>
           <%= artworks.filter_link(category) -%>

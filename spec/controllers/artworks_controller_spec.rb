@@ -44,7 +44,7 @@ describe ArtworksController do
       end
     end
 
-    describe "GET fillter" do
+    describe "GET filter" do
       context 'renders views' do
         render_views
 
@@ -102,54 +102,36 @@ describe ArtworksController do
           }.to change {Artwork.count }.by(1)
       end
 
-      #it "saves with only the original prints" do
-      #    expect {
-      #        post :create, @attrs
-      #    }.to change { Print.count }.by(1)
-      #end
+      it "does not create duplicate tags" do
+        FactoryGirl.create(:tag, :name => 'big')
+        FactoryGirl.create(:tag, :name => 'dancing')
 
-      #it "saves only one in the small size" do
-      #    @attrs[:enable_s] = "yes"
+        expect {
+          post :create, @attrs
+        }.to change{Tag.count}.by(1)
+      end
+      
+      it "rolls back all changes on error" do
+        art_count = Artwork.count
+        tag_count = Tag.count
+        medium_count = Medium.count
 
-      #    expect {
-      #        post :create, @attrs
-      #    }.to change { Print.count }.by(2)
-      #end
+        expect {
+          post :create, @attrs.merge(:artwork => {:title => nil})
+        }.to raise_error(ActiveRecord::RecordInvalid)
 
-      #it "saves 8 prints with all options selected"  do
-      #    expect {
-      #        post :create, @attrs
-      #    }.to change { Print.count }.by(8)
-      #
-      #end
+        Artwork.count.should == art_count
+        Tag.count.should == tag_count.should
+        Medium.count.should == medium_count
+      end
 
-      #it "saves with the original already sold out"  do
-      #    @attrs[:is_sold_out] = "yes"
-      #
-      #    post :create, @attrs
-      #    artwork = Artwork.last
-      #
-      #    artwork.original.is_sold_out.should == true
-      #end
-
-      #it "does not create an artwork given a bad size" do
-      #    @attrs[:original_size] = "not a valid size"
-
-      #    expect {
-      #        post :create, @attrs
-      #    }.to_not change { Artwork.count }
-      #end
-
-      #it "does not create any prints given a bad size" do
-      #    expect { 
-      #        @attrs[:original_size] = "not a valid size"
-      #        post :create, @attrs
-      #    }.to_not change { Artwork.count }
-      #end
+      it "redirects to new prints page on success" do
+        post :create, @attrs
+        response.should redirect_to( artwork_prints_path(Artwork.last))
+      end
     end
 
     describe "GET edit" do
-
       it "sets the artwork" do
         get :edit, :id => artwork.id
         assigns[:artwork].should == artwork
@@ -179,11 +161,9 @@ describe ArtworksController do
           
         sorted_tag_names.should == ['x', 'y', 'z']
       end
-
     end
 
     describe "POST destroy" do
-
       it "destroys the artwork" do
         artwork
         expect { post :destroy, :id => artwork.id }.to change{Artwork.count}.by(-1)

@@ -22,7 +22,7 @@ class ArtworkDecorator < ApplicationDecorator
 
   def edit_prints_link
     unless self.new_record?
-      h.link_to('Edit purchasing options', artwork_prints_path(self), :class => 'button')
+      h.link_to('Edit purchasing options', h.artwork_prints_path(self), :class => 'button')
     end
   end
 

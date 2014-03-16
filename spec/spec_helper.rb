@@ -61,7 +61,15 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  # reset back to :rack_test in case we just ran a js test
   config.after(:each) { Capybara.use_default_driver }
+
+  config.before(:each) do
+    # speed up tests by not generating thumbnails for rack_test
+    if Capybara.current_driver == :rack_test
+      mock_paperclip_post_process  
+    end
+  end
 
 end
 

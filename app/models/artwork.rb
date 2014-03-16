@@ -32,6 +32,21 @@ class Artwork < ActiveRecord::Base
 
     accepts_nested_attributes_for :prints
 
+    validate :created_at do
+        return true if @created.nil?
+
+        # created = 'some date' has been called
+        begin
+            Date.strptime(@created, '%m/%d/%Y') 
+        rescue
+            return self.errors.add(:created_at, "Date '#{@created}' is not in the valid format 'mm/dd/yyyy'")
+        end
+         
+        if created_at.year < 1000
+            return self.errors.add(:created_at, "Date should have years formated as yyyy")
+        end
+    end
+
     # pretty url stuff
     extend FriendlyId
     friendly_id :title, :use => [:slugged, :history]
@@ -45,6 +60,19 @@ class Artwork < ActiveRecord::Base
             width, height = a.split "x" 
             [ Integer(width), Integer(height) ]
         end
+    end
+
+    def created=(string_date)
+      # force invoking the function with nil to store an empty string
+      @created = string_date.to_s 
+      return unless string_date
+
+      begin
+        self.created_at = Date.strptime(string_date, '%m/%d/%Y')
+      rescue ArgumentError 
+        # could not parse in given format
+        # handle in validation of @created
+      end
     end
 
     def price_of(material, size)

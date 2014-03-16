@@ -11,6 +11,9 @@ describe Artwork do
 
     before(:each) { mock_paperclip_post_process }
 
+    let(:unsaved_artwork) { FactoryGirl.build(:artwork) }
+    let(:artwork) { FactoryGirl.create(:artwork) }
+
     it 'can create with valid parameters' do
         FactoryGirl.create(:artwork, :image => File.new(@watercolor)).should be_valid
     end
@@ -23,6 +26,38 @@ describe Artwork do
     
     it 'requires the title' do
         FactoryGirl.build(:artwork, :title => nil).should_not be_valid
+    end
+
+    describe 'Artwork#created' do
+        it 'is valid with mm/dd/yyyy' do
+          unsaved_artwork.created = '05/25/1970'
+          unsaved_artwork.should be_valid
+        end
+
+        it 'is invalid with dd/mm/yyyy' do
+            unsaved_artwork.created = '25/12/2000'
+            unsaved_artwork.should_not be_valid
+        end
+
+        it 'is invalid with mm/dd/yy' do
+            unsaved_artwork.created = '05/25/70'
+            unsaved_artwork.should_not be_valid
+        end
+
+        it 'is invalid with nil' do
+            unsaved_artwork.created = nil
+            unsaved_artwork.should_not be_valid
+        end
+
+        it 'is invalid with empty string' do
+            unsaved_artwork.created =''
+            unsaved_artwork.should_not be_valid
+        end
+
+        it 'autosets created_at even if not called' do
+            # won't save without created_at due to db constraitn
+            unsaved_artwork.save!
+        end
     end
 
     it 'requires a description' do

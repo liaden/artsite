@@ -29,20 +29,21 @@ class ArtworksController < ApplicationController
         art.create_tags_from_csv params[:tags]
         art.create_medium_from_csv params[:mediums]
       end
-      @artwork.created_at = Date.strptime(params[:artwork][:created_at], '%m/%d/%Y') if params[:artwork][:created_at]
 
-      if @artwork.save
-        flash[:notice] = "'#{@artwork.title}' has been successfully created."
-        return redirect_to(artwork_prints_path(@artwork))
-      else
-        flash.now[:error] = "Error saving artwork"
-        logger.debug @artwork.errors.messages
-
-        return render :action => :new
+      if params[:artwork][:created_at]
+        @artwork.created =  params[:artwork][:created_at]
       end
+
+      @artwork.save!
+
+      flash[:notice] = "'#{@artwork.title}' has been successfully created."
+      return redirect_to(artwork_prints_path(@artwork))
     end
 
-    render :action => :new
+    flash.now[:error] = "Error saving artwork"
+    logger.debug @artwork.errors.messages
+
+    return render :action => :new
   end
 
   def show
