@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe 'collect browsing habits' do
   let(:artwork) { FactoryGirl.create(:artwork) }
-  before(:each) { @artwork = artwork }
+  before(:each) do
+    @artwork = artwork
+    @show = FactoryGirl.create(:show)
+  end
 
   context 'as admin' do 
     before(:each)  { login_step :admin }
