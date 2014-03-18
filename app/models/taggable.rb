@@ -18,6 +18,8 @@ module Taggable
 
         # def create_tags_from_csv
         self.send(:define_method, "create_#{plural_lower}_from_csv") do |csv_values|
+            return unless csv_values
+
             old_items = self.send(plural_lower).to_a
 
             new_items = csv_values.split(",").map { |item| table.find_or_create_by_name(item) } 
@@ -27,6 +29,5 @@ module Taggable
                 item.destroy if item.artworks.empty?  
             end
         end
-
     end
 end

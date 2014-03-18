@@ -117,7 +117,7 @@ describe ArtworksController do
 
         expect {
           post :create, @attrs.merge(:artwork => {:title => nil})
-        }.to raise_error(ActiveRecord::RecordInvalid)
+        }.to_not raise_error
 
         Artwork.count.should == art_count
         Tag.count.should == tag_count.should
@@ -155,7 +155,7 @@ describe ArtworksController do
       end
 
       it "updates new tags" do
-        post :update, :id => artwork.id, :artwork => {}, :tags => 'x,y,z'
+        post :update, :id => artwork.id, :artwork => {:title => 'DIFFERENT'}, :tags => 'x,y,z'
         sorted_tag_names = artwork.tags.map(&:name).sort 
           
         sorted_tag_names.should == ['x', 'y', 'z']

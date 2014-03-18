@@ -10,7 +10,7 @@ class ArtworksController < ApplicationController
   respond_to :html, :json
 
   def index
-    @category = 'Featured'
+    @category = ArtworkCategory.new('Featured')
     @artworks = Artwork.featured( :order => "created_at DESC") || []
   end
 
@@ -34,13 +34,12 @@ class ArtworksController < ApplicationController
         @artwork.created =  params[:artwork][:created_at]
       end
 
-      @artwork.save!
+      raise ActiveRecord::Rollback unless @artwork.save
 
-      flash[:notice] = "'#{@artwork.title}' has been successfully created."
-      return redirect_to(artwork_prints_path(@artwork))
+      return redirect_to(artwork_prints_path(@artwork), 
+        :notice => "'#{@artwork.title}' has been successfully created.")
     end
 
-    flash.now[:error] = "Error saving artwork"
     logger.debug @artwork.errors.messages
 
     return render :action => :new
@@ -61,38 +60,29 @@ class ArtworksController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      
-      @artwork.create_tags_from_csv params[:tags] if params[:tags]
-      @artwork.create_medium_from_csv params[:medium] if params[:medium]
+      successful =  @artwork.update_attributes(params[:artwork]).tap do
+        @artwork.create_tags_from_csv params[:tags] 
+        @artwork.create_medium_from_csv params[:medium] 
+      end
 
       respond_to do |format|
-        if @artwork.update_attributes(params[:artwork])
-          format.html { redirect_to(@artwork, :notice => "Artwork #{@artwork.title} has been successfully updated.") }
-          format.json do
-            if params[:bip] == 'skip'
-              respond_with @artwork.to_json
-           else
-             respond_with_bip(@artwork) 
-           end
-          end
-        else
-          format.html { render :action => "edit" }
-          format.json { respond_with_bip(@artwork) }
-        end
+        format.html { html_response(successful) }
+        format.json { json_response(successful) }
       end
+
+      raise ActiveRecord::Rolback unless successful
     end
   end
 
   def filter_by_category
-    categories = %w(All Featured Fanart)
-    @category = params[:category] || 'Featured'
+    @category = ArtworkCategory.new(params[:category])
 
-    if @category.match /^\d\d\d\d$/
-      @artworks = Artwork.for_year(@category)
-    elsif categories.any? { |category| category == @category  }
-      @artworks = Artwork.send(@category.downcase, :order => 'created_at DESC') 
+    if @category.year? 
+      @artworks = Artwork.for_year(@category.name)
+    elsif @category.predefined?
+      @artworks = Artwork.send(@category.name.downcase, :order => 'created_at DESC') 
     else
-      tag = Tag.find_by_name(@category)
+      tag = Tag.find_by_name(@category.name)
       @artworks = tag.artworks if tag
     end
 
@@ -102,13 +92,9 @@ class ArtworksController < ApplicationController
   end
 
   def destroy
-    return redirect_to :action => :index unless admin?
-
     Artwork.transaction do
       @artwork.destroy
     end
-
-    @artworks = Artwork.all
 
     respond_to do |format|
       format.html { redirect_to artworks_path }
@@ -122,7 +108,23 @@ class ArtworksController < ApplicationController
 
 private
   def artworks
-    @decorated_artworks ||= ArtworksDecorator.decorate(@artworks, :context => { :category => @category } )
+    @decorated_artworks ||= ArtworksDecorator.decorate(@artworks, :context => { :category => @category.name } )
+  end
+
+  def html_response(success)
+    if success
+      redirect_to(@artwork, :notice => "Artwork #{@artwork.title} has been successfully updated.") 
+    else
+      render :action => 'edit'
+    end
+  end
+
+  def json_response(success)
+    if success and params[:bip] == 'skip'
+      respond_with @artwork.to_json
+    else
+      respond_with_bip(@artwork)
+    end
   end
 
   helper_method :artworks
