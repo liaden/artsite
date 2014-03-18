@@ -56,10 +56,15 @@
       </div>
 
       <div class='small-12 medium-7 large-12 columns'>
-        <h2>Next convention:</h2>
-        <h4 class='subheader'><%= next_show.name -%></h4>
-        <p><%= next_show.description -%></p>
-        <p>See all upcoming <%= link_to 'conventions', schedule_path -%>.</p>
+        <% if next_show.nil? -%>
+          <h2>No events scheduled</h2>
+          <p>I currently have no events that are confirmed at the moment. You can follow me on <%= link_to 'Twitter', 'http://twitter.com/archaicsmiles' -%> or <%= link_to 'Tumblr', 'http://archaicsmiles.tumblr.com' -%> to find out more.</p>
+        <% else -%>
+          <h2>Next event:</h2>
+          <h4 class='subheader'><%= next_show.name -%></h4>
+          <p><%= next_show.description -%></p>
+          <p>See all upcoming <%= link_to 'conventions', schedule_path -%>.</p>
+        <% end -%>
       </div>
     </div>
   </div>
