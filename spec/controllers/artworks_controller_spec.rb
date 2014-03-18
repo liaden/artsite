@@ -24,6 +24,7 @@ describe ArtworksController do
     it_behaves_like 'unauthorized GET new'
     it_behaves_like 'unauthorized POST create'
     it_behaves_like 'unauthorized GET edit'
+    it_behaves_like 'unauthorized PUT update'
     it_behaves_like 'unauthorized DELETE destroy'
 
     describe "GET index" do
