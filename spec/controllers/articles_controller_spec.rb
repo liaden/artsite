@@ -5,6 +5,7 @@ describe ArticlesController do
     let(:attrs) { Hash.new(:article => FactoryGirl.attributes_for(:article, :content => 'abcd')) }
     let(:redirect_url) { home_path }
     let(:item) { FactoryGirl.create(:article) }
+    let(:table) { Article }
 
     it_behaves_like 'unauthorized GET edit'
     it_behaves_like 'unauthorized PUT update'

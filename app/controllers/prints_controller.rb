@@ -2,6 +2,8 @@ class PrintsController < ApplicationController
     before_filter :redirect_to_root_unless_admin, :set_artwork
     before_filter :set_print, :except => [ :index, :new, :canvas, :photopaper, :original, :create ]
 
+    decorates_assigned :print
+
     respond_to :html, :json
 
     def index
@@ -67,7 +69,7 @@ class PrintsController < ApplicationController
 
 private
     def redirect_to_root_unless_admin
-        redirect_to '/' unless admin?
+        redirect_to home_path unless admin?
     end
 
     def set_print

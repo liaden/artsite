@@ -1,0 +1,2 @@
+class PrintDecorator < ApplicationDecorator
+end

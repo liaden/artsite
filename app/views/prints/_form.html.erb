@@ -1,12 +1,5 @@
-<% if print.errors -%>
-<div id='model-errors'>
-    <ul>
-    <% print.errors.each do |error| -%>
-        <li><%= error -%></li>
-    <% end -%>
-    </ul>
-</div>
-<% end -%>
+<%= render :partial => 'partials/form_errors', :locals => { :item => print } -%>
+
 <legend>Print type: <%= print.material -%></legend>
 <%= form_for [artwork, print], :html => { :class => "form-horizontal" } do |f| -%>
 
