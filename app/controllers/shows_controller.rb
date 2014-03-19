@@ -11,7 +11,8 @@ class ShowsController < ApplicationController
   end
 
   def create
-    @art_show = Show.new(params[:show]) 
+    @art_show = Show.new(params[:show])
+    @art_show.date = Date.strptime(params[:show][:date], '%m/%d/%Y')
     if @art_show.save
       flash[:notice] = "Successfully created a new show."
       return redirect_to(schedule_path)
