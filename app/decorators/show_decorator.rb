@@ -5,7 +5,7 @@ class ShowDecorator < ApplicationDecorator
     Header.new(
       :title => lambda do 
         raw best_in_place_if(art_show.editable?, art_show, :name) +
-        content_tag(:small) { if_admin_edit( edit_show_path(art_show)) }
+        h.content_tag(:small) { art_show.edit_link_if_admin }
       end,
       :subheader => lambda { best_in_place_if art_show.editable?, art_show, :date, :type => :date }
     )
