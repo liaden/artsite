@@ -21,6 +21,7 @@
 //= require artwork
 //= require show
 //= require main
+//= require prints
 
 $(function() { 
   $(".best_in_place").best_in_place(); 
