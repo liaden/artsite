@@ -6,8 +6,8 @@ class NewsController < ApplicationController
 
     def index
 
+      TwitterService.new.sync
       @tweets = Tweet.last_seven_days
-      puts @tweets.count
 
       @tumbles = Tumblr4r::Site.new("archaic-smiles.tumblr.com").find(:all, :limit => 50)
       render :index

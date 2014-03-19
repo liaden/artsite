@@ -9,7 +9,6 @@ class TwitterService
 
   def timeline_options(since)
     options = { :include_rts => false, :exclude_replies => true, :count => 5, :since_id => (since || 1) }
-    puts "options: #{options.inspect}"
     options
   end
 
