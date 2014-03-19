@@ -1,11 +1,13 @@
 <%= Header.new(:title => 'Upcoming Events', :subheader => '') -%>
 
 <div id='upcoming-events' class="row">
-  <%= render :partial => 'upcoming', :locals => { :show => @shows[0], :styling => '' } -%>
-    <%= render :partial => 'upcoming', :locals => { :show => @shows[1], :styling => 'left-border' } -%>
-  <div class="hide-for-medium-only">
-    <%= render :partial => 'upcoming', :locals => { :show => @shows[2], :styling => 'left-border' } -%>
-  </div>
+  <% if @shows.size > 2 -%>
+    <%= render :partial => 'upcoming', :locals => { :show => @shows[0], :styling => '' } -%>
+      <%= render :partial => 'upcoming', :locals => { :show => @shows[1], :styling => 'left-border' } -%>
+    <div class="hide-for-medium-only">
+      <%= render :partial => 'upcoming', :locals => { :show => @shows[2], :styling => 'left-border' } -%>
+    </div>
+  <% end -%>
 </div>
 
 
