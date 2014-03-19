@@ -2,7 +2,7 @@
 <% @tumbles.each do |tumble| -%>
     <div class='tumble'>
       <div class='right'>
-      <%= tumble.date.to_date.strftime('%B %-d, %Y') -%>
+        <%= tumble.date.to_date.strftime('%B %-d, %Y') -%>
       </div>
       <div class='content'>
         <% if tumble.type == "photo" -%>
@@ -13,6 +13,6 @@
             </div>
             <p><%= tumble.regular_body.html_safe -%></p>
         <% end -%>
-      <div>
+      </div>
     </div>
 <% end -%>
