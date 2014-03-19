@@ -25,7 +25,7 @@ class TwitterService
 
     new_tweets = client.user_timeline('archaicsmiles', timeline_options(latest.try(:twitter_id)))
     client.oembeds(new_tweets, oembed_options).each do |oembed_tweet|
-      Tweet.create(:html => oembed_tweet.html, :twitter_id => oembed_tweet.url.to_s.split('/').last
+      Tweet.create :html => oembed_tweet.html, :twitter_id => oembed_tweet.url.to_s.split('/').last
     end
   end
 end
