@@ -43,6 +43,8 @@ gem 'friendly_id'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+gem "redcarpet"
+
 gem 'twitter'
 gem 'tumblr4r'
 gem 'ruby-oembed'
@@ -59,9 +61,12 @@ gem 'rails_autolink'
 # payment system
 gem 'stripe'
 
+gem 'httpclient'
+
 group :development, :test do
     gem 'rspec-rails'
     gem 'pry'
+    gem 'pry-doc'
     gem 'watchr'
     gem 'factory_girl_rails'
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140312003656) do
+ActiveRecord::Schema.define(:version => 20140402194204) do
 
   create_table "addresses", :force => true do |t|
     t.string   "recipient"
@@ -221,6 +221,16 @@ ActiveRecord::Schema.define(:version => 20140312003656) do
     t.datetime "updated_at",                  :null => false
     t.string   "show_type"
     t.text     "description", :default => ""
+  end
+
+  create_table "supplies", :force => true do |t|
+    t.string   "name"
+    t.string   "category"
+    t.string   "referral_url"
+    t.text     "description"
+    t.text     "short_description"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "tags", :force => true do |t|

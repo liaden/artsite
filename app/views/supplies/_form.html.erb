@@ -1,0 +1,48 @@
+<%= render :partial => 'partials/form_errors', :locals => { :item => supply } -%>
+
+<div class='row'>
+  <%= form_for supply do |f| -%>
+    <% label_writer = HorizontalLabel.new(f) -%>
+    
+    <div class='row'>
+      <%= label_writer.tag(:name) do -%>
+        <%= f.text_field :name, :class => 'small', :label => false %>
+      <% end -%>
+    </div>
+
+    <div class='row'>
+      <%= label_writer.tag(:category) do -%>
+        <%= supply.select_category(f) -%>
+      <% end -%>
+    </div>
+
+    <div class='row'>
+      <%= label_writer.tag(:referral_url) do -%>
+        <%= f.text_field :referral_url, :class => 'small', :label => false %>
+      <% end -%>
+    </div>
+
+    <div class='row'>
+      <%= label_writer.tag(:short_description) do -%>
+        <%= f.text_area :short_description, :label => false %>
+      <% end -%>
+    </div>
+
+    <div class='row'>
+      <%= label_writer.tag(:description) do -%>
+        <%= f.text_area :description, :label => false %>
+      <% end -%>
+    </div>
+
+    <div class='row'>
+      <%= f.submit 'Create', :class => 'button' %> 
+      <%= link_to_function('preview', "preview_markdown('supply_description', 'description_preview')", :class => 'button') -%>
+    </div>
+
+    <div class='row'>
+      <div id='description_preview'>
+      </div>
+    </div> 
+
+  <% end -%>
+</div>

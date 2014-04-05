@@ -1,0 +1,23 @@
+<div class='row'>
+  <hr></hr>
+  <ul id='supplies-menu' class='inline-list'>
+    <li><a href="#brushes">Brushes</a></li>
+    <li><a href="#media">Media</a></li>
+    <li><a href="#papers">Paper</a></li>
+  </ul>
+  <hr></hr>
+</div>
+
+<% @supplies_by_category.each_pair do |category, supplies| -%>
+  <div class='row'>
+    <a name='<%= category -%>'></a>
+    <h2><%= category.capitalize -%></h2>
+    <hr></hr>
+    <dl>
+      <% supplies.each do |supply| -%>
+        <dt><%= link_to supply.name, supply.referral_url -%><%= supply.admin_delete_link -%></dt>
+        <dd><%= supply.short_description -%> <%= link_to 'more info', supply_path(supply) -%></dd>
+      <% end -%>
+    </dl>
+  </div>
+<% end -%>

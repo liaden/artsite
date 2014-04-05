@@ -16,4 +16,10 @@ class MainController < ApplicationController
 
       render :subnavbar, :layout => false
     end
+
+    def preview_markdown
+      @markdown = params[:markdown]
+
+      render :preview_markdown, :layout => false
+    end
 end

@@ -1,4 +1,16 @@
 module ApplicationHelper
+    def markdown(string, optoins = {})
+      markdown_options = { :autolink => true, 
+                           :no_intra_empahsis => true, 
+                           :hard_wrap => true 
+                        }.merge(optoins)
+
+      markdown = Redcarpet::Markdown.new(
+          Redcarpet::Render::HTML.new(markdown_options))
+
+      markdown.render(string).html_safe
+    end
+
     def control_group_tag
         "<div class='control-group'>#{yield}</div>".html_safe
     end

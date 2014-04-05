@@ -25,6 +25,7 @@ ArchaicSmiles::Application.routes.draw do
     resources :commissions
     resources :ideas
     resources :articles
+    resources :supplies
 
 
     match '/news' => 'news#index', :as => :news
@@ -51,6 +52,7 @@ ArchaicSmiles::Application.routes.draw do
     match 'inventory/edit/:id' => 'inventory#edit', :as => :inventory_edit
 
     match 'main/subnav' => 'main#subnavbar', :as => :subnavbar
+    match 'markdown/preview' => 'main#preview_markdown', :as  => :preview_markdown
 
     root :to => 'main#index'
 end
