@@ -12,7 +12,7 @@ class ShowDecorator < ApplicationDecorator
   end
 
   def date
-    object.date.strftime('%m/%d/%Y') 
+    h.localize object.date
   end
 
   def short_description

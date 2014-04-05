@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     def set_artwork
         @artwork = Artwork.find( params[:artwork_id] || params[:id], :include => :prints )
     end
+
+    def delocalize_time(value)
+      DateTime.strptime(value, I18n.translate('date.formats.default'))
+    end
     
     def caller
         "ArchaicSmiles"

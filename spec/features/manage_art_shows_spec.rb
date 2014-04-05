@@ -1,9 +1,60 @@
+require 'spec_helper'
+
 describe "manage art shows" do
   context 'as admin' do
-    before(:each) { login_step :admin }
     before(:each) { FactoryGirl.create(:artwork) }
+    before(:each) { login_step :admin }
 
     let(:show) { FactoryGirl.create(:show) }
+
+    describe 'editing' do
+      it 'shows validation errors' do
+        visit edit_show_path(show)
+         
+        fill_in_form(FactoryGirl.build(:show, :name => ''))
+        submit_art_show_form
+
+        within('div#form-error') do
+          page.should have_content('Name') 
+        end
+      end
+
+      it 'shows confirmation on success' do
+        visit edit_show_path(show)
+        
+        fill_in_form(FactoryGirl.build(:show, :name => 'Different'))
+        submit_art_show_form
+
+        within('#flash-notice') { page.should have_content('successfully updated') }
+      end
+
+      it 'shows edited show on success' do
+        visit edit_show_path(show)
+        
+        fill_in_form(FactoryGirl.build(:show, :name => 'Different'))
+        submit_art_show_form
+
+        page.should have_content('Different')
+      end
+    end
+
+    describe 'creation' do
+      before(:each) { visit new_show_path }
+
+      it 'shows validation errors' do
+        fill_in_form FactoryGirl.build(:show, :description => nil)
+        submit_art_show_form
+
+        within('#form-error') { page.should have_content('Description') }
+      end
+
+      it 'shows confirmation on success' do
+        fill_in_form
+        submit_art_show_form
+        
+        within('#flash-notice') { page.should have_content('Successfully') }
+      end
+    end
 
     describe 'show page' do
       before(:each) { visit show_path(show) }
@@ -12,11 +63,20 @@ describe "manage art shows" do
         page.should have_css('#edit-address')
       end
 
-      it 'works with best in place'
-      it 'handles best in place dates'
-      it 'address links to google maps'
-        
-      it 'best in place edits address with edit link' do
+      describe 'with best in place functionality' do
+        it 'can edit show date', :js => true do
+          id = "best_in_place_show_#{show.id}_date"
+
+          page.execute_script <<-JS
+            $("##{id}").click()
+            $("#ui-state-default").click()
+          JS
+
+          show.date.should_not == show.reload.date
+        end
+
+        it 'address links to google maps'
+        it 'start editing address with edit link' 
       end
     end
   end
@@ -36,7 +96,33 @@ describe "manage art shows" do
   end
   
   describe 'schedule of upcoming events' do
-    it 'lists next three events'
-    it 'has a table with all events'
+    before(:each) do
+      FactoryGirl.create(:show)
+      FactoryGirl.create(:show)
+      FactoryGirl.create(:show)
+    end
+
+    it 'lists next three events' do
+      visit schedule_path
+      all('.upcoming-event').should have(3).items
+    end
+
+    it 'has a table with all events' do
+      FactoryGirl.create(:show, :date => 14.days.from_now)
+      visit schedule_path
+
+      within('#all-events') do
+        all('tbody tr').should have(4).items
+      end
+    end
+
+    it 'does not list old events in table' do
+      FactoryGirl.create(:show, :date => 7.days.ago)
+      visit schedule_path
+
+      within('#all-events') do
+        all('tbody tr').should have(3).items
+      end
+    end
   end
 end

@@ -5,7 +5,9 @@
 </div>
 <hr class='header-hr'></hr>
 
-<%= form_for @art_show, :auto_labels => false do |f| -%>
+<%= render :partial => 'partials/form_errors', :locals => { :item => art_show } -%>
+
+<%= form_for art_show, :auto_labels => false do |f| -%>
 
   <% label_writer = HorizontalLabel.new(f) -%>
   

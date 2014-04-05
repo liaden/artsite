@@ -32,7 +32,7 @@ class ArtworkDecorator < ApplicationDecorator
   end
 
   def created
-    self.created_at.strftime('%m/%d/%Y')
+    h.localize object.created_at
   end
 
   def async_toggle_feature_link 

@@ -3,6 +3,7 @@ class ShowsController < ApplicationController
 
   before_filter :redirect_to_schedule_unless_admin, :except => :show
   before_filter :set_art_show, :except => [:new, :create]
+  before_filter :delocalize_show_date, :only => [:create, :update]
 
   respond_to :html, :json
 
@@ -12,13 +13,13 @@ class ShowsController < ApplicationController
 
   def create
     @art_show = Show.new(params[:show])
-    @art_show.date = Date.strptime(params[:show][:date], '%m/%d/%Y')
+
     if @art_show.save
       flash[:notice] = "Successfully created a new show."
       return redirect_to(schedule_path)
     end
 
-    redirect_to :action => :new
+    render :new
   end
 
   def show
@@ -50,5 +51,9 @@ private
 
   def set_art_show
     @art_show = Show.find params[:id]
+  end
+
+  def delocalize_show_date
+    params[:show][:date] = delocalize_time(params[:show][:date]) 
   end
 end

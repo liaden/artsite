@@ -23,12 +23,12 @@ describe ShowsController do
 
     context "POST #create" do
       it "creates a new show" do
-        expect { post :create, :show => FactoryGirl.attributes_for(:show) }.to change{Show.count}.by(1)
+        expect { post :create, :show => FactoryGirl.attributes_for(:show_with_localized_date) }.to change{Show.count}.by(1)
       end
 
       it "redirects back to #new" do
-        post :create, FactoryGirl.attributes_for(:show)
-        response.should redirect_to(new_show_path)
+        post :create, :show => FactoryGirl.attributes_for(:show_with_localized_date)
+        response.should redirect_to(schedule_path)
       end
     end
 
@@ -41,18 +41,18 @@ describe ShowsController do
 
     context "POST #update" do
       it "updates the name" do
-        post :update, :id => show.id, :show => {:name => "herp derp"}
+        post :update, :id => show.id, :show => FactoryGirl.attributes_for(:show_with_localized_date, :name => "herp derp")
         show.reload.name.should == "herp derp"
       end
 
       it "shows the updated show" do
-        post :update, :id => show.id, :show => FactoryGirl.attributes_for(:show)
+        post :update, :id => show.id, :show => FactoryGirl.attributes_for(:show_with_localized_date)
 
         response.should redirect_to(show_path(show))
       end
 
       it 'renders edit page on error' do
-        post :update, :id => show.id, :show => { :name => nil }
+        post :update, :id => show.id, :show => FactoryGirl.attributes_for(:show_with_localized_date, :name => nil)
         response.should render_template('edit')
       end
     end

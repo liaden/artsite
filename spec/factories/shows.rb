@@ -9,4 +9,8 @@ FactoryGirl.define do
     f.show_type { "Gallery" }
     f.description { Faker::Lorem::sentences * " " }
   end
+
+  factory :show_with_localized_date, :parent => :show do |f|
+    f.date { I18n.l 7.days.from_now }
+  end
 end

@@ -72,6 +72,7 @@ RSpec.configure do |config|
     end
   end
 
+  config.include Features::ArtShowWorkflows, :type => :feature
   config.include Features::SupplyWorkflows, :type => :feature
 
 end
