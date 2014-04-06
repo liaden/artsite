@@ -5,7 +5,7 @@
 </div>
 <hr class='header-hr'></hr>
 
-<%= render :partial => 'partials/form_errors', :locals => { :item => art_show } -%>
+<%= art_show.render_form_errors -%>
 
 <%= form_for art_show, :auto_labels => false do |f| -%>
 

@@ -1,4 +1,4 @@
-<%= render :partial => 'partials/form_errors', :locals => { :item => supply } -%>
+<%= supply.render_form_errors -%>
 
 <div class='row'>
   <%= form_for supply do |f| -%>

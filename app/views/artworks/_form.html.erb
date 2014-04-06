@@ -1,7 +1,7 @@
 <%= artwork.form_title -%>
 <%= artwork.edit_prints_link -%>
 
-<%= render :partial => 'partials/form_errors', :locals => { :item => artwork } -%>
+<%= artwork.render_form_errors -%>
 
 <div class="row">
   <%= form_for artwork do |f| -%>

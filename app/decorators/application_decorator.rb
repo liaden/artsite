@@ -14,4 +14,8 @@ class ApplicationDecorator < Draper::Decorator
   def more_info_link
     h.link_to('more info', object)
   end
+
+  def render_form_errors
+    h.render :partial => 'partials/form_errors', :locals => { :item => self }
+  end
 end
