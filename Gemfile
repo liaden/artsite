@@ -63,6 +63,10 @@ gem 'stripe'
 
 gem 'httpclient'
 
+group :development do
+    gem 'rails_refactor'
+end
+
 group :development, :test do
     gem 'rspec-rails'
     gem 'pry'

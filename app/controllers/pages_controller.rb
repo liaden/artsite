@@ -1,4 +1,4 @@
-class ArticlesController < ApplicationController
+class PagesController < ApplicationController
   before_filter :require_admin_or_send_home
   before_filter :get_article
 

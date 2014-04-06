@@ -24,7 +24,7 @@ ArchaicSmiles::Application.routes.draw do
     resources :user_sessions
     resources :commissions
     resources :ideas
-    resources :articles
+    resources :pages
     resources :supplies
 
 

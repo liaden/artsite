@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ArticlesController do
+describe PagesController do
   context 'as guest' do
     let(:attrs) { Hash.new(:article => FactoryGirl.attributes_for(:article, :content => 'abcd')) }
     let(:redirect_url) { home_path }

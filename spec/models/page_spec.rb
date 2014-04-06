@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Article do
+describe Page do
   it 'creates' do
-    FactoryGirl.create(:article).should be_an_instance_of(Article)
+    FactoryGirl.create(:article).should be_an_instance_of(Page)
   end
 
   it 'requires title to be unique' do

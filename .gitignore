@@ -15,6 +15,8 @@
 /public/*
 /coverage/*
 
+# ignore credentials needed for development/testing
+/config/initializers/test_*.rb
 
 # Ignore vim files
 *.~
