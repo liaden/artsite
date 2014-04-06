@@ -12,6 +12,7 @@ class ShowDecorator < ApplicationDecorator
   end
 
   def date
+    return '' unless object.date
     h.localize object.date
   end
 

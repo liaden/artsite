@@ -19,6 +19,12 @@ describe "manage art shows" do
         end
       end
 
+      it 'has the date formated as mm/dd/yyyy' do
+        visit edit_show_path(show)
+
+        find_field('show_date').value.should == I18n.l(show.date)
+      end
+
       it 'shows confirmation on success' do
         visit edit_show_path(show)
         

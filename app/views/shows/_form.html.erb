@@ -21,7 +21,7 @@
     <div class='small-6 columns'>
       <div class='row collapse'>
         <%= label_writer.tag(:date, :label_size => '4', :field_size => '6') do -%>
-          <%= f.text_field :date, :label => false -%>
+          <%= f.text_field :date, :value => art_show.date, :label => false -%>
         <% end -%>
 
         <div class='small-2 columns end'>
