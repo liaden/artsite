@@ -29,9 +29,14 @@ class ApplicationController < ActionController::Base
     helper_method :admin?
     helper_method :guest?
     helper_method :active_order
+    helper_method :fullpath
 
     def guest?
         not current_user
+    end
+
+    def fullpath
+      request.fullpath
     end
 
     def admin?

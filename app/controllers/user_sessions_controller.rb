@@ -17,9 +17,9 @@ class UserSessionsController < ApplicationController
       if @user_session.save
         
         migrate_cart
-        flash[:notice] = "Login successful"
 
-        format.html { redirect_to(home_path, :notice => 'You have successfully logged in.') }
+        flash[:login_notice] = 'You have successfully logged in.'
+        format.html { redirect_to(params[:coming_from] || home_path) }
         format.xml  { render :xml => @user_session, :status => :created, :location => @user_session }
       else
         format.html { render :action => "new" }

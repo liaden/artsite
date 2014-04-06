@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @user.privilege = 0
 
     if @user.save
-      redirect_to home_path, :notice => "Account successfully created."
+      redirect_to home_path, :login_notice => "Account successfully created."
     else
       render :action => :new
     end

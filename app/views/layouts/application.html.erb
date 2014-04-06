@@ -29,17 +29,19 @@
 
     <%= render :partial => "partials/navbar", :locals => { :caller => controller.caller } -%>
 
-    <% if flash[:error] -%>
-      <div class="alert alert-error" id='flash-error'><%= h flash[:error] -%></div>
-    <% end -%>
+    <div class='row'>
+      <% if flash[:error] -%>
+        <div class="alert-box warning radius" id='flash-error' data-alert=""><%= h flash[:error] -%><a href='#' class='close'>&times;</a></div>
+      <% end -%>
 
-    <% if flash[:config_error] -%>
-      <div class="alert alert-error" id='flash-config-error'><%= h flash[:config_error] -%></div>
-    <% end -%>
+      <% if flash[:config_error] -%>
+        <div class="alert-box warning radius" id='flash-config-error' data-alert=""><%= h flash[:config_error] -%><a href='#' class='close'>&times;</a></div>
+      <% end -%>
 
-    <% if flash[:notice] -%>
-      <div class="alert alert-info" id='flash-notice'><%= h flash[:notice] -%></div>
-    <% end -%>
+      <% if flash[:notice] -%>
+        <div class="alert-box radius" id='flash-notice' data-alert=""><%= h flash[:notice] -%><a href='#' class='close'>&times;</a></div>
+      <% end -%>
+    </div>
 
     <%= yield -%>
 

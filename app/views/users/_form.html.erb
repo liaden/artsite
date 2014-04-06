@@ -1,4 +1,4 @@
-<%= form_for user do |f| -%>
+<%= form_for user, :html => { :id => 'user-registration' } do |f| -%>
   <%= render :partial => 'partials/form_errors', :locals => {:item => user } -%>
   <% label_writer = HorizontalLabel.new(f) -%>
 

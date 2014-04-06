@@ -13,9 +13,9 @@
 //= require jquery
 //= require jquery.ui.datepicker
 //= require jquery_ujs
+//= require foundation
 //= require svg
 //= require best_in_place
-//= require foundation
 //= require navbar
 //= require jquery.dform-1.1.0.min
 //= require artwork
@@ -32,7 +32,6 @@ $(function() {
 function circular_pictures(node_name) {
   var node = $('#'+node_name)
   if (node.length == 0) {
-    console.log('did not find '+node);
     return;
   }
 

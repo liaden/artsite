@@ -7,15 +7,6 @@ describe 'User Authentication' do
   end
 
   describe 'user registration' do
-    it 'registers user' do
-      visits_home_page
-
-      visit new_user_path
-      register_step(FactoryGirl.build(:user))
-
-      page.should have_content('Account successfully created')
-    end
-
     it 'logs new user in' do
       visits_home_page
 
@@ -55,7 +46,7 @@ describe 'User Authentication' do
         it 'user successfully logs in' do
           visits_home_page
           login_step(user)
-          page.should have_content('successfully logged in')
+          within('#main-nav') { page.should have_content('Logout') }
         end
 
         it 'nav bar does not show login/register' do

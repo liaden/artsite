@@ -28,9 +28,19 @@
   
       <ul class="right">
         <% if current_user -%>
-          <li><%= link_to "Logout", logout_path -%></li>
+          <li><%= link_to "Logout", logout_path, :id => 'logout-link' -%></li>
         <% else -%>
-          <li><%= link_to "Login", login_path -%></li>
+          <li class='has-dropdown' id='login-dropdown'>
+            <a href='#'>Login</a>
+            <ul class='dropdown'>
+              <%= form_for(UserSession.new) do |f| -%>
+                <%= hidden_field_tag(:coming_from, fullpath) -%>
+                <li class='has-form'><%= f.text_field(:username, :label => false, :placeholder => :username) -%></li>
+                <li class='has-form'><%= f.password_field(:password, :label => false, :placeholder => :password) -%></li>
+                <li class='has-form'><%= f.submit('login', :style => 'width:100%') -%></li>
+              <% end -%>
+            </ul>
+          </li>
           <li class="divider"></li>
           <li><%= link_to "Register", new_user_path -%></li>
         <% end -%>
