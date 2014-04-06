@@ -12,11 +12,15 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
+/public/*
+/coverage/*
+
+
 # Ignore vim files
-/*.~
-/*.swn
-/*.swo
-/*.swp
+*.~
+*.swn
+*.swo
+*.swp
 
 # Ignore stripe info
 /config/initializers/stripe.rb
