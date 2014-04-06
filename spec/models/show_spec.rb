@@ -39,11 +39,21 @@ describe Show do
     FactoryGirl.build(:show, :show_type => "xyz").should_not be_valid
   end
 
-  it 'does not list already finished shows' do
-    FactoryGirl.create( :show )
-    FactoryGirl.create( :show, :date => 7.days.ago )
+  describe 'Show.upcoming' do
+    it 'does not list already finished shows' do
+      FactoryGirl.create( :show )
+      FactoryGirl.create( :show, :date => 7.days.ago )
 
-    Show.upcoming.should have(1).item
+      Show.upcoming.should have(1).item
+    end
+
+    it 'does not order by creation date' do
+      second_id = FactoryGirl.create(:show, :date => 8.days.from_now).id
+      third_id = FactoryGirl.create(:show, :date => 9.days.from_now).id
+      first_id = FactoryGirl.create(:show, :date => 7.days.from_now).id
+
+      Show.upcoming.map(&:id).should == [ first_id, second_id, third_id ]
+    end
   end
 end
 

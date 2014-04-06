@@ -17,7 +17,7 @@ class ShowDecorator < ApplicationDecorator
   end
 
   def short_description
-    h.truncate(object.description, 45)
+    h.truncate(object.description, :length => 250)
   end
 
   def edit_link_if_admin

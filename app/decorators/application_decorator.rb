@@ -10,4 +10,8 @@ class ApplicationDecorator < Draper::Decorator
   def editable?
     h.admin?
   end
+
+  def more_info_link
+    h.link_to('more info', object)
+  end
 end

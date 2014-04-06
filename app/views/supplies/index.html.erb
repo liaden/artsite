@@ -16,7 +16,7 @@
     <dl>
       <% supplies.each do |supply| -%>
         <dt><%= link_to supply.name, supply.referral_url -%><%= supply.admin_delete_link -%></dt>
-        <dd><%= supply.short_description -%> <%= link_to 'more info', supply_path(supply) -%></dd>
+        <dd><%= supply.short_description -%> <%= supply.more_info_link -%></dd>
       <% end -%>
     </dl>
   </div>
