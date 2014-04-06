@@ -132,6 +132,16 @@ describe 'Manage Art Supplies' do
         find_link('dickblick')[:href].should match(/dickblick.com/)
       end
 
+      it 'renders markdown' do
+        supply.update_attributes :description => "# Blah \n\n* item 1 \n* item 2"
+
+        visit supply_path(supply)
+        within('#supply-description') do
+          page.should have_css("h1")
+          page.should have_css("li")
+        end
+      end
+
       it 'has a list of artworks that were created with it' 
     end
   end
