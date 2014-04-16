@@ -41,8 +41,25 @@ describe 'User Authentication' do
     let(:user) { FactoryGirl.create(:user) }
 
     describe 'login' do
+      context 'via navbar form' do
+        before(:each) { visit schedule_path }
+          
+        it 'fills username field with "username"' do
+          find_field('user_session_username')[:placeholder].should == 'username'
+        end
+
+        it 'fills password field with "password"' do
+          find_field('user_session_password')[:placeholder].should == 'password'
+        end
+
+        it 'redirects back to page user is on' do
+          navbar_login_step(user)
+          page.should have_content('Upcoming Events')
+        end
+      end
       
       context 'user successfully logs in' do
+
         it 'user successfully logs in' do
           visits_home_page
           login_step(user)
@@ -52,6 +69,7 @@ describe 'User Authentication' do
         it 'nav bar does not show login/register' do
           visits_home_page
           login_step(user)
+
           within('#main-nav') do
             page.should_not have_content('Login')
             page.should_not have_content('Register')

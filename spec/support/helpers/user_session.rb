@@ -12,7 +12,7 @@ def login_step(as)
 end
 
 def navbar_login_step(as)
-  within('#navbar-login') do
+  within('#login-dropdown') do
     login_common(as)
   end
 end
