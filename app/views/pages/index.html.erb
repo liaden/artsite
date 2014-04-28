@@ -1,0 +1,11 @@
+<table id='pages-list'>
+  <% pages.each do |page| -%>
+    <tr>
+      <td><%= link_to page.name, page_path(page) -%></td>
+      <td><%= page.truncated_description -%> <%= page.more_info_link -%></td>
+      <td><%= page.created_at -%></td>
+      <td><%= page.updated_at -%></td>
+      <td><%= link_to '&times;', page, :method => :delete -%></td>
+    </tr>
+  <% end -%>
+</table>

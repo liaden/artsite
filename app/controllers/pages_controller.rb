@@ -2,11 +2,18 @@ class PagesController < ApplicationController
   before_filter :require_admin_or_send_home, :except => :show
   before_filter :get_page, :except => [:index, :new, :create]
 
+  respond_to :html, :json
+
+  decorates_assigned :page
+
   def index
     @pages = Page.all
+
+    respond_with @pages
   end
 
   def show
+    respond_with @page
   end
 
   def new
@@ -17,7 +24,7 @@ class PagesController < ApplicationController
     @page = Page.new(params[:page])
 
     if @page.save
-      return redirect_to(:index, :notice => "#{page.type} #{name} has been published.")
+      return redirect_to(@page, :notice => "#{page.page_type} #{page.name} has been published.")
     end
 
     render :new
@@ -28,7 +35,7 @@ class PagesController < ApplicationController
 
   def update
     if @page.update_attributes params[:page]
-      redirect_to pages_path
+      redirect_to @page, :notice => "Successfully updated #{page.name}"
     else
       render :action => 'edit'
     end
@@ -36,6 +43,8 @@ class PagesController < ApplicationController
 
   def destroy
     @page.destroy
+
+    redirect_to pages_path, :notice => "Successfully deleted page"
   end
 
 private

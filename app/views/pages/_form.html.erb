@@ -1,13 +1,11 @@
-<% if @article.errors.any? -%>
-  <div id='model-errors' class='alert alert-error'>
-  </div>
-<% end -%>
-<%= form_for @article, :html => { :class => "form-horizontal" } do |f| -%>
+<%= page.render_form_errors -%>
+
+<%= form_for page do |f| -%>
   <fieldset>
 
   <div class="control-group">
     <%= f.label :title, :class => "control-label" -%>
-    <div class="controls"><%= f.text_field :title -%></div>
+    <div class="controls"><%= f.text_field :name -%></div>
   <div>
 
   <div class="control-group">
