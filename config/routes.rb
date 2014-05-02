@@ -1,4 +1,6 @@
 ArchaicSmiles::Application.routes.draw do
+  ActiveAdmin.routes(self)
+
     match '/artworks/filter/:category/' => 'artworks#filter_by_category', :as => :artworks_by_category
 
     resources :artworks do

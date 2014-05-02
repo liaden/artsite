@@ -3,8 +3,12 @@ source 'https://rubygems.org'
 ruby '1.9.3'
 
 gem 'rails', '~> 3.2.x'
+gem 'activeadmin', '~> 0.6.0'
 
-#gem 'less-rails'
+# active admin requires devise which I am not using
+# devise is not set up so we need to force it to not
+# be required by default by rails so it is listed here
+gem 'devise', :require => false 
 
 gem 'virtus', :git => 'git://github.com/solnic/virtus.git'
 
