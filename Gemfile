@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 ruby '1.9.3'
 
 gem 'rails', '~> 3.2.x'
+gem 'authlogic', '~> 3.3.0'
+
 gem 'activeadmin', '~> 0.6.0'
 
 # active admin requires devise which I am not using
@@ -41,7 +43,6 @@ gem 'geocoder'
 gem 'memcachier'
 gem 'dalli'
 
-gem 'authlogic'
 gem 'friendly_id'
 
 gem 'jquery-rails'
@@ -74,6 +75,7 @@ end
 group :development, :test do
     gem 'rspec-rails'
     gem 'pry'
+    gem 'pry-rails'
     gem 'pry-doc'
     gem 'watchr'
     gem 'factory_girl_rails'
