@@ -176,9 +176,11 @@ ActiveRecord::Schema.define(:version => 20140406171754) do
   end
 
   create_table "pages", :force => true do |t|
-    t.string "name"
-    t.string "page_type"
-    t.text   "content"
+    t.string   "name"
+    t.string   "page_type"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "print_orders", :force => true do |t|

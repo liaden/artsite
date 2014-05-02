@@ -2,15 +2,30 @@
 
 <%= form_for page do |f| -%>
   <fieldset>
+  <% label_writer = HorizontalLabel.new(f) -%>
 
-  <div class="control-group">
-    <%= f.label :title, :class => "control-label" -%>
-    <div class="controls"><%= f.text_field :name -%></div>
-  <div>
+  <div class="row collapse">
+    <div class="small-6 columns">
+      <%= label_writer.tag(:title) do -%>
+        <%= f.text_field :name, :label => false -%>
+      <% end -%>
+    </div>
+    <div class="small-6 columns end">
+      <div class='row clearfix'>
+        <div class='small-3 columns'>
+          <%= f.label :page_type, :class => 'left'  -%>
+        </div>
+        <div class='small-9 columns'>
+          <%= f.radio_button :page_type, "tutorial", :text => "Tutorial", :class => 'left' -%>
+          <%= f.radio_button :page_type, "video", :text => "Video", :class => 'left' -%>
+         </div>
+      </div>
+    </div>
+  </div>
 
-  <div class="control-group">
+  <div class="row">
     <%= f.label :content, :class => "control-label" -%>
-    <div class="controls"><%= f.text_area :content -%></div>
+    <%= f.text_area :content, :label => false -%>
   </div>
 
   <div class="form-actions">

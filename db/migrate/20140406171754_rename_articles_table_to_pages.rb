@@ -6,6 +6,8 @@ class RenameArticlesTableToPages < ActiveRecord::Migration
       t.string :name
       t.string :page_type
       t.text :content
+
+      t.timestamps
     end
   end
 
