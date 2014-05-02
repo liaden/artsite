@@ -55,7 +55,7 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # within the controller.
-  config.authentication_method = :require_admin
+  config.authentication_method = :require_admin_or_send_home
 
 
   # == Current User
