@@ -55,6 +55,6 @@ ArchaicSmiles::Application.routes.draw do
   match 'inventory/update/:id' => 'inventory#update', :as => :inventory_update
   match 'inventory/edit/:id' => 'inventory#edit', :as => :inventory_edit
 
-  match 'main/subnav' => 'main#subnavbar', :as => :subnavbar
+  match 'main/admin_controls' => 'main#admin_controls', :as => :admin_controls
   match 'markdown/preview' => 'main#preview_markdown', :as  => :preview_markdown
 end

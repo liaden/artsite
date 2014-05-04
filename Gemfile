@@ -69,6 +69,7 @@ gem 'stripe'
 gem 'httpclient'
 
 group :development do
+    gem 'js-routes'
     gem 'rails_refactor'
 end
 

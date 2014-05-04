@@ -70,7 +70,6 @@ module ArchaicSmiles
     config.assets.initialize_on_precompile = false
 
     # for rspec
-
     config.generators do |g|
         g.test_framework :rspec,
             :fixtures => true,

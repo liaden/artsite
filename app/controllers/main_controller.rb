@@ -9,12 +9,12 @@ class MainController < ApplicationController
       @next_show = Show.next
     end
 
-    def subnavbar
+    def admin_controls
       if admin?
-         return render :admin_sub_navbar, :layout => false
+         return render :admin_controls, :layout => false
       end
 
-      render :subnavbar, :layout => false
+      render :inline => '', :layout => false
     end
 
     def preview_markdown
