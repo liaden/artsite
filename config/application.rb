@@ -16,8 +16,6 @@ module ArchaicSmiles
         if Rails.env.test?
             silence_stream STDOUT do
                 load 'db/schema.rb'
-                Frame.create_unframed
-                Matte.create_unmatted
             end
         end
     end
