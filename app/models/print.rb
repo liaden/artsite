@@ -1,7 +1,5 @@
 class Print < ActiveRecord::Base
     belongs_to :artwork
-    belongs_to :matte  # for originals 
-    belongs_to :frame  # for originals
     has_many :print_orders
     has_many :orders, :through => :print_orders
 
@@ -12,8 +10,6 @@ class Print < ActiveRecord::Base
         self.inventory_count ||= 0
         self.is_on_show ||= false
         self.sold_count ||= 0
-        self.frame || Frame.unframed
-        self.matte || Matte.unmatted
     end
 
     def self.sizes
