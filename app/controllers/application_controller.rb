@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     end
 
     def delocalize_time(value)
-      DateTime.strptime(value, I18n.translate('date.formats.default'))
+      result = DateTime.strptime(value, I18n.translate('date.formats.default'))
     end
     
     def caller

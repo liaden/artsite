@@ -18,8 +18,14 @@ class UserSessionsController < ApplicationController
         
         migrate_cart
 
+        if current_user.admin?
+          destination = params[:coming_from] || '/admin'
+        else
+          destination = params[:coming_from] || home_path
+        end
+
         flash[:login_notice] = 'You have successfully logged in.'
-        format.html { redirect_to(params[:coming_from] || home_path) }
+        format.html { redirect_to(destination) }
         format.xml  { render :xml => @user_session, :status => :created, :location => @user_session }
       else
         format.html { render :action => "new" }

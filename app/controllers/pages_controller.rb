@@ -8,7 +8,7 @@ class PagesController < ApplicationController
   decorates_assigned :pages
 
   def index
-    @pages = Page.all.order('created_at DESC')
+    @pages = Page.order('created_at DESC').all
 
     respond_with @pages
   end

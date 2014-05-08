@@ -32,7 +32,7 @@ describe MainController do
 
     context 'as a guest' do
       it 'returns nothing' do
-        get :subnavbar
+        get :admin_controls
         response.body.should be_empty
       end
     end
@@ -41,7 +41,7 @@ describe MainController do
       it 'returns nothing' do
         login :user
 
-        get :subnavbar
+        get :admin_controls
         response.body.should be_empty
       end
     end
@@ -50,8 +50,8 @@ describe MainController do
       it 'returns the subnav' do
         login :admin
 
-        get :subnavbar
-        response.should render_template('admin_sub_navbar')
+        get :admin_controls
+        response.should render_template('admin_controls')
       end
     end
   end

@@ -171,6 +171,8 @@ ActiveAdmin.setup do |config|
   #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
   #     end
   #   end
+  
+
 
   # == Download Links
   #
@@ -206,5 +208,22 @@ ActiveAdmin.setup do |config|
   #
   # config.filters = true
 
+end
 
+class ActiveAdmin::Views::IndexAsTable
+  def bip_column(title_or_attribute, attribute_or_options = nil, options = nil)
+    params = options || attribute_or_options || {}
+    params = {} unless params.is_a? Hash
+
+    title = title_or_attribute
+
+    attribute = attribute_or_options || title
+    attribute = title if attribute.is_a? Hash
+
+    bip_options = params.delete(:bip) || {}
+
+    column(title, attribute, {:sortable => title}.merge(params)) do |item|
+      best_in_place item, attribute, bip_options
+    end
+  end
 end
