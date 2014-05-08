@@ -87,6 +87,7 @@ gem 'pg'
 group :test do
     gem 'simplecov'
     gem 'capybara'
+    gem 'poltergeist'
     gem 'selenium-webdriver'
     gem 'guard-rspec'
     gem 'launchy'

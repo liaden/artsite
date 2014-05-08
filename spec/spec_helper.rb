@@ -22,6 +22,7 @@ require 'rspec/rails'
 
 require 'rspec/autorun'
 require 'capybara/rspec'
+require 'capybara/poltergeist'
 require 'database_cleaner'
 require 'authlogic/test_case'
 
@@ -29,22 +30,13 @@ require 'authlogic/test_case'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+Capybara.javascript_driver = :poltergeist
+
 RSpec.configure do |config|
-  # ## Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  #config.use_transactional_fixtures = true
   DatabaseCleaner.strategy = :truncation
 
   # If true, the base class of anonymous controllers will be inferred
@@ -61,9 +53,6 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.clean
   end
-
-  # reset back to :rack_test in case we just ran a js test
-  config.after(:each) { Capybara.use_default_driver }
 
   config.before(:each) do
     # speed up tests by not generating thumbnails for rack_test
