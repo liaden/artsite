@@ -1,4 +1,6 @@
 ActiveAdmin.register Supply do
+  config.clear_action_items!
+
   index do
     bip_column(:name) 
     column(:category) 
@@ -8,5 +10,9 @@ ActiveAdmin.register Supply do
     actions :defaults => false do |supply|
       link_to 'edit', edit_supply_path(supply)
     end
+  end
+
+  action_item do
+    link_to 'New art supply'
   end
 end

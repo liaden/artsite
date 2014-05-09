@@ -1,4 +1,6 @@
 ActiveAdmin.register Page do
+  config.clear_action_items!
+
   index do
     bip_column(:name)
     bip_column(:page_type, :bip => { :type => :checkbox, :collection => [ "Video", "Tutorial" ] })

@@ -1,5 +1,6 @@
 ActiveAdmin.register Artwork do
   decorate_with ArtworkDecorator
+  config.clear_action_items!
 
   index do
     column(:image) do |artwork|
@@ -15,5 +16,9 @@ ActiveAdmin.register Artwork do
     actions :defaults => false do |artwork|
       link_to 'edit', edit_artwork_path(artwork)
     end
+  end
+
+  action_item do
+    link_to "New Artwork", new_artwork_path
   end
 end

@@ -1,5 +1,6 @@
 ActiveAdmin.register Show do
   decorate_with ShowDecorator
+  config.clear_action_items!
 
   index do
     bip_column(:name)
@@ -10,5 +11,9 @@ ActiveAdmin.register Show do
     actions :defaults => false do |show|
       link_to 'edit', edit_show_path(show)
     end
+  end
+
+  action_item do
+    link_to 'New Show', new_show_path
   end
 end

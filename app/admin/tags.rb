@@ -1,4 +1,6 @@
 ActiveAdmin.register Tag do
+  config.clear_action_items!
+
   controller do
     def scoped_collection
       Tag.includes(:artworks)
