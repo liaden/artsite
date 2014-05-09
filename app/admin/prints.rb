@@ -1,5 +1,11 @@
 ActiveAdmin.register Print do
   decorate_with PrintDecorator
+
+  controller do
+    def scoped_collection
+      Print.includes(:artwork)
+    end
+  end
   
   index do
     column(:artwork) do |print|
