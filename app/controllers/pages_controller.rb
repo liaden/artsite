@@ -6,11 +6,11 @@ class PagesController < ApplicationController
 
   decorates_assigned :page
   decorates_assigned :pages
+  decorates_assigned :videos, :tutorials
 
   def index
-    @pages = Page.order('created_at DESC').all
-
-    respond_with @pages
+    @videos = Page.where(:page_type => :video).order('created_at DESC')
+    @tutorials = Page.where(:page_type => :tutorial).order('created_at DESC')
   end
 
   def tutorials
