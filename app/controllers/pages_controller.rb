@@ -5,8 +5,6 @@ class PagesController < ApplicationController
   respond_to :html, :json
 
   decorates_assigned :page
-  decorates_assigned :pages
-  decorates_assigned :videos, :tutorials
 
   def index
     @videos = Page.where(:page_type => :video).order('created_at DESC')
@@ -57,8 +55,17 @@ class PagesController < ApplicationController
 
     redirect_to pages_path, :notice => "Successfully deleted page"
   end
+  helper_method :videos, :tutorials
 
 private
+  def videos
+    @decorated_videos ||= PageDecorator.decorate_collection(@videos)
+  end
+
+  def tutorials
+    @decorated_tutorials ||= PageDecorator.decorate_collection(@tutorials)
+  end
+
   def get_page
     @page = Page.find_by_id(params[:id])
   end

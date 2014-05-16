@@ -13,17 +13,11 @@ describe 'Manage pages' do
       before(:each) { custom_page }
 
       it 'shows all pages' do
-        FactoryGirl.create(:page, :name => 'page 2')
+        FactoryGirl.create(:video, :name => 'page 2')
 
         visit pages_path
         page.should have_content('page 1')
         page.should have_content('page 2')
-      end
-
-      it 'has an edit button' do
-        visit pages_path
-
-        page.should have_link('Edit')
       end
 
       it 'shows name' do
@@ -34,17 +28,9 @@ describe 'Manage pages' do
       it 'shows creation date' do
         visit pages_path
 
-        within('.page-row') do
-          page.should have_content(Time.now.year.to_s)
-          page.should have_content(Time.now.month.to_s)
-          page.should have_content(Time.now.day.to_s)
-        end
-      end
-
-      it 'shows page type' do
-        visit pages_path
-
-        page.should have_content(custom_page.page_type)
+        page.should have_content(Time.now.year.to_s)
+        page.should have_content(Time.now.month.to_s)
+        page.should have_content(Time.now.day.to_s)
       end
     end
 

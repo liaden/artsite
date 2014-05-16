@@ -1,18 +1,21 @@
 <div class='row'>
   <div class='small-8 columns'>
     <h1>Tutorials</h1>
-    <% @tutorials.each do |tutorial| -%>
+    <% tutorials.each do |tutorial| -%>
       <div class='panel'>
-        <h4><%= link_to tutorial.name, pages_path(tutorial) -%></h4>
+        <h4><%= link_to tutorial.name, pages_path(tutorial) -%></h4> 
+        <div class='right'><%= tutorial.created_at -%></div>
+
       </div>
       <hr>
     <% end -%>
   </div>
   <div class='small-4 columns'>
-    <h1>Art on Youtube</h1>
-    <% @videos.each do |video| -%>
+    <h1>Videos</h1>
+    <% videos.each do |video| -%>
       <div class='panel'>
         <h4><%= link_to video.name, pages_path(video) -%></h4>
+        <div class='right'>><%= video.created_at -%></div>
         <%= video.content -%>
       </div>
     <% end -%>
