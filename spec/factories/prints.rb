@@ -11,15 +11,11 @@ FactoryGirl.define do
         f.sold_count  0 
         f.inventory_count  0 
         f.artwork { FactoryGirl.create(:artwork) }
-        f.matte { Matte.unmatted }
-        f.frame { Frame.unframed }
     end
 
     factory :original, :parent => :print do |f|
         f.material "original"
         f.size_name "original"
-        f.matte { FactoryGirl.create(:matte) }
-        f.frame { FactoryGirl.create(:frame) }
     end
 
     factory :canvas, :parent => :print do |f|

@@ -1,3 +1,5 @@
+[![Quality     ](http://img.shields.io/codeclimate/github/liaden/artsite.svg)](https://codeclimate.com/github/liaden/artsite/)
+
 # Overview
 
 The code runs a ruby on rails website for an artist's business. 
