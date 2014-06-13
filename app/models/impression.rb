@@ -9,7 +9,7 @@ class Impression < ActiveRecord::Base
   geocoded_by :ip_address, :latitude => :latitude, :longitude => :longitude
 
   validates :ip_address, :presence => true
-  after_validation :geocode 
+  #after_validation :geocode 
 
   validates_each :user_id do |record, attr, value|
     if record.user.try(:admin?)

@@ -1,3 +1,3 @@
 $(document).ready( function () {
-    $('#subnav-container').load("/main/subnav")
+    $('#admin-dashboard-button').load(Routes.admin_controls_path())
 })

@@ -73,7 +73,7 @@ describe "Homepage" do
       it 'admin sees admin navbar', :js => true do
         login_step :admin 
         visit home_path
-        page.should have_css('nav#admin-navbar')
+        page.should have_content('Control Panel')
       end
     end
   end

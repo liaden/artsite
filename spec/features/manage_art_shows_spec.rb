@@ -75,7 +75,7 @@ describe "manage art shows" do
 
           page.execute_script <<-JS
             $("##{id}").click()
-            $("#ui-state-default").click()
+            $(".ui-state-default").click()
           JS
 
           show.date.should_not == show.reload.date

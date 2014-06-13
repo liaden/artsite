@@ -28,6 +28,7 @@
   
       <ul class="right">
         <% if current_user -%>
+          <li id='admin-dashboard-button'></li>
           <li><%= link_to "Logout", logout_path, :id => 'logout-link' -%></li>
         <% else -%>
           <li class='has-dropdown' id='login-dropdown'>
@@ -46,7 +47,5 @@
         <% end -%>
     </section>
   </nav>
-</div>
-<div id="subnav-container">
 </div>
 

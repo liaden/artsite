@@ -1,8 +1,8 @@
 class PageDecorator < ApplicationDecorator
   delegate_all
 
-  def short_content
-    h.truncate(object.content, :length => 120)
+  def short_content(max_length=nil)
+    h.truncate(object.content, :length => max_length || 120)
   end
 
   def created_at

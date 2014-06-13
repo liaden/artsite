@@ -35,6 +35,14 @@ class ArtworkDecorator < ApplicationDecorator
     h.localize object.created_at
   end
 
+  def featured
+    object.featured ? 'yes' : 'no'
+  end
+
+  def fanart
+    object.fanart ? 'yes' : 'no'
+  end
+
   def async_toggle_feature_link 
     add_text = 'Feature'
     remove_text = 'Remove from featured'

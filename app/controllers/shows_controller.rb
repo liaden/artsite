@@ -54,6 +54,9 @@ private
   end
 
   def delocalize_show_date
-    params[:show][:date] = delocalize_time(params[:show][:date]) 
+    # best in place editing will not always cause there to be a date attribute
+    if params[:show][:date]
+      params[:show][:date] = delocalize_time(params[:show][:date])
+    end
   end
 end

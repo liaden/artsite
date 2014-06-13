@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require foundation
 //= require svg
+//= require routes
 //= require best_in_place
 //= require navbar
 //= require jquery.dform-1.1.0.min

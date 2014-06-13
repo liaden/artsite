@@ -1,13 +1,23 @@
 <div class='row'>
-  <table id='pages-list'>
-    <% pages.each do |page| -%>
-      <tr>
-        <td><%= link_to page.name, page_path(page) -%></td>
-        <td><%= page.short_content-%> <%= page.more_info_link -%></td>
-        <td><%= page.created_at -%></td>
-        <td><%= page.updated_at -%></td>
-        <td><%= link_to 'X'.html_safe, page, :method => :delete -%></td>
-      </tr>
+  <div class='small-8 columns'>
+    <h1>Tutorials</h1>
+    <% tutorials.each do |tutorial| -%>
+      <div class='panel'>
+        <h4><%= link_to tutorial.name, pages_path(tutorial) -%></h4> 
+        <div class='right'><%= tutorial.created_at -%></div>
+
+      </div>
+      <hr>
     <% end -%>
-  </table>
+  </div>
+  <div class='small-4 columns'>
+    <h1>Videos</h1>
+    <% videos.each do |video| -%>
+      <div class='panel'>
+        <h4><%= link_to video.name, pages_path(video) -%></h4>
+        <div class='right'>><%= video.created_at -%></div>
+        <%= video.content -%>
+      </div>
+    <% end -%>
+  </div>
 </div>

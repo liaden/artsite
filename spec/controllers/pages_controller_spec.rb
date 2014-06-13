@@ -104,6 +104,10 @@ describe PagesController do
     context 'renders views for' do
       render_views 
 
+      it 'index page' do
+        get :index
+      end
+      
       it 'new page' do
         get :new
       end

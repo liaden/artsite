@@ -3,8 +3,14 @@ source 'https://rubygems.org'
 ruby '1.9.3'
 
 gem 'rails', '~> 3.2.x'
+gem 'authlogic', '~> 3.3.0'
 
-#gem 'less-rails'
+gem 'activeadmin', '~> 0.6.0'
+
+# active admin requires devise which I am not using
+# devise is not set up so we need to force it to not
+# be required by default by rails so it is listed here
+gem 'devise', :require => false 
 
 gem 'virtus', :git => 'git://github.com/solnic/virtus.git'
 
@@ -37,7 +43,6 @@ gem 'geocoder'
 gem 'memcachier'
 gem 'dalli'
 
-gem 'authlogic'
 gem 'friendly_id'
 
 gem 'jquery-rails'
@@ -64,12 +69,14 @@ gem 'stripe'
 gem 'httpclient'
 
 group :development do
+    gem 'js-routes'
     gem 'rails_refactor'
 end
 
 group :development, :test do
     gem 'rspec-rails'
     gem 'pry'
+    gem 'pry-rails'
     gem 'pry-doc'
     gem 'watchr'
     gem 'factory_girl_rails'
@@ -80,6 +87,7 @@ gem 'pg'
 group :test do
     gem 'simplecov'
     gem 'capybara'
+    gem 'poltergeist'
     gem 'selenium-webdriver'
     gem 'guard-rspec'
     gem 'launchy'

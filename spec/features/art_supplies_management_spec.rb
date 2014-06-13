@@ -110,7 +110,7 @@ describe 'Manage Art Supplies' do
       it 'truncates description of supplies' do
         visit supplies_path
 
-        page.should have_content(supply.description[0,75])
+        page.should have_content(supply.short_description)
         page.should_not have_content(supply.description)
       end
 
