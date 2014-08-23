@@ -396,6 +396,7 @@ DEPENDENCIES
   rails_autolink
   rails_refactor
   redcarpet
+  rspec-collection_matchers
   rspec-rails (~> 2.14)
   ruby-oembed
   sass (~> 3.2.19)

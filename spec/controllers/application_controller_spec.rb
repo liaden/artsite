@@ -62,11 +62,11 @@ describe ApplicationController do
         end
 
         it "is not a guest" do
-            ApplicationController.new.guest?.should_not be_true
+            ApplicationController.new.should_not be_guest
         end
 
         it "is not an admin" do
-            ApplicationController.new.admin?.should_not be_true
+            ApplicationController.new.should_not be_admin
         end
 
         it "creates an active order" do

@@ -53,7 +53,7 @@ describe Print do
     end
 
     it "is not an original" do
-      @print.original?.should be_true
+      @print.original?.should be true
     end
   end
 
@@ -67,7 +67,7 @@ describe Print do
      end
 
      it "is not an original" do
-       @print.original?.should be_false
+       @print.original?.should be false
      end
   end
 
@@ -81,7 +81,7 @@ describe Print do
     end
 
     it "is not an original" do
-      @print.original?.should be_false
+      @print.original?.should be false
     end
   end
 

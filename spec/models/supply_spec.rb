@@ -31,18 +31,18 @@ describe Supply do
 
   describe 'verify_url' do
     it 'true with 200 status' do
-      FactoryGirl.build(:supply).verify_url.should be_true
+      FactoryGirl.build(:supply).verify_url.should be true
     end
 
     it 'false if not 200 status code' do
       supply = FactoryGirl.build(:supply)
       supply.referral_url += 'aaaaaaaaaaaaa'
-      supply.verify_url.should be_false
+      supply.verify_url.should be false
     end
 
     it 'false on error' do
       supply = FactoryGirl.build(:supply, :referral_url => 'http://abcd')
-      supply.verify_url.should be_false
+      supply.verify_url.should be false
     end
   end
 end

@@ -74,6 +74,7 @@ end
 
 group :development, :test do
     gem 'rspec-rails', '~> 2.14'
+    gem 'rspec-collection_matchers'
     gem 'pry'
     gem 'pry-rails'
     gem 'pry-doc'

@@ -33,10 +33,10 @@ describe User do
     end
 
     it "identifies admin as admin" do
-        FactoryGirl.create(:admin).admin?.should be_true
+        FactoryGirl.create(:admin).admin?.should be true
     end
 
     it "identifies visitor as not admin" do
-        FactoryGirl.create(:user).admin?.should be_false
+        FactoryGirl.create(:user).admin?.should be false
     end
 end
