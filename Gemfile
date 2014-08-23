@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '1.9.3'
-
 gem 'rails', '~> 3.2.x'
 gem 'authlogic', '~> 3.3.0'
 
@@ -19,11 +17,12 @@ gem 'virtus', :git => 'git://github.com/solnic/virtus.git'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'foundation-rails'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'coffee-rails'
+  gem 'sass', '~> 3.2.19'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'execjs'
-  gem 'therubyracer', '~> 0.10.2'
+  gem 'therubyracer', '~> 0.12.0'
 
   gem 'backbone-rails'
   gem 'foundation-icons-sass-rails'
@@ -54,7 +53,7 @@ gem 'twitter'
 gem 'tumblr4r'
 gem 'ruby-oembed'
 
-gem 'paperclip'
+gem 'paperclip', '~> 3.5'
 gem 'aws-s3'
 gem 'aws-sdk'
 gem "active_attr"
@@ -74,7 +73,7 @@ group :development do
 end
 
 group :development, :test do
-    gem 'rspec-rails'
+    gem 'rspec-rails', '~> 2.14'
     gem 'pry'
     gem 'pry-rails'
     gem 'pry-doc'
@@ -89,7 +88,7 @@ group :test do
     gem 'capybara'
     gem 'poltergeist'
     gem 'selenium-webdriver'
-    gem 'guard-rspec'
+    #gem 'guard-rspec'
     gem 'launchy'
     gem 'faker'
     gem 'database_cleaner'

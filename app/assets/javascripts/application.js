@@ -11,8 +11,8 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery.ui.datepicker
 //= require jquery_ujs
+//= require jquery-ui
 //= require foundation
 //= require svg
 //= require routes
