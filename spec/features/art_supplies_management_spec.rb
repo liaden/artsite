@@ -10,6 +10,19 @@ describe 'Manage Art Supplies' do
 
     before(:each) { login_step :admin }
 
+    describe 'active admin index page' do
+      it 'shows all supplies' do
+        FactoryGirl.create(:supply)
+        FactoryGirl.create(:supply)
+
+        visit admin_supplies_path
+
+        Supply.pluck(:name).each do |supply_name|
+          page.should have_content(supply_name)
+        end
+      end
+    end
+
     describe 'creating new supply' do
       it 'shows confirmation' do
         visit new_supply_path

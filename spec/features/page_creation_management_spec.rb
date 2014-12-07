@@ -34,6 +34,26 @@ describe 'Manage pages' do
       end
     end
 
+    describe 'active admin index' do
+     before(:each) { custom_page }
+
+     it 'shows all pages' do
+       FactoryGirl.create(:page, :name => 'page 2') 
+       visit admin_pages_path
+
+       Page.pluck(:name).each do |page_name|
+         page.should have_content(page_name)
+       end
+     end
+
+     it 'has edit page link' do
+       visit admin_pages_path
+       click_link 'edit'
+
+       page.should have_css('#page_name')
+     end
+    end
+
     describe 'editing page' do
       it 'previews the final page'
       it 'publishes the page'

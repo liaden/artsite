@@ -8,6 +8,19 @@ describe 'Manage Prints' do
   context 'as admin', :js => true do
     before(:each) { login_step :admin }
 
+    context 'active admin' do
+      it 'lists all prints' do
+        FactoryGirl.create(:print, :artwork => artwork)
+        FactoryGirl.create(:original, :artwork => artwork)
+
+        visit admin_prints_path
+
+        Print.pluck(:id).each do |print_id|
+          page.should have_content(print_id)
+        end
+      end
+    end
+
     context 'control page' do
       it 'lists all prints' #do
       #    FactoryGirl.create(:canvas, :artwork => artwork, :dimensions => '10x10')

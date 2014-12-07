@@ -7,6 +7,19 @@ describe "manage art shows" do
 
     let(:show) { FactoryGirl.create(:show) }
 
+    describe 'active admin index page' do
+      it 'lists all shows' do
+        FactoryGirl.create(:show)
+        FactoryGirl.create(:show)
+
+        visit admin_shows_path
+
+        Show.pluck(:name).each do |show_name|
+          page.should have_content(show_name)
+        end
+      end
+    end
+
     describe 'editing' do
       it 'shows validation errors' do
         visit edit_show_path(show)

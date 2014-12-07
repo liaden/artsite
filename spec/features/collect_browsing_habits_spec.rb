@@ -26,19 +26,6 @@ describe 'collect browsing habits' do
       Impression.guest_impressions.should be_empty
       Impression.user_impressions.should_not be_empty
     end
-
-    # test fails when internet connection is slow
-    it 'looks up lat long from ip_address' do
-      visit artwork_path(artwork)
-
-      impression = Impression.first
-
-      # set ip address this way instead of trying to spoof it for testing
-      impression.update_attributes(:ip_address => ip_addresses(:hsv))
-
-      impression.latitude.should > 34
-      impression.longitude.should < -86
-    end
   end
 
   context 'as guest' do

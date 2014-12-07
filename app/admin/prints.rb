@@ -1,5 +1,6 @@
 ActiveAdmin.register Print do
   decorate_with PrintDecorator
+  config.clear_action_items!
 
   controller do
     def scoped_collection

@@ -165,6 +165,19 @@ describe "Manage Artworks" do
       end
     end
 
+    describe "index management page" do
+      it 'shows all artwork' do
+        visit admin_artworks_path
+
+        titles = Artwork.pluck(:title)
+        titles.should_not be_empty
+
+        titles.each do |art_title|
+          page.should have_content(art_title)
+        end
+      end
+    end
+
     describe "editing artwork" do
       before(:each) do
         visit artwork_path(artwork)
