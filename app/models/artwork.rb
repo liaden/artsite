@@ -22,9 +22,9 @@ class Artwork < ActiveRecord::Base
     end
 
     scope :for_year, lambda {|year| where("created_at >= ? and created_at <= ?", "#{year}-01-01", "#{year}-12-31") }
-    scope :featured, where(:featured => true)
-    scope :fanart, where(:fanart => true)
-    scope :original, where(:fanart => false)
+    scope :featured, lambda { where(:featured => true) }
+    scope :fanart,   lambda { where(:fanart => true) }
+    scope :original, lambda { where(:fanart => false) }
 
     def self.newest
       Artwork.limit(1).order('created_at DESC').first

@@ -1,8 +1,8 @@
 class Impression < ActiveRecord::Base
 
-  scope :guest_impressions, where(:user_id => nil)
-  scope :user_impressions, where('user_id IS NOT NULL')
-  scope :artwork_impressions, where(:impressionable_type => :Artwork)
+  scope :guest_impressions, lambda { where(:user_id => nil) }
+  scope :user_impressions, lambda { where('user_id IS NOT NULL') }
+  scope :artwork_impressions, lambda { where(:impressionable_type => :Artwork) }
 
   belongs_to :user
 

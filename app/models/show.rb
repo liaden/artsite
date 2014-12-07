@@ -4,7 +4,7 @@ class Show < ActiveRecord::Base
     [ "Gallery", "Convention" ]
   end
 
-  scope :upcoming, where('date > ?', Date.yesterday).order('date ASC')
+  scope :upcoming, lambda { where('date > ?', Date.yesterday).order('date ASC') }
   
   def self.next
     upcoming.limit(1).first
