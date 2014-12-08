@@ -21,6 +21,10 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/collection_matchers'
 
+silence_stream STDOUT do
+  load 'db/schema.rb'
+end
+
 require 'rspec/autorun'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
@@ -28,6 +32,7 @@ require 'database_cleaner'
 require 'authlogic/test_case'
 require 'best_in_place/test_helpers'
 
+binding.pry 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}

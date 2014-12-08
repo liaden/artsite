@@ -13,11 +13,6 @@ module ArchaicSmiles
   class Application < Rails::Application
 
     config.before_eager_load do
-        if Rails.env.test?
-            silence_stream STDOUT do
-                load 'db/schema.rb'
-            end
-        end
     end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
