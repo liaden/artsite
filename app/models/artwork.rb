@@ -21,7 +21,7 @@ class Artwork < ActiveRecord::Base
       def original() where(:material => 'original') end
     end
 
-    scope :for_year, lambda {|year| where("created_at >= ? and created_at <= ?", "#{year}-01-01", "#{year}-12-31") }
+    scope :for_year, lambda {|year| where("created_at >= ? and created_at < ?", "#{year}-01-01", "#{year+1}-01-01") }
     scope :featured, lambda { where(:featured => true) }
     scope :fanart,   lambda { where(:fanart => true) }
     scope :original, lambda { where(:fanart => false) }

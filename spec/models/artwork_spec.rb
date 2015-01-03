@@ -136,11 +136,11 @@ describe Artwork do
     describe 'for_year scope' do
       context 'it finds one when' do
         after(:each) { Artwork.for_year(2014).should have(1).item }
-        it 'lists artwork created on january 1rst' do
+        it 'lists artwork created on january 1st' do
           FactoryGirl.create(:artwork, :created_at => '01-01-2014')
         end
-        it 'lists artwork created on december 31rst' do
-          FactoryGirl.create(:artwork, :created_at => '12-31-2014')
+        it 'lists artwork created on december 31st' do
+          FactoryGirl.create(:artwork, :created_at => '31-12-2014')
         end
         it 'lists artwork created in july' do
           FactoryGirl.create(:artwork, :created_at => '07-04-2014')
