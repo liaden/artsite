@@ -5,7 +5,7 @@ class SuppliesController < ApplicationController
   decorates_assigned :supply
 
   def index
-    @supplies_by_category = Supply.all(:order => :category).reduce({}) do |result, supply|
+    @supplies_by_category = Supply.order(:category).reduce({}) do |result, supply|
       result[supply.category] = result.fetch(supply.category, []) << supply.decorate
       result
     end
@@ -16,9 +16,9 @@ class SuppliesController < ApplicationController
   end
 
   def create
-    @supply = Supply.new(params[:supply])
-    if @supply.save
-        return redirect_to(supply_path(@supply), :notice => "Successfully created #{@supply.name}")
+    Supply.transaction do
+      @supply = Supply.create!(admin_supply_params)
+      return redirect_to(supply_path(@supply), :notice => "Successfully created #{@supply.name}")
     end
 
     render 'new'
@@ -31,7 +31,8 @@ class SuppliesController < ApplicationController
   end
 
   def update
-    if @supply.update_attributes params[:supply]
+    Supply.transaction do
+      @supply.update_attributes! admin_supply_params
       return redirect_to(supply_path(@supply), :notice => "Successfully updated #{@supply.name}")
     end
 
@@ -45,6 +46,11 @@ class SuppliesController < ApplicationController
   end
 
 private
+
+  def admin_supply_params
+    params.require(:supply).permit(:name, :referral_url, :description, :category, :short_description)
+  end
+
   def set_supply
     @supply = Supply.find(params[:id])
   end
