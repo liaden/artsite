@@ -2,8 +2,8 @@ require 'faker'
 
 FactoryGirl.define do
   factory :artwork do |f|
-    f.title { Faker::Lorem::words }
-    f.description { Faker::Lorem::paragraphs }
+    f.title { Faker::Lorem::words.join(' ') }
+    f.description { Faker::Lorem::paragraphs.join('\n') }
     f.image { File.new('./spec/images/watercolor.jpg') }               
   end
 
