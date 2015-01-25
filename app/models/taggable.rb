@@ -21,7 +21,7 @@ module Taggable
 
       old_items = self.send(plural_lower).to_a
 
-      new_items = csv_values.split(",").map { |item| table.find_or_create_by(name: item) } 
+      new_items = csv_values.split(",").map { |item| table.where(name: item).first_or_create } 
       self.send "#{plural_lower}=", new_items
 
       old_items.each do |item| 

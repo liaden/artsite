@@ -11,7 +11,7 @@ class ArtworksController < ApplicationController
 
   def index
     @category = ArtworkCategory.new('Featured')
-    @artworks = Artwork.featured( :order => "created_at DESC") || []
+    @artworks = Artwork.featured.order("created_at DESC") || []
   end
 
   def new
@@ -25,7 +25,7 @@ class ArtworksController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      @artwork = Artwork.new params[:artwork] do |art|
+      @artwork = Artwork.new expected_artwork_params do |art|
         art.create_tags_from_csv params[:tags]
         art.create_medium_from_csv params[:mediums]
       end
@@ -34,15 +34,16 @@ class ArtworksController < ApplicationController
         @artwork.created =  params[:artwork][:created_at]
       end
 
-      raise ActiveRecord::Rollback unless @artwork.save
+      @artwork.save!
 
-      return redirect_to(artwork_prints_path(@artwork), 
+      redirect_to(artwork_prints_path(@artwork), 
         :notice => "'#{@artwork.title}' has been successfully created.")
     end
 
+  rescue ActiveRecord::RecordInvalid
     logger.debug @artwork.errors.messages
 
-    return render :action => :new
+    render :action => :new
   end
 
   def show
@@ -60,7 +61,7 @@ class ArtworksController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      successful =  @artwork.update_attributes(params[:artwork]).tap do
+      successful =  @artwork.update_attributes(expected_artwork_params).tap do
         @artwork.create_tags_from_csv params[:tags] 
         @artwork.create_medium_from_csv params[:medium] 
       end
@@ -80,7 +81,7 @@ class ArtworksController < ApplicationController
     if @category.year? 
       @artworks = Artwork.for_year(@category.name)
     elsif @category.predefined?
-      @artworks = Artwork.send(@category.name.downcase, :order => 'created_at DESC') 
+      @artworks = Artwork.send(@category.name.downcase).order('created_at DESC') 
     else
       tag = Tag.find_by_name(@category.name)
       @artworks = tag.artworks if tag
@@ -109,6 +110,10 @@ class ArtworksController < ApplicationController
 private
   def artworks
     @decorated_artworks ||= ArtworksDecorator.decorate(@artworks, :context => { :category => @category.name } )
+  end
+
+  def expected_artwork_params
+    params.require(:artwork).permit(:title, :description, :image)
   end
 
   def html_response(success)
