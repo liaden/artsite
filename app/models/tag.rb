@@ -1,6 +1,6 @@
 class Tag < ActiveRecord::Base
   has_many :artwork_tags
-  has_many :artworks, :through =>  :artwork_tags, :uniq => true
+  has_many :artworks, lambda { uniq }, through: :artwork_tags
 
   validates :name, :presence => true
   validates_uniqueness_of :name
