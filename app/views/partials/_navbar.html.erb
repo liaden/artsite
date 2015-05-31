@@ -1,5 +1,5 @@
-<div class="fixed">
-  <nav id='main-nav' class="top-bar" data-topbar>
+<div class="fixed hide-for-small">
+  <nav id='main-nav' class="top-bar hide-for-small" data-topbar>
     <ul class="title-area">
       <li class="name">
         <h1>
@@ -22,7 +22,7 @@
         </li>
         <li class="divider"></li>
         <li>
-          <%= link_to "Schedule", schedule_path -%></li>
+          <%= link_to "schedule", schedule_path -%></li>
         </li>
         <li class="divider"></li>
         <li>
@@ -52,4 +52,21 @@
     </section>
   </nav>
 </div>
+<nav class="tab-bar show-for-small">
+  <section class="left-small">
+    <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+  </section>
+  <section class="middle tab-bar-section">
+    <h1 class="title">ArchaicSmiles</h1>
+  </section>
+</nav>
+<aside class="left-off-canvas-menu">
+  <ul class="off-canvas-list">
+    <li><label>ArchaicSmiles</label></li>
+    <li><%= link_to "Gallery", artworks_path -%></li>
+    <li><%= link_to "News", news_path -%></li>
+    <li><%= link_to "Schedule", schedule_path -%></li>
+    <li><%= link_to "Etsy", 'https://www.etsy.com/shop/archaicsmilesart' -%><li>
+  </ul>
+</aside>
 
