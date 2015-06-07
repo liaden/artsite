@@ -5,11 +5,7 @@
     <title><%= content_for?(:title) ? yield(:title) : "ArchaicSmiles" %></title>
     <%= yield :css  -%>
     <%= stylesheet_link_tag  "application.css", :media => "all" %>
-    <% if controller.checking_out? -%>
-      <%= javascript_include_tag("https://js.stripe.com/v1/") %>
-    <% end -%>
     <%= csrf_meta_tags %>
-    <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= yield :og -%>
 
@@ -27,30 +23,37 @@
   </head>
   <body>
 
-    <%= render :partial => "partials/navbar", :locals => { :caller => controller.caller } -%>
+    <div class="off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
 
-    <div class='row'>
-      <% if flash[:error] -%>
-        <div class="alert-box warning radius" id='flash-error' data-alert=""><%= h flash[:error] -%><a href='#' class='close'>&times;</a></div>
-      <% end -%>
+        <%= render :partial => "partials/navbar" -%>
 
-      <% if flash[:config_error] -%>
-        <div class="alert-box warning radius" id='flash-config-error' data-alert=""><%= h flash[:config_error] -%><a href='#' class='close'>&times;</a></div>
-      <% end -%>
+        <section class="main-section">
+          <div class='row'>
+            <% if flash[:error] -%>
+              <div class="alert-box warning radius" id='flash-error' data-alert=""><%= h flash[:error] -%><a href='#' class='close'>&times;</a></div>
+            <% end -%>
 
-      <% if flash[:notice] -%>
-        <div class="alert-box radius" id='flash-notice' data-alert=""><%= h flash[:notice] -%><a href='#' class='close'>&times;</a></div>
-      <% end -%>
+            <% if flash[:config_error] -%>
+              <div class="alert-box warning radius" id='flash-config-error' data-alert=""><%= h flash[:config_error] -%><a href='#' class='close'>&times;</a></div>
+            <% end -%>
+
+            <% if flash[:notice] -%>
+              <div class="alert-box radius" id='flash-notice' data-alert=""><%= h flash[:notice] -%><a href='#' class='close'>&times;</a></div>
+            <% end -%>
+          </div>
+
+          <%= yield -%>
+
+          <%= render :partial => "partials/footer" -%>
+        </section>
+
+        <a class="exit-off-canvas"></a>
+      </div>
     </div>
 
-    <%= yield -%>
-
-    <%= render :partial => "partials/footer" -%>
-
-  </div>
-
-  <%= javascript_include_tag("application") %>
-  <%= yield :javascript -%>
+    <%= javascript_include_tag("application") %>
+    <%= yield :javascript -%>
 
   </body>
 </html>

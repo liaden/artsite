@@ -63,9 +63,6 @@ gem "actionpack-action_caching"
 # replacement for lack of autolink in rails 3.1+
 gem 'rails_autolink'
 
-# payment system
-gem 'stripe'
-
 gem 'httpclient'
 
 group :development do
