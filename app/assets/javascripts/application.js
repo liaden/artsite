@@ -17,6 +17,7 @@
 //= require svg
 //= require routes
 //= require best_in_place
+//= require best_in_place.jquery-ui
 //= require navbar
 //= require jquery.dform-1.1.0.min
 //= require artwork
