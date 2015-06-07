@@ -49,7 +49,7 @@ class Artwork < ActiveRecord::Base
 
     # pretty url stuff
     extend FriendlyId
-    friendly_id :title, :use => [:slugged, :history]
+    friendly_id :title, :use => [:slugged, :finders, :history]
 
     def sizes
       s = {}
