@@ -17,10 +17,11 @@ class SuppliesController < ApplicationController
 
   def create
     Supply.transaction do
-      @supply = Supply.create!(admin_supply_params)
+      @supply = Supply.new(admin_supply_params)
+      @supply.save!
       return redirect_to(supply_path(@supply), :notice => "Successfully created #{@supply.name}")
     end
-
+  rescue ActiveRecord::RecordInvalid
     render 'new'
   end
 
@@ -35,7 +36,7 @@ class SuppliesController < ApplicationController
       @supply.update_attributes! admin_supply_params
       return redirect_to(supply_path(@supply), :notice => "Successfully updated #{@supply.name}")
     end
-
+  rescue ActiveRecord::RecordInvalid
     render 'edit'
   end
 
