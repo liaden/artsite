@@ -33,11 +33,6 @@ gem 'draper'
 gem 'foundation_rails_helper'
 gem 'best_in_place'
 
-
-gem 'impressionist'
-gem 'geocoder'
-#gem 'mustache-rails', :require => 'mustache/railtie', :git => 'http://github.com/liaden/mustache-rails.git'
-
 # caching
 gem 'memcachier'
 gem 'dalli'

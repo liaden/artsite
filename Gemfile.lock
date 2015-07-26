@@ -169,7 +169,6 @@ GEM
       railties (>= 3.0)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
-    geocoder (1.2.6)
     grit (2.0.0)
       diff-lcs (>= 1.1.2)
       mime-types (>= 1.15)
@@ -184,9 +183,6 @@ GEM
     httpclient (2.5.3.3)
     i18n (0.7.0)
     ice_nine (0.11.1)
-    impressionist (1.5.1)
-      httpclient (~> 2.2)
-      nokogiri (~> 1.5)
     inherited_resources (1.5.1)
       actionpack (>= 3.2, < 4.2)
       has_scope (~> 0.6.0.rc)
@@ -415,9 +411,7 @@ DEPENDENCIES
   foundation-rails
   foundation_rails_helper
   friendly_id
-  geocoder
   httpclient
-  impressionist
   jquery-rails
   jquery-ui-rails
   js-routes

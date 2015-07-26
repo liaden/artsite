@@ -1,8 +1,6 @@
 class Artwork < ActiveRecord::Base
     extend Taggable
 
-    is_impressionable
-
     taggable Medium, :plural => :medium # JOEL TODO: fix the plural
     taggable Tag
 

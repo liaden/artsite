@@ -50,8 +50,6 @@ class ArtworksController < ApplicationController
     if request.path != artwork_path(@artwork)
       redirect_to @artwork, :status => :moved_permanently
     end
-
-    impressionist(@artwork)
   end
 
   def edit
