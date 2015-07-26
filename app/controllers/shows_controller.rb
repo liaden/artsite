@@ -13,10 +13,11 @@ class ShowsController < ApplicationController
 
   def create
     Show.transaction do
-      @art_show = Show.create!(admin_show_params)
+      @art_show = Show.new(admin_show_params)
+      @art_show.save!
       return redirect_to(schedule_path, :notice => "Successfully created a new show.")
     end
-
+  rescue ActiveRecord::RecordInvalid
     render :new
   end
 
