@@ -4,7 +4,7 @@ class ArtworkDecorator < ApplicationDecorator
   def header
     Header.new \
       :title => Proc.new { best_in_place_if artwork.editable?, artwork, :title  },
-      :subheader => Proc.new { best_in_place_if artwork.editable?, artwork, :created, :type => :date  }
+      :subheader => Proc.new { best_in_place_if artwork.editable?, artwork, :created, :as => :date  }
   end
 
   def form_title
