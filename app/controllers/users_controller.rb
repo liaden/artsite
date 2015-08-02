@@ -6,16 +6,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new params[:user]
+    @user = User.new expected_user_params.merge(privilege: 0)
 
-    # force everyone to be regular users
-    @user.privilege = 0
-
-    if @user.save
+    User.transaction do
+      @user.save!
       redirect_to home_path, :login_notice => "Account successfully created."
-    else
-      render :action => :new
     end
+
+  rescue ActiveRecord::RecordInvalid
+    render :new
   end
 
   def history
@@ -25,5 +24,9 @@ class UsersController < ApplicationController
     if not @user
       flash[:error] = "Please login to view this information."
     end
+  end
+private
+  def expected_user_params
+    params.require(:user).permit(:username, :password, :password_confirmation, :email)
   end
 end

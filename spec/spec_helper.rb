@@ -4,28 +4,33 @@ ENV["RAILS_ENV"] ||= 'test'
 require 'simplecov'
 
 SimpleCov.start do
-    add_filter '/spec/'
-    add_filter '/config/'
-    add_filter '/lib/'
-    add_filter '/vendor/'
+  add_filter '/spec/'
+  add_filter '/config/'
+  add_filter '/lib/'
+  add_filter '/vendor/'
 
-    add_group 'Controllers', 'app/controllers'
-    add_group 'Models', 'app/models'
-    add_group 'Decorators', 'app/decorators'
-    add_group 'Helpers', 'app/helpers'
-    add_group 'Views', 'app/views'
-    add_group 'Mailers', 'app/mailers'
+  add_group 'Controllers', 'app/controllers'
+  add_group 'Models', 'app/models'
+  add_group 'Decorators', 'app/decorators'
+  add_group 'Helpers', 'app/helpers'
+  add_group 'Views', 'app/views'
+  add_group 'Mailers', 'app/mailers'
 end
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/collection_matchers'
 
+silence_stream STDOUT do
+  load 'db/schema.rb'
+end
+
 require 'rspec/autorun'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'database_cleaner'
 require 'authlogic/test_case'
+require 'best_in_place/test_helpers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

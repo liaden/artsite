@@ -1,8 +1,6 @@
 class Artwork < ActiveRecord::Base
     extend Taggable
 
-    is_impressionable
-
     taggable Medium, :plural => :medium # JOEL TODO: fix the plural
     taggable Tag
 
@@ -21,10 +19,10 @@ class Artwork < ActiveRecord::Base
       def original() where(:material => 'original') end
     end
 
-    scope :for_year, lambda {|year| where("created_at >= ? and created_at <= ?", "#{year}-01-01", "#{year}-12-31") }
-    scope :featured, where(:featured => true)
-    scope :fanart, where(:fanart => true)
-    scope :original, where(:fanart => false)
+    scope :for_year, lambda {|year| where("created_at >= ? and created_at < ?", "#{year}-01-01", "#{year.to_i+1}-01-01") }
+    scope :featured, lambda { where(:featured => true) }
+    scope :fanart,   lambda { where(:fanart => true) }
+    scope :original, lambda { where(:fanart => false) }
 
     def self.newest
       Artwork.limit(1).order('created_at DESC').first
@@ -49,7 +47,7 @@ class Artwork < ActiveRecord::Base
 
     # pretty url stuff
     extend FriendlyId
-    friendly_id :title, :use => [:slugged, :history]
+    friendly_id :title, :use => [:slugged, :finders, :history]
 
     def sizes
       s = {}

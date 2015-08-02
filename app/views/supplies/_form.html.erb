@@ -36,7 +36,7 @@
 
     <div class='row'>
       <%= f.submit 'Create', :class => 'button' %> 
-      <%= link_to_function('preview', "preview_markdown('supply_description', 'description_preview')", :class => 'button') -%>
+      <%= link_to('preview', '#', onclick: "preview_markdown('supply_description', 'description_preview'); return false", class: 'button') -%>
     </div>
 
     <div class='row'>

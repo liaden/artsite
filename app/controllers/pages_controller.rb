@@ -30,12 +30,12 @@ class PagesController < ApplicationController
   end
 
   def create
-    @page = Page.new(params[:page])
-
-    if @page.save
+    Page.transaction do
+      @page = Page.create!(admin_page_params)
       return redirect_to(@page, :notice => "#{page.page_type} #{page.name} has been published.")
     end
 
+  rescue ActiveRecord::RecordInvalid
     render :new
   end
 
@@ -43,11 +43,13 @@ class PagesController < ApplicationController
   end
 
   def update
-    if @page.update_attributes params[:page]
-      redirect_to @page, :notice => "Successfully updated #{page.name}"
-    else
-      render :action => 'edit'
+    Page.transaction do
+      @page.update_attributes! admin_page_params
+      return redirect_to @page, :notice => "Successfully updated #{page.name}"
     end
+
+  rescue ActiveRecord::RecordInvalid
+    render :action => 'edit'
   end
 
   def destroy
@@ -58,6 +60,11 @@ class PagesController < ApplicationController
   helper_method :videos, :tutorials
 
 private
+
+  def admin_page_params
+    params.require(:page).permit(:name, :page_type, :content)
+  end
+
   def videos
     @decorated_videos ||= PageDecorator.decorate_collection(@videos)
   end
@@ -67,6 +74,6 @@ private
   end
 
   def get_page
-    @page = Page.find_by_id(params[:id])
+    @page = Page.find(params[:id])
   end
 end

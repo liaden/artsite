@@ -34,7 +34,8 @@ class PrintsController < ApplicationController
   end
 
   def create
-    @print = Print.new params[:print].merge(:artwork => @artwork)
+    params[:print][:artwork] = @artwork
+    @print = Print.new expected_params
 
     if @print.save
       flash[:notice] = "Created new print!"
@@ -42,14 +43,14 @@ class PrintsController < ApplicationController
       return render :action => :show, :layout => params[:ajax].nil?
     end
 
-    render 'errors', :head => :unprocessable_entity
+    render 'edit', :head => :unprocessable_entity
   end
 
   def edit
   end
 
   def update
-    @print.update_attributes params[:print]
+    @print.update_attributes expected_params
     if @print.valid?
       expire_action :controller => :artwork, :action => :show, :id => @artwork.id
       flash[:notice] = "Updated the print"
@@ -67,6 +68,11 @@ class PrintsController < ApplicationController
   end
 
 private
+  def expected_params(data = self.params)
+    data.require(:print).permit(:is_sold_out, :is_on_show, 
+      :size_name, :material, :dimensions, :inventory_count, :sold_count, :price)
+  end
+
   def redirect_to_root_unless_admin
     redirect_to home_path unless admin?
   end

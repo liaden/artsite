@@ -48,14 +48,6 @@ describe DefaultPriceController do
                     flash[:error].should_not be_nil
                 end
 
-                it "ignores non numeric ids" do
-                    start_price = @default_price.price
-
-                    post :update, "abvdaf" => "50", @default_price.id.to_s => "50"
-
-                    @default_price.price.to_f.should == 50.0
-                end
-
                 it "has a non-numeric price" do
                     post :update, @default_price.id.to_s => "abcda"
                 end

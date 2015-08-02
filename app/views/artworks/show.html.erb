@@ -23,7 +23,7 @@ end -%>
   <div class="small-12 columns">
     <h3>Description</h3>
     <div style="padding-left:1em;">
-      <blockquote><%= best_in_place_if artwork.editable?, artwork, :description, :type => :textarea, :ok_button => 'Save changes', :cancel_button => 'Cancel' -%></blockquote>
+      <blockquote><%= best_in_place_if artwork.editable?, artwork, :description, :as => :textarea, :ok_button => 'Save changes', :cancel_button => 'Cancel' -%></blockquote>
     </div>
   </div> 
 </div>
@@ -37,10 +37,10 @@ end -%>
   <div class="right">
     <% if artwork.editable? -%>
       <span class='button'>
-        <%= best_in_place artwork, :featured, :type => :checkbox, :collection => [ 'unfeatured', 'featured' ] -%>
+        <%= best_in_place artwork, :featured, :as => :checkbox, :collection => [ 'unfeatured', 'featured' ] %>
       </span>
       <span class='button'>
-        <%= best_in_place artwork, :fanart, :type => :checkbox, :collection => [ 'not fanart', 'fanart' ] -%>
+        <%= best_in_place artwork, :fanart, :as => :checkbox, :collection => [ 'not fanart', 'fanart' ] %>
       </span>
     <% end -%>
   </div>

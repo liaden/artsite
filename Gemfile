@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.x'
-gem 'authlogic', '~> 3.3.0'
+gem 'rails', '~> 4.0.0'
+gem 'authlogic', '~> 3.4.0'
 
-gem 'activeadmin', '~> 0.6.0'
+gem 'activeadmin', :git => 'http://github.com/activeadmin/activeadmin'
 
 # active admin requires devise which I am not using
 # devise is not set up so we need to force it to not
@@ -15,10 +15,10 @@ gem 'virtus', :git => 'git://github.com/solnic/virtus.git'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails'   
   gem 'foundation-rails'
   gem 'coffee-rails'
-  gem 'sass', '~> 3.2.19'
+  gem 'sass'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'execjs'
@@ -32,11 +32,6 @@ end
 gem 'draper'
 gem 'foundation_rails_helper'
 gem 'best_in_place'
-
-
-gem 'impressionist'
-gem 'geocoder'
-#gem 'mustache-rails', :require => 'mustache/railtie', :git => 'http://github.com/liaden/mustache-rails.git'
 
 # caching
 gem 'memcachier'
@@ -58,6 +53,7 @@ gem 'aws-s3'
 gem 'aws-sdk'
 gem "active_attr"
 gem "active_enum"
+gem "actionpack-action_caching"
 
 # replacement for lack of autolink in rails 3.1+
 gem 'rails_autolink'
@@ -74,7 +70,15 @@ group :development, :test do
     gem 'rspec-collection_matchers'
     gem 'pry'
     gem 'pry-rails'
+    gem 'pry-nav'
+    gem 'pry-rescue'
+    gem 'pry-pretty-numeric'
+    gem 'pry-macro'
+    gem 'pry-git'
     gem 'pry-doc'
+    gem 'pry-docmore'
+    gem 'pry-highlight'
+    gem 'pry-stack_explorer'
     gem 'watchr'
     gem 'factory_girl_rails'
 end

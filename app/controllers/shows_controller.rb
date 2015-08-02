@@ -12,13 +12,12 @@ class ShowsController < ApplicationController
   end
 
   def create
-    @art_show = Show.new(params[:show])
-
-    if @art_show.save
-      flash[:notice] = "Successfully created a new show."
-      return redirect_to(schedule_path)
+    Show.transaction do
+      @art_show = Show.new(admin_show_params)
+      @art_show.save!
+      return redirect_to(schedule_path, :notice => "Successfully created a new show.")
     end
-
+  rescue ActiveRecord::RecordInvalid
     render :new
   end
 
@@ -30,7 +29,7 @@ class ShowsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @art_show.update_attributes params[:show]
+      if @art_show.update_attributes admin_show_params
         format.html { redirect_to(@art_show, :notice => "The show #{@art_show.name} has been successfully updated.") }
         format.json { respond_with_bip(@art_show) }
       else
@@ -45,6 +44,10 @@ class ShowsController < ApplicationController
   end
 
 private
+  def admin_show_params
+    params.require(:show).permit(:name, :date, :building, :address, :show_type, :description)
+  end
+
   def redirect_to_schedule_unless_admin
     redirect_to schedule_path unless admin?
   end
