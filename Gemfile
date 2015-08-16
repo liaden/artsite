@@ -14,6 +14,7 @@ gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'devise', :require => false 
 
 gem 'virtus', :git => 'git://github.com/solnic/virtus.git'
+gem 'unicorn'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -99,12 +100,3 @@ group :test do
     gem 'database_cleaner'
     gem 'sqlite3-ruby'
 end
-
-# use thin server instead of WEBrick
-if RUBY_PLATFORM =~ /(win|w)32$/
-  gem "eventmachine", "~> 1.0.0.beta.4.1"
-else
-  gem "eventmachine"
-end
-
-gem "thin"
