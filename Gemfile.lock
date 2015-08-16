@@ -297,6 +297,8 @@ GEM
     request_store (1.1.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rollbar (1.2.13)
+      multi_json (~> 1.3)
     rspec-collection_matchers (1.1.2)
       rspec-expectations (>= 2.99.0.beta1)
     rspec-core (2.99.2)
@@ -435,6 +437,7 @@ DEPENDENCIES
   rails_autolink
   rails_refactor
   redcarpet
+  rollbar (~> 1.2.7)
   rspec-collection_matchers
   rspec-rails (~> 2.14)
   ruby-oembed

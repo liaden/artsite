@@ -7,6 +7,7 @@ gem 'authlogic', '~> 3.4.0'
 
 gem 'activeadmin', '~> 1.0.0.pre1'
 
+gem 'rollbar', '~> 1.2.7'
 
 # active admin requires devise which I am not using
 # devise is not set up so we need to force it to not
@@ -18,15 +19,12 @@ gem 'unicorn'
 
 gem 'rails_12factor', group: :production
 
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
   gem 'sass-rails'   
   gem 'foundation-rails'
   gem 'coffee-rails'
   gem 'sass'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'execjs'
   gem 'therubyracer', '~> 0.12.0'
 
@@ -96,7 +94,6 @@ group :test do
     gem 'capybara'
     gem 'poltergeist'
     gem 'selenium-webdriver'
-    #gem 'guard-rspec'
     gem 'launchy'
     gem 'faker'
     gem 'database_cleaner'
