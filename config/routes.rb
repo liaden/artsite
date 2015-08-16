@@ -31,6 +31,8 @@ ArchaicSmiles::Application.routes.draw do
   resources :pages
   resources :supplies
 
+  resources :status, only: [:index]
+
 
   get '/news' => 'news#index', :as => :news
   get '/schedule' => 'schedule#index', :as => :schedule
