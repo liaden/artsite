@@ -1,9 +1,12 @@
 source 'https://rubygems.org'
 
+ruby "2.1.6"
+
 gem 'rails', '~> 4.0.0'
 gem 'authlogic', '~> 3.4.0'
 
-gem 'activeadmin', :git => 'http://github.com/activeadmin/activeadmin'
+gem 'activeadmin', '~> 1.0.0.pre1'
+
 
 # active admin requires devise which I am not using
 # devise is not set up so we need to force it to not
