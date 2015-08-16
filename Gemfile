@@ -16,6 +16,8 @@ gem 'devise', :require => false
 gem 'virtus', :git => 'git://github.com/solnic/virtus.git'
 gem 'unicorn'
 
+gem 'rails_12factor', group: :production
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
