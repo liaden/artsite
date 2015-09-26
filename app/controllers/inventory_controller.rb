@@ -14,7 +14,7 @@ class InventoryController < ApplicationController
     def update
         return redirect_to home_path unless admin?
 
-        @artwork = Artwork.find(params[:id], :include => :prints)
+        @artwork = Artwork.includes(:prints).find(params[:id])
 
         params.keys.grep(/canvas/).each do |key|
             update_by_key key
@@ -36,7 +36,7 @@ private
         material, size, ignored = key.split('_')
 
         # "N/A" for material and size combination that does not exist
-        count = Integer(params[key]) rescue return 
+        count = Integer(params[key]) rescue return
 
         if count >= 0
             print = @artwork.prints.where(:material => material, :size_name => size).first
@@ -48,7 +48,7 @@ private
             print.save
         else
             msg ="#{key.gsub('_', ' ')} must have at least 0 items."
- 
+
             flash[:error] = msg
         end
     end

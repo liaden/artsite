@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
   belongs_to :address
 
   has_many :print_orders
-  has_many :prints, :through => :print_orders
+  has_many :prints, through: :print_orders
 
   validates :state, :inclusion => { :in => ["open", "closed"], :message => "%{value} is not a valid order state." }
 
@@ -13,7 +13,7 @@ class Order < ActiveRecord::Base
 
   def total
     prices = print_orders.map(&:price) + [ 0 ]
-    prices.reduce(:+) 
+    prices.reduce(:+)
   end
 
   def open?

@@ -4,7 +4,7 @@ class Tag < ActiveRecord::Base
 
   validates :name, :presence => true
   validates_uniqueness_of :name
-  
+
   before_validation :cleanup_data
 
   def cleanup_data

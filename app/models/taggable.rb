@@ -13,7 +13,7 @@ module Taggable
     # has_many tags, :through => artwork_tags, :uniq => true, :autosave => true
     join_table = "artwork_#{plural_lower}".to_sym
     has_many join_table
-    has_many plural_lower.to_sym, lambda { uniq }, through: join_table, autosave: true
+    has_many plural_lower.to_sym, lambda { uniq }, through: (join_table), autosave: true
 
     # def create_tags_from_csv
     self.send(:define_method, "create_#{plural_lower}_from_csv") do |csv_values|
@@ -21,11 +21,11 @@ module Taggable
 
       old_items = self.send(plural_lower).to_a
 
-      new_items = csv_values.split(",").map { |item| table.where(name: item).first_or_create } 
+      new_items = csv_values.split(",").map { |item| table.where(name: item).first_or_create }
       self.send "#{plural_lower}=", new_items
 
-      old_items.each do |item| 
-        item.destroy if item.artworks.empty?  
+      old_items.each do |item|
+        item.destroy if item.artworks.empty?
       end
     end
   end
