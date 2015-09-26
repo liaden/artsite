@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "2.1.6"
+ruby "2.2.3"
 
 gem 'rails', '~> 4.0.0'
 gem 'authlogic', '~> 3.4.0'
@@ -12,7 +12,7 @@ gem 'rollbar', '~> 1.2.7'
 # active admin requires devise which I am not using
 # devise is not set up so we need to force it to not
 # be required by default by rails so it is listed here
-gem 'devise', :require => false 
+gem 'devise', :require => false
 
 gem 'virtus', :git => 'git://github.com/solnic/virtus.git'
 gem 'unicorn'
@@ -20,7 +20,7 @@ gem 'unicorn'
 gem 'rails_12factor', group: :production
 
 group :assets do
-  gem 'sass-rails'   
+  gem 'sass-rails'
   gem 'foundation-rails'
   gem 'coffee-rails'
   gem 'sass'
@@ -70,6 +70,7 @@ group :development do
 end
 
 group :development, :test do
+    gem 'test-unit'
     gem 'rspec-rails', '~> 2.14'
     gem 'rspec-collection_matchers'
     gem 'pry'
