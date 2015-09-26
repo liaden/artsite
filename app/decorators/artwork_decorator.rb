@@ -16,7 +16,7 @@ class ArtworkDecorator < ApplicationDecorator
   end
 
   def edit_link_if_admin
-    return '' unless h.admin? 
+    return '' unless h.admin?
     h.link_to('Edit',  h.edit_artwork_path(self), :class => 'edit-link button')
   end
 
@@ -28,7 +28,7 @@ class ArtworkDecorator < ApplicationDecorator
 
   def delete_link_if_admin
     return '' unless h.admin?
-    h.link_to('Delete', object, :confirm => "Are you sure you wish to delete #{object.title}?", :class => 'button alert', :method => :delete)
+    h.link_to('Delete', object, :data => { :confirm => "Are you sure you wish to delete #{object.title}?" }, :class => 'button alert', :method => :delete)
   end
 
   def created
@@ -43,11 +43,11 @@ class ArtworkDecorator < ApplicationDecorator
     object.fanart ? 'yes' : 'no'
   end
 
-  def async_toggle_feature_link 
+  def async_toggle_feature_link
     add_text = 'Feature'
     remove_text = 'Remove from featured'
     text = object.featured? ? remove_text : add_text
-    h.link_to(text, '#', :onclick => "toggle_field(this, 'featured')", 
+    h.link_to(text, '#', :onclick => "toggle_field(this, 'featured')",
         :data => { 'update-url' => h.artwork_path(object, :format => :json),
                    'is-featured' => object.featured?,
                    'add-featured' => add_text,
@@ -62,10 +62,10 @@ class ArtworkDecorator < ApplicationDecorator
   def async_flag_fanart_link
     add_text = 'Flag fanart'
     remove_text = 'Unflag fanart'
-    
-    text = object.original? ? add_text : remove_text 
 
-    h.link_to(text, '#', :onclick => 'toggle_field(this, "fanart")', 
+    text = object.original? ? add_text : remove_text
+
+    h.link_to(text, '#', :onclick => 'toggle_field(this, "fanart")',
         :data => { 'update-url' => h.artwork_path(object, :format => :json),
                    'is-fanart' => object.fanart?,
                    'remove-fanart' => remove_text,
@@ -74,13 +74,13 @@ class ArtworkDecorator < ApplicationDecorator
 
   def admin_controls
     return '' unless h.admin?
-    
+
     controls = [ method(:async_delete_link), method(:async_toggle_feature_link), method(:async_flag_fanart_link) ]
-   
+
     content = h.link_to('#', :data => { :dropdown => "admin-#{object.id}"}) do
       h.content_tag(:i, :class => 'fi-widget right artwork-admin-controls' ) { }
     end
-   
+
     menu = h.content_tag(:ul, :id => "admin-#{object.id}", :class => "f-dropdown") do
       controls_markup = controls.map do |control|
         h.content_tag(:li) do
