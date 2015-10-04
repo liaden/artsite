@@ -88,6 +88,7 @@ group :development, :test do
     gem 'factory_girl_rails'
 end
 
+gem 'workflow'
 gem 'pg'
 
 group :test do
@@ -99,4 +100,5 @@ group :test do
     gem 'faker'
     gem 'database_cleaner'
     gem 'sqlite3-ruby'
+    gem 'shoulda-matchers'
 end

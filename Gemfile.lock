@@ -354,6 +354,8 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    shoulda-matchers (2.8.0)
+      activesupport (>= 3.0.0)
     simple_oauth (0.3.0)
     simplecov (0.9.1)
       docile (~> 1.1.0)
@@ -405,6 +407,7 @@ GEM
     watchr (0.7)
     websocket (1.2.1)
     websocket-driver (0.4.0)
+    workflow (1.2.0)
     xml-simple (1.1.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -467,6 +470,7 @@ DEPENDENCIES
   sass
   sass-rails
   selenium-webdriver
+  shoulda-matchers
   simplecov
   sqlite3-ruby
   test-unit
@@ -477,6 +481,7 @@ DEPENDENCIES
   unicorn
   virtus!
   watchr
+  workflow
 
 BUNDLED WITH
    1.10.6
