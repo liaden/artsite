@@ -2,10 +2,10 @@ source 'https://rubygems.org'
 
 ruby "2.2.3"
 
-gem 'rails', '~> 4.1.0'
+gem 'rails', '~> 4.2.0'
 gem 'authlogic', '~> 3.4.0'
 
-gem 'activeadmin', '~> 1.0.0.pre1'
+gem 'activeadmin', '~> 1.0.0.pre2'
 
 gem 'rollbar', '~> 1.2.7'
 
@@ -55,7 +55,7 @@ gem 'ruby-oembed'
 gem 'paperclip', '~> 3.5'
 gem 'aws-s3'
 gem 'aws-sdk'
-gem "active_attr"
+#gem "active_attr"
 gem "active_enum"
 gem "actionpack-action_caching"
 

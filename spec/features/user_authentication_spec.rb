@@ -16,7 +16,7 @@ describe 'User Authentication' do
         page.should have_content('Logout')
       end
     end
-    
+
     it 'shows errors for creating duplicate user' do
       register_step(FactoryGirl.create(:user))
 
@@ -43,13 +43,13 @@ describe 'User Authentication' do
     describe 'login' do
       context 'via navbar form' do
         before(:each) { visit schedule_path }
-          
+
         it 'fills username field with "username"' do
-          find_field('user_session_username')[:placeholder].should == 'username'
+          find_field('user_session_username')[:placeholder].downcase.should == 'username'
         end
 
         it 'fills password field with "password"' do
-          find_field('user_session_password')[:placeholder].should == 'password'
+          find_field('user_session_password')[:placeholder].downcase.should == 'password'
         end
 
         it 'redirects back to page user is on' do
@@ -57,7 +57,7 @@ describe 'User Authentication' do
           page.should have_content('Upcoming Events')
         end
       end
-      
+
       context 'user successfully logs in' do
 
         it 'user successfully logs in' do
