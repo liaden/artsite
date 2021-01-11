@@ -315,7 +315,7 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.2)
-    redcarpet (3.2.1)
+    redcarpet (3.5.1)
     ref (1.0.5)
     request_store (1.1.0)
     responders (2.1.0)
