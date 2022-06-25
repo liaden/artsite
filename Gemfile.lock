@@ -133,7 +133,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    diffy (3.0.7)
+    diffy (3.4.2)
     docile (1.1.5)
     draper (1.4.0)
       actionpack (>= 3.0)
